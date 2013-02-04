@@ -1,12 +1,14 @@
 ################################################################################
 
 function prompt_git_branch {
+   # NOTE - this is slower than I would like.
    if [[ $(git branch 2>/dev/null | wc -l) -gt 0 ]] ; then
       git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
    fi
 }
 
 function prompt_cc_branch {
+   # NOTE - must be fast... it is.
    local cc=""
    if [ ! -z "$CLEARCASE_ROOT" ] ; then
        # /view/member_bcr_34649_team_a_aporter
@@ -14,11 +16,11 @@ function prompt_cc_branch {
    fi
 }
 
-function prompt_debian_chroot {
-   if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
-      cat /etc/debian_chroot
-   fi
-}
+# function prompt_debian_chroot {
+#    if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+#       cat /etc/debian_chroot
+#    fi
+# }
 
 function prompt_cwd {
    local promptcwd="${PWD/#$HOME/~}"
