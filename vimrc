@@ -129,9 +129,11 @@ set number
 "autocmd Filetype vo_base filetype plugin indent on
 
 " screen / tmux stuff
+" see http://tmux.cvs.sourceforge.net/viewvc/tmux/tmux/FAQ
 if &term == "screen"
-set t_kN=^[[6;*~
-set t_kP=^[[5;*~
+   set t_kN=^[[6;*~
+   set t_kP=^[[5;*~
+   " see also "ttyfast"
 endif
 
 " vimdiff preferences
