@@ -24,4 +24,19 @@ alias wiki='google-chrome --enable-file-cookies file:///media/truecrypt1/tiddlyw
 alias twitter='twidge lsrecent | sed -e :a -e "$!N;s/\n  */ /;ta" -e "P;D"'
 function calc() { python -c "from math import *; print $*"; }
 
+# platform-specific
+case $OSTYPE in
+   linux-gnu)
+      alias cdrecord='wodim'
+      alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
+      function df () {
+         /bin/df -Ph | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
+      }
+      alias netstatl='sudo lsof -i | grep LISTEN'
+      alias truecrypt="/usr/local/bin/truecrypt --text"
+      ;;
+   darwin12)
+      alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
+      ;;
+esac
 
