@@ -1,0 +1,99 @@
+################################################################################
+
+function prompt_git_branch {
+   if [[ $(git branch 2>/dev/null | wc -l) -gt 0 ]] ; then
+      git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+   fi
+}
+
+function prompt_cc_branch {
+   local cc=""
+   if [ ! -z "$CLEARCASE_ROOT" ] ; then
+       # /view/member_bcr_34649_team_a_aporter
+       basename $CLEARCASE_ROOT
+   fi
+}
+
+function prompt_debian_chroot {
+   if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+      cat /etc/debian_chroot
+   fi
+}
+
+function prompt_cwd {
+   local promptcwd="${PWD/#$HOME/~}"
+   local pwdmaxlen=45
+   local pwdstartlen=11
+   if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
+      local pwdendlen=$(( $pwdmaxlen - $pwdstartlen ))
+      local pwdoffset=$(( ${#promptcwd} - $pwdendlen ))
+      promptcwd="${promptcwd:0:$pwdstartlen}~~${promptcwd:$pwdoffset:$pwdendlen}"
+   fi
+   echo $promptcwd
+}
+
+function custom_prompt {
+   # 0   = default colour 1   = bold 4   = underlined 5   = flashing text 7   = reverse field
+   # 31  = red 32  = green 33  = orange 34  = blue 35  = purple 36  = cyan 37  = grey
+   # 40  = black bg 41  = red bg 42  = green bg 43  = orange bg 44  = blue bg 45  = purple bg 46  = cyan bg 47  = grey bg
+   # 90  = dark grey 91  = lt red 92  = lt green 93  = yellow 94  = lt blue 95  = lt purple 96  = turquoise
+   # 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
+   local         RED="\[\033[0;31m\]"
+   local       LTRED="\[\033[1;31m\]"
+   local       GREEN="\[\033[0;32m\]"
+   local     LTGREEN="\[\033[1;32m\]"
+   local      ORANGE="\[\033[0;33m\]"
+   local      YELLOW="\[\033[1;33m\]"
+   local        BLUE="\[\033[0;34m\]"
+   local      LTBLUE="\[\033[1;34m\]"
+   local      PURPLE="\[\033[0;35m\]"
+   local    LTPURPLE="\[\033[1;35m\]"
+   local        CYAN="\[\033[0;36m\]"
+   local      LTCYAN="\[\033[1;36m\]"
+   local       WHITE="\[\033[1;37m\]"
+   local      LTGRAY="\[\033[0;37m\]"
+   local      DKGRAY="\[\033[0;90m\]"
+   local       RESET="\[\033[00m\]"
+
+   local usercolor="${LTGREEN}"
+   if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
+
+   local cc=""
+   local ccbranch=$(prompt_cc_branch)
+   if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}\n" ; fi
+
+   local git=""
+   local gitbranch=$(prompt_git_branch)
+   if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n" ; fi
+
+   PS1="${cc}${git}${LTPURPLE}\t${RESET}|${usercolor}\u@\h${RESET}:${LTBLUE}\$(prompt_cwd)${RESET}\$ "
+
+#  # craziness
+#  echo -n -e "\033[0;90m"
+#  fortune
+#  echo -n -e "\033[0;0m"
+
+}
+
+# run it once
+custom_prompt
+
+# run it on each prompt
+PROMPT_COMMAND='custom_prompt'
+
+################################################################################
+
+# TITLE BAR
+
+case "$TERM" in
+xterm*|rxvt*)
+    titlebar="\${USER}@\${HOSTNAME}:\${PWD}"
+    PROMPT_COMMAND="$PROMPT_COMMAND ; echo -ne \"\033]0;$titlebar\007\""
+    #PROMPT_COMMAND="$PROMPT_COMMAND ; echo -ne \"\033]30;$tab\007\""
+    ;;
+*)
+    ;;
+esac
+
+################################################################################
+

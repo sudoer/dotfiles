@@ -1,0 +1,38 @@
+
+##  Toggle 'fullscreen' or not.
+#bind f eval "caption splitonly" "hardstatus ignore"
+#bind F eval "caption always"    "hardstatus alwayslastline"
+
+# Define a command to run, with a refresh period.
+# Allocate a space on the relevant line to display it
+#backtick 1 5 5 uptime
+#hardstatus alwayslastline "%1`"
+
+# look and feel for the bottom two lines.
+#caption  always  "%{+b rk}%H%{gk} |%c %{yk}%d.%m.%Y | %72=Load: %l %{wk}"
+#hardstatus  alwayslastline  "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+#hardstatus  alwayslastline  "Host: %H Date: %D-%M-%Y: Load: %l "
+# from bak@TriLUG -> "%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
+
+# do "man screen" and look for "STRING ESCAPES"
+
+#  d  dim
+#  u  underline
+#  b  bold
+#  r  reverse
+#  s  standout
+#  B  blinking
+
+#  k  black
+#  r  red
+#  g  green
+#  y  yellow
+#  b  blue
+#  m  magenta
+#  c  cyan
+#  w  white
+#  d  default color
+
+caption always "%{+b kK}%H %{gk}%C%a %{wk}[ %?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?%{wk} ]"
+startup_message off
+
