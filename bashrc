@@ -81,7 +81,7 @@ esac
 # PROMPT, ALIASES
 [ -f ~/.bash_prompt ]  && source ~/.bash_prompt
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
-[ -f ~/.bash_local ]   && source ~/.bash_local
+[ -f ~/.bashrc.local ]   && source ~/.bashrc.local
 
 ################################################################################
 

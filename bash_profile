@@ -22,6 +22,8 @@ case $OSTYPE in
       ;;
 esac
 
+[ -f ~/.bash_profile.local ] && source ~/.bash_profile.local
+
 # fun
 echo "welcome to $(hostname -s)"
 echo -n "[0;33m" ; fortune 2> /dev/null ; echo -n "[00m"
