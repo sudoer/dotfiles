@@ -29,6 +29,7 @@ endif
 
 " non-standard file types
 "au BufRead,BufNewFile *.t set filetype=perl
+au BufRead,BufNewFile *.ino set filetype=cpp   " arduino CPP
 
 "if !exists("autocommands_loaded")
 "  let autocommands_loaded = 1
@@ -90,10 +91,13 @@ set expandtab  " use :retab to convert existing tabs using expandtab (tab->4sp)
 set shiftwidth=4  " used by > indent and = reformat
 
 " show tabs and trailing spaces
-set list listchars=tab:>-,trail:-,precedes:<,extends:>
+set list listchars=tab:>-,trail:-
+set list listchars=precedes:<,extends:>
 "set listchars=eol:·
+
 " The listchars option uses the "NonText" highlighting group for "eol", "extends" and "precedes",
 " and the "SpecialKey" highlighting group for "nbsp", "tab" and "trail". see ":help 'listchars'"
+" (see ":help 'listchars'")
 highlight NonText ctermfg=darkgray ctermbg=none cterm=none
 highlight SpecialKey ctermfg=blue ctermbg=none cterm=none
 
@@ -136,4 +140,5 @@ if &diff
    "set background=dark
    "colorscheme peaksea
 endif
+
 
