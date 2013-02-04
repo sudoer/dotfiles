@@ -1,6 +1,7 @@
 
 # common tools
 alias vi='vim'
+alias tmux='TERM=screen-256color tmux'
 alias vpn='sudo echo "OK" ; sudo openvpn /etc/openvpn/buster-tekelec.conf'
 
 # making crazy terminals sane again
