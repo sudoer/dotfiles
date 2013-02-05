@@ -78,6 +78,9 @@ hi incsearch ctermfg=white  ctermbg=cyan cterm=bold
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
 
+" stack windows very tightly
+set winminheight=0
+
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
 set mouse=a
