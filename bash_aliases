@@ -1,7 +1,6 @@
 
 # common tools
 alias vi='vim'
-alias tmux='TERM=screen-256color tmux'
 alias vpn='sudo echo "OK" ; sudo openvpn /etc/openvpn/buster-tekelec.conf'
 
 # making crazy terminals sane again
@@ -35,6 +34,7 @@ case $OSTYPE in
       }
       alias netstatl='sudo lsof -i | grep LISTEN'
       alias truecrypt="/usr/local/bin/truecrypt --text"
+      alias tmux='TERM=xterm-256color tmux'
       ;;
    darwin12)
       alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
