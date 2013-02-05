@@ -8,7 +8,7 @@ export ALAN_HOME_BASHPROFILE=1
 #umask 022
 
 # set PATH so it includes user's private bin if it exists
-[ -d ~/bin ] && PATH=~/bin:"${PATH}"
+[ -d ~/bin ] && PATH="$HOME/bin:$PATH"
 
 # platform-specific
 case $OSTYPE in
