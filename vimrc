@@ -70,6 +70,7 @@ syntax enable
 set bg=dark
 highlight Identifier  ctermfg=green ctermbg=none cterm=none
 highlight PreProc     ctermfg=white ctermbg=none cterm=bold
+highlight Folded      ctermfg=blue  ctermbg=none
 
 " color of the search / incremental search
 hi search    ctermfg=yellow ctermbg=darkblue cterm=bold
@@ -92,6 +93,9 @@ set expandtab  " use :retab to convert existing tabs using expandtab (tab->4sp)
 
 " indentation / prettification
 set shiftwidth=4  " used by > indent and = reformat
+
+" scrolling
+set scrolloff=3
 
 " show tabs and trailing spaces
 set list listchars=tab:>-,trail:-
@@ -117,6 +121,7 @@ set matchpairs+=<:>
 ""nnoremap <S-F5> <C-W>W<C-W>_
 ""nnoremap <F6>   <C-W>w
 ""nnoremap <S-F6> <C-W>w<C-W>_
+nnoremap <F2> <C-W>_
 
 " remember last cursor position (if within file limits)
 autocmd BufReadPost *
