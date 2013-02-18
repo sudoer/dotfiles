@@ -104,7 +104,7 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:\|
 " The listchars option uses the "NonText" highlighting group for "eol", "extends" and "precedes",
 " and the "SpecialKey" highlighting group for "nbsp", "tab" and "trail". see ":help 'listchars'"
 " (see ":help 'listchars'")
-highlight NonText ctermfg=yellow ctermbg=none cterm=none
+highlight NonText ctermfg=darkblue ctermbg=none cterm=none
 highlight SpecialKey ctermfg=blue ctermbg=none cterm=none
 
 " highlight searches
