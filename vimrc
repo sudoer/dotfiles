@@ -122,6 +122,9 @@ set matchpairs+=<:>
 ""nnoremap <S-F6> <C-W>w<C-W>_
 nnoremap <F2> <C-W>_
 
+" ESCAPE & composed key timeouts
+set timeout timeoutlen=3000 ttimeout ttimeoutlen=100
+
 " remember last cursor position (if within file limits)
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
