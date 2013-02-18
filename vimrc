@@ -84,7 +84,7 @@ set winminheight=0
 
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
-set mouse=a
+set mouse=n
 
 " tabs
 set tabstop=4
@@ -98,13 +98,13 @@ set shiftwidth=4  " used by > indent and = reformat
 set scrolloff=3
 
 " show tabs and trailing spaces
-set list listchars=tab:>-,trail:·,precedes:<,extends:>
+set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:\|
 "set listchars=eol:·
 
 " The listchars option uses the "NonText" highlighting group for "eol", "extends" and "precedes",
 " and the "SpecialKey" highlighting group for "nbsp", "tab" and "trail". see ":help 'listchars'"
 " (see ":help 'listchars'")
-highlight NonText    ctermfg=darkgrey ctermbg=none cterm=none
+highlight NonText ctermfg=yellow ctermbg=none cterm=none
 highlight SpecialKey ctermfg=blue ctermbg=none cterm=none
 
 " highlight searches
@@ -120,6 +120,10 @@ set matchpairs+=<:>
 ""nnoremap <S-F5> <C-W>W<C-W>_
 ""nnoremap <F6>   <C-W>w
 ""nnoremap <S-F6> <C-W>w<C-W>_
+nnoremap <C-Up>      <C-W>W<C-W>_
+nnoremap <C-Down>    <C-W>w<C-W>_
+nnoremap <C-W><Up>   <C-W>W<C-W>_
+nnoremap <C-W><Down> <C-W>w<C-W>_
 nnoremap <F2> <C-W>_
 
 " ESCAPE & composed key timeouts
