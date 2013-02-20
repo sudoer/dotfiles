@@ -58,6 +58,8 @@ function custom_prompt {
    local       RESET="\[\033[00m\]"
 
    local usercolor="${LTGREEN}"
+   local timecolor="${LTPURPLE}"
+   local pathcolor="${LTBLUE}"
    if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
 
    local cc=""
@@ -68,7 +70,7 @@ function custom_prompt {
    local gitbranch=$(prompt_git_branch)
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n" ; fi
 
-   PS1="${cc}${git}${LTPURPLE}\t${RESET}|${usercolor}\u@\h${RESET}:${LTBLUE}\$(prompt_cwd)${RESET}\$ "
+   PS1="${cc}${git}${timecolor}\t${RESET}|${usercolor}\u@\h${RESET}:${pathcolor}\$(prompt_cwd)${RESET}\$ "
 
 #  # craziness
 #  echo -n -e "\033[0;90m"

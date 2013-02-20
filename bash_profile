@@ -26,7 +26,8 @@ esac
 
 # fun
 echo "welcome to $(hostname -s)"
-echo -n "[0;33m" ; fortune 2> /dev/null ; echo -n "[00m"
+
+echo -n "\033[0;33m" ; fortune 2> /dev/null ; echo -n "\033[0;0m"
 
 # Include .bashrc if it exists.
 # Do this last, because my bashrc will do an 'exec script'
