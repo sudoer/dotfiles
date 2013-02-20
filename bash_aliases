@@ -6,7 +6,8 @@ alias vpn='sudo echo "OK" ; sudo openvpn /etc/openvpn/buster-tekelec.conf'
 # making crazy terminals sane again
 alias kb='xset r rate 250 25'
 alias rs='resize ; echo "stty rows $LINES columns $COLUMNS"'
-alias reset="perl -e 'printf \"%cc\",27;'"
+alias reset="echo -e '\033c'"
+#alias reset="perl -e 'printf \"%cc\",27;'"
 
 # git
 alias glog='git log --pretty=oneline | head -20'
