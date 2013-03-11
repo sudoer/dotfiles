@@ -39,6 +39,7 @@ case $OSTYPE in
       ;;
    darwin12)
       alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
+      alias gnucash='/Applications/Gnucash.app/Contents/MacOS/Gnucash'
       ;;
 esac
 
