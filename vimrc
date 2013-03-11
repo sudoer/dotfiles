@@ -53,6 +53,8 @@ syntax enable
 "Error - Text which contains a programming language error
 "Normal - everything else
 
+set t_Co=256
+
 " COLOR SET #1 - dark
 "1 highlight Normal      ctermfg=grey ctermbg=none cterm=none
 "1 highlight Comment     ctermfg=blue ctermbg=none cterm=bold
@@ -156,5 +158,4 @@ if &diff
    "set background=dark
    "colorscheme peaksea
 endif
-
 
