@@ -51,6 +51,7 @@ syntax enable
 
 "=== COLORS ===
 
+" color numbers >> http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png
 set t_Co=256
 
 " see :help group-name
@@ -63,14 +64,26 @@ highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
 
 "=== FOLDING ===
 
+set foldenable
 highlight Folded      ctermfg=blue  ctermbg=none
 
 
 "=== SEARCH ===
 
+set incsearch
 set hlsearch
+set noignorecase
+set nosmartcase
 highlight search    ctermfg=yellow ctermbg=darkblue cterm=bold
 highlight incsearch ctermfg=white  ctermbg=cyan cterm=bold
+set gdefault  " /g option is turned on by default when searching
+nmap <silent> <leader>/ :nohlsearch<CR> " clear highlighted search
+
+
+"=== MENU ===
+
+set wildmenu
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 
 
 "=== SPELLING ===
@@ -89,43 +102,13 @@ highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
 nmap <silent> <leader>n :set number!<CR>
 set number
 
-" highlight searches
-set hlsearch
-
 " highlight parens
+set showmatch
 set matchpairs=(:),{:},[:]
 set matchpairs+=<:>
 
 " wrapping
 set nowrap
-
-
-"=== WINDOW ===
-
-" show status line on bottom (0=never, 1=when >1 windows, 2=always)
-set laststatus=2
-
-" stack windows very tightly
-set winminheight=0
-
-" scrolling
-set scrolloff=3
-
-
-"=== CURSOR ===
-
-" remember last cursor position (if within file limits)
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
-
-
-"=== MOUSE ===
-
-" use mouse to switch windows and move cursor
-set ttymouse=xterm2
-set mouse=n
 
 
 "=== TABS / INDENT ===
@@ -139,7 +122,8 @@ set shiftwidth=4  " used by > indent and = reformat
 
 " show tabs and trailing spaces
 nmap <silent> <leader>l :set list!<CR>
-set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:\|
+set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
+"set listchars= eol:\|
 "set listchars=eol:·
 
 " The listchars option uses:
@@ -148,6 +132,37 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:\|
 " See ":help 'listchars'".
 highlight NonText ctermfg=darkblue ctermbg=none cterm=none
 highlight SpecialKey ctermfg=blue ctermbg=none cterm=none
+
+
+"=== WINDOW ===
+
+" show status line on bottom (0=never, 1=when >1 windows, 2=always)
+set laststatus=2
+
+" stack windows very tightly
+set winminheight=0
+
+
+"=== CURSOR ===
+
+" remember last cursor position (if within file limits)
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+
+" cursor limits:
+set scrolloff=3          " within 3 of top/bottom
+set virtualedit=onemore  " past right end by one
+set cursorline           " highlight current line
+highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
+
+
+"=== MOUSE ===
+
+" use mouse to switch windows and move cursor
+set ttymouse=xterm2
+set mouse=n
 
 
 "=== WINDOWS ===
@@ -171,6 +186,13 @@ set timeout timeoutlen=3000 ttimeout ttimeoutlen=100
 
 "=== SCREEN / TMUX ===
 
+" Fix home and end keybindings for screen, particularly on Mac.
+" (For some reason this fixes the arrow keys too. huh?.
+map  [F $
+imap [F $
+map  [H g0
+imap [H g0
+
 " see http://tmux.cvs.sourceforge.net/viewvc/tmux/tmux/FAQ
 if &term == "screen"
    set t_kN=^[[6;*~
@@ -187,6 +209,19 @@ if &diff
    "colorscheme peaksea
 endif
 
+
+"=== HUH? ===
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
+
+"=== LOCAL ===
+
+" Use local vimrc if available {
+    if filereadable(expand("~/.vimrc.local"))
+        source ~/.vimrc.local
+    endif
+" }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -211,6 +246,8 @@ endfunction
 "autocmd Filetype vo_base filetype plugin indent on
 
 ""map <silent> <f12> :colorscheme dark<CR>
+
+" IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
