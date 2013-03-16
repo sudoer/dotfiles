@@ -230,6 +230,7 @@ function! Quiet()
    set nospell
    set nonumber
 endfunction
+nmap <silent> <leader>q :call Quiet()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EXPERIMENTS
