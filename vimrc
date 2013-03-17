@@ -163,6 +163,7 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
 set mouse=n
+nmap <silent> <leader>m set mouse=<CR>
 
 
 "=== WINDOWS ===
