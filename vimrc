@@ -130,8 +130,8 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
 "  - the "NonText" highlighting group for "eol", "extends" and "precedes"
 "  - the "SpecialKey" highlighting group for "nbsp", "tab" and "trail"
 " See ":help 'listchars'".
-highlight NonText ctermfg=darkblue ctermbg=none cterm=none
-highlight SpecialKey ctermfg=blue ctermbg=none cterm=none
+highlight NonText ctermfg=238 ctermbg=none cterm=none
+highlight SpecialKey ctermfg=darkblue ctermbg=none cterm=none
 
 
 "=== WINDOW ===
@@ -195,8 +195,8 @@ imap [H g0
 
 " see http://tmux.cvs.sourceforge.net/viewvc/tmux/tmux/FAQ
 if &term == "screen"
-   set t_kN=^[[6;*~
-   set t_kP=^[[5;*~
+   set t_kN=[6;*~
+   set t_kP=[5;*~
    " see also "ttyfast"
 endif
 
