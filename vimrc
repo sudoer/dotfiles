@@ -163,6 +163,7 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
 set mouse=n
+nmap <silent> <leader>m set mouse=<CR>
 
 
 "=== WINDOWS ===
@@ -230,6 +231,7 @@ function! Quiet()
    set nospell
    set nonumber
 endfunction
+nmap <silent> <leader>q :call Quiet()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EXPERIMENTS
