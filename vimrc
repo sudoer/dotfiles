@@ -69,7 +69,7 @@ highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
 "=== FOLDING === {{{1
 
 set foldenable
-set foldmethod=indent
+set foldmethod=manual
 set foldmarker={{{,}}}
 highlight Folded      ctermfg=blue  ctermbg=none
 
