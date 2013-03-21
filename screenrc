@@ -33,6 +33,6 @@
 #  w  white
 #  d  default color
 
-caption always "%{+b kK}%H %{gk}%C%a %{wk}[ %?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?%{wk} ]"
+caption always "%{kK}%H %{gk}%C%a %{wk}[ %?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?%{wk} ]"
 startup_message off
 
