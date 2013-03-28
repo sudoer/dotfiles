@@ -10,8 +10,8 @@ alias reset="echo -e '\033c'"
 #alias reset="perl -e 'printf \"%cc\",27;'"
 
 # git
+alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%h %ad %s"'
 alias gitlog1='git log --pretty=oneline | head -20'
-alias gitlog2='git log --date=short --pretty=format:"%h %ad %s" --abbrev-commit | head -10'
 
 # other
 alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
