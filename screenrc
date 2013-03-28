@@ -22,7 +22,7 @@ term screen-256color
 #hardstatus  alwayslastline  "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
 #hardstatus  alwayslastline  "Host: %H Date: %D-%M-%Y: Load: %l "
 # from bak@TriLUG -> "%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
-caption always "%{Wb} %H %{Yb}%C%a %{Wb}[ %?%{Cb}%-Lw%?%{bY}%n*%f %t%?(%u)%?%?%{Cb}%+Lw%?%{Wb} ]"
+caption always "%{Rb} %H %{Yb}%C%a %{Wb}[ %?%{Cb}%-Lw%?%{bY}%n*%f %t%?(%u)%?%?%{Cb}%+Lw%?%{Wb} ]"
 
 
 ### BELL ###
