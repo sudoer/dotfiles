@@ -29,6 +29,7 @@ function calc() { python -c "from math import *; print $*"; }
 # platform-specific
 case $OSTYPE in
    linux-gnu)
+      alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade'
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       function df () {
