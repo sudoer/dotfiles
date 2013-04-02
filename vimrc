@@ -188,7 +188,8 @@ nnoremap <F2> <C-W>_
 "=== KEYBOARD === {{{1
 
 " ESCAPE & composed key timeouts
-set timeout timeoutlen=3000 ttimeout ttimeoutlen=100
+set notimeout timeoutlen=300
+set ttimeout ttimeoutlen=100
 
 
 "=== SCREEN / TMUX === {{{1
