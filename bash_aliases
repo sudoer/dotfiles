@@ -43,6 +43,7 @@ case $OSTYPE in
       alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
       alias gnucash='/Applications/Gnucash.app/Contents/MacOS/Gnucash'
       alias keepassx='/Applications/KeePassX.app/Contents/MacOS/KeePassX'
+      alias plistdump='plutil -convert xml1 -o - '
       ;;
 esac
 
