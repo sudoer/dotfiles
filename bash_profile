@@ -12,9 +12,9 @@ export ALAN_HOME_BASHPROFILE=1
 
 # platform-specific
 case $OSTYPE in
-   linux-gnu)
+   linux-gnu*)
       ;;
-   darwin12)
+   darwin*)
       # MacPorts
       export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
       ##?? export CPPFLAGS="-I/opt/local/include $CPPFLAGS"

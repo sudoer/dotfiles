@@ -50,7 +50,7 @@ shopt -s checkwinsize
 # 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
 
 case $OSTYPE in
-   linux-gnu)
+   linux-gnu*)
       if [ "$TERM" != "dumb" ]; then
          # ls
          if [ -f $HOME/.dircolors ] ; then
@@ -67,7 +67,7 @@ case $OSTYPE in
          export LESS='-R'
       fi
       ;;
-   darwin12)
+   darwin*)
       export LSCOLORS="Exfxcxdxbxegedabagacad"
       alias ls='ls -G'
       export GREP_OPTIONS='--color=auto'

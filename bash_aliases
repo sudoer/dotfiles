@@ -28,7 +28,7 @@ function calc() { python -c "from math import *; print $*"; }
 
 # platform-specific
 case $OSTYPE in
-   linux-gnu)
+   linux-gnu*)
       alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade'
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
@@ -39,7 +39,7 @@ case $OSTYPE in
       alias truecrypt="/usr/local/bin/truecrypt --text"
       alias tmux='TERM=xterm-256color tmux'
       ;;
-   darwin12)
+   darwin*)
       alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
       alias gnucash='/Applications/Gnucash.app/Contents/MacOS/Gnucash'
       alias keepassx='/Applications/KeePassX.app/Contents/MacOS/KeePassX'
