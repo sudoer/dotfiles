@@ -82,7 +82,7 @@ set noignorecase
 set nosmartcase
 highlight search    ctermfg=yellow ctermbg=darkblue cterm=bold
 highlight incsearch ctermfg=white  ctermbg=cyan cterm=bold
-set gdefault  " /g option is turned on by default when searching
+set nogdefault  " (do not) assume global '/g' option when searching
 nmap <silent> <leader>/ :nohlsearch<CR> " clear highlighted search
 
 
