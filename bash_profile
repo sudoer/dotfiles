@@ -24,10 +24,12 @@ esac
 
 [ -f ~/.bash_profile.local ] && source ~/.bash_profile.local
 
-# fun
+# welcome, fun
 echo "welcome to $(hostname -s)"
-
 echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
+
+# status
+tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
 
 # Include .bashrc if it exists.
 # Do this last, because my bashrc will do an 'exec script'
