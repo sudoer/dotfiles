@@ -131,6 +131,48 @@ export PATH
 
 ################################################################################
 
+# http://stackoverflow.com/questions/7374534/directory-bookmarking-for-bash
+function cdb() {
+    USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]" ;
+    if  [ ! -e ~/.cd_bookmarks ] ; then
+        mkdir ~/.cd_bookmarks
+    fi
+    case $1 in
+        # create bookmark
+        -c) shift
+            if [ ! -f ~/.cd_bookmarks/$1 ] ; then
+                echo "$(pwd)" > ~/.cd_bookmarks/"$1" ;
+            else
+                echo "Try again! Looks like there is already a bookmark '$1'"
+            fi
+            ;;
+        # goto bookmark
+        -g) shift
+            if [ -f ~/.cd_bookmarks/$1 ] ; then
+                cd $(cat ~/.cd_bookmarks/"$1")
+            else
+                echo "Your bookmark does not exist." ;
+            fi
+            ;;
+        # delete bookmark
+        -d) shift
+            if [ -f ~/.cd_bookmarks/$1 ] ; then
+                rm ~/.cd_bookmarks/"$1" ;
+            else
+                echo "Oops, forgot to specify the bookmark" ;
+            fi
+            ;;
+        # list bookmarks
+        -l) shift
+            ( cd ~/.cd_bookmarks/ ; grep -v xyzzy * ) ;
+            ;;
+         *) echo "$USAGE" ;
+            ;;
+    esac
+}
+
+################################################################################
+
 # backspace
 stty erase 
 
