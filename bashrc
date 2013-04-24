@@ -134,9 +134,8 @@ export PATH
 # http://stackoverflow.com/questions/7374534/directory-bookmarking-for-bash
 function cdb() {
     USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]"
-    if  [ ! -e ~/.cd_bookmarks ] ; then
-        mkdir ~/.cd_bookmarks
-    fi
+    if [[ ! -e ~/.cd_bookmarks ]] ; then mkdir ~/.cd_bookmarks ; fi
+    if [[ $# -eq 0 ]] ; then echo "$USAGE" ; return 0 ; fi
     case $1 in
         # create bookmark
         -c) shift
