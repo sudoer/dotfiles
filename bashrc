@@ -133,7 +133,7 @@ export PATH
 
 # http://stackoverflow.com/questions/7374534/directory-bookmarking-for-bash
 function cdb() {
-    USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]" ;
+    USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]"
     if  [ ! -e ~/.cd_bookmarks ] ; then
         mkdir ~/.cd_bookmarks
     fi
@@ -141,9 +141,9 @@ function cdb() {
         # create bookmark
         -c) shift
             if [ ! -f ~/.cd_bookmarks/$1 ] ; then
-                echo "$(pwd)" > ~/.cd_bookmarks/"$1" ;
+                echo "$(pwd)" > ~/.cd_bookmarks/"$1"
             else
-                echo "Try again! Looks like there is already a bookmark '$1'"
+                echo "Will not cover up existing bookmark '$1'"
             fi
             ;;
         # goto bookmark
@@ -151,22 +151,26 @@ function cdb() {
             if [ -f ~/.cd_bookmarks/$1 ] ; then
                 cd $(cat ~/.cd_bookmarks/"$1")
             else
-                echo "Your bookmark does not exist." ;
+                echo "Bookmark '$1' does not exist."
             fi
             ;;
         # delete bookmark
         -d) shift
             if [ -f ~/.cd_bookmarks/$1 ] ; then
-                rm ~/.cd_bookmarks/"$1" ;
+                rm ~/.cd_bookmarks/"$1"
             else
-                echo "Oops, forgot to specify the bookmark" ;
+                echo "Bookmark '$1' does not exist."
             fi
             ;;
         # list bookmarks
         -l) shift
-            ( cd ~/.cd_bookmarks/ ; grep -v xyzzy * ) ;
+            ( cd ~/.cd_bookmarks/ ; grep -v xyzzy * )
             ;;
-         *) echo "$USAGE" ;
+        # any other dashed arg = usage
+        -*) echo "$USAGE"
+            ;;
+        # MOST-FREQUENT USE-CASE = undashed arg = goto bookmark
+        *) cdb -g $1
             ;;
     esac
 }
