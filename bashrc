@@ -148,7 +148,9 @@ function cdb() {
         # goto bookmark
         -g) shift
             if [ -f ~/.cd_bookmarks/$1 ] ; then
-                cd $(cat ~/.cd_bookmarks/"$1")
+                dir=$(cat ~/.cd_bookmarks/"$1")
+                echo $dir
+                cd $dir
             else
                 echo "Bookmark '$1' does not exist."
             fi
@@ -163,7 +165,7 @@ function cdb() {
             ;;
         # list bookmarks
         -l) shift
-            ( cd ~/.cd_bookmarks/ ; grep -v xyzzy * )
+            ( cd ~/.cd_bookmarks/ ; shopt -s nullglob ; grep -v xyzzy * /dev/null )
             ;;
         # any other dashed arg = usage
         -*) echo "$USAGE"
@@ -179,9 +181,9 @@ function cdb() {
 # backspace
 stty erase 
 
-# one of these is required for svn
-export SVN_EDITOR=vi
-export EDITOR=vi
+# svn requires either EDITOR or SVN_EDITOR
+export SVN_EDITOR=vim
+export EDITOR=vim
 export BROWSER=/home/alan/bin/browser.sh
 
 # some other app preferences
