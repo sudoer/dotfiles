@@ -14,6 +14,7 @@ alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%
 alias gitlog1='git log --pretty=oneline | head -20'
 
 # other
+alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
 alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
 alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
 alias rot13="gcipher -c Rot -k 13"
