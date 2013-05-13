@@ -139,39 +139,39 @@ function cdb() {
     case $1 in
         # create bookmark
         -c) shift
-            if [ ! -f ~/.cd_bookmarks/$1 ] ; then
-                echo "$(pwd)" > ~/.cd_bookmarks/"$1"
+            if [ ! -f "$HOME/.cd_bookmarks/$1" ] ; then
+                echo "$(pwd)" > "$HOME/.cd_bookmarks/$1"
             else
                 echo "Will not cover up existing bookmark '$1'"
             fi
             ;;
         # goto bookmark
         -g) shift
-            if [ -f ~/.cd_bookmarks/$1 ] ; then
-                dir=$(cat ~/.cd_bookmarks/"$1")
-                echo $dir
-                cd $dir
+            if [ -f "$HOME/.cd_bookmarks/$1" ] ; then
+                dir=$(cat "$HOME/.cd_bookmarks/$1")
+                echo "$dir"
+                cd "$dir"
             else
                 echo "Bookmark '$1' does not exist."
             fi
             ;;
         # delete bookmark
         -d) shift
-            if [ -f ~/.cd_bookmarks/$1 ] ; then
-                rm ~/.cd_bookmarks/"$1"
+            if [ -f "$HOME/.cd_bookmarks/$1" ] ; then
+                rm "$HOME/.cd_bookmarks/$1"
             else
                 echo "Bookmark '$1' does not exist."
             fi
             ;;
         # list bookmarks
         -l) shift
-            ( cd ~/.cd_bookmarks/ ; shopt -s nullglob ; grep -v xyzzy * /dev/null )
+            ( cd "$HOME/.cd_bookmarks/" ; shopt -s nullglob ; grep -v xyzzy * /dev/null )
             ;;
         # any other dashed arg = usage
         -*) echo "$USAGE"
             ;;
         # MOST-FREQUENT USE-CASE = undashed arg = goto bookmark
-        *) cdb -g $1
+        *) cdb -g "$1"
             ;;
     esac
 }
