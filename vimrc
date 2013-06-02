@@ -201,7 +201,8 @@ endif
 
 "=== HUH? === {{{1
 " For when you forget to sudo.. Really Write the file.
-cmap w!! w !sudo tee % >/dev/null
+" (but this causes a weird pause on all W's in command line)
+"" cmap w!! w !sudo tee % >/dev/null
 
 
 "=== LOCAL === {{{1
