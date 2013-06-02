@@ -4,20 +4,6 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"=== GVIM === {{{1
-
-if has('gui_running')
-   " colors
-   """color vo_dark
-   hi Normal guibg=black guifg=grey90
-   set bg=dark
-   syn on
-   " size
-   set lines=50
-   set columns=120
-endif
-
-
 "=== BACKUPS === {{{1
 
 ""  " save backup files~ to $HOME/.vim-save
@@ -36,12 +22,6 @@ set modeline
 set nocindent
 set nosmartindent
 set noautoindent
-if $OSTYPE != "solaris"
-   " SUNOS/SOLARIS does not support these
-   set indentexpr=
-   filetype indent off
-   filetype plugin indent off
-endif
 
 
 "=== FILE TYPES === {{{1
@@ -262,6 +242,47 @@ if !exists("alan_largefile_protection")
   augroup LargeFile
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
   augroup END
+endif
+
+
+"=== OS DETECTION === {{{1
+let s:uname = system("echo -n \"$(uname)\"")
+if !v:shell_error
+   if s:uname == "Linux"
+      " do Linux stuff here
+   endif
+   if s:uname == "Darwin"
+      " do Mac stuff here
+   endif
+endif
+
+
+"=== GVIM === {{{1
+
+if has('gui_running')
+   " colors
+   """color vo_dark
+   hi Normal guibg=black guifg=yellow
+   set bg=dark
+   syn on
+   " size
+   set lines=50
+   set columns=120
+endif
+
+
+"=== MACVIM === {{{1
+
+if has('gui_macvim')
+   " colors
+   hi Normal guibg=black guifg=white
+   set guifont=Monaco:h14
+   " GUI Option to remove the Toolbar (T)
+   set guioptions-=T
+   colorscheme shine
+   " size
+   set lines=32
+   set columns=110
 endif
 
 

@@ -41,6 +41,7 @@ case $OSTYPE in
       alias tmux='TERM=xterm-256color tmux'
       ;;
    darwin*)
+      alias macvim="/Applications/MacVim.app/Contents/MacOS/MacVim"
       alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
       alias gnucash='/Applications/Gnucash.app/Contents/MacOS/Gnucash'
       alias keepassx='/Applications/KeePassX.app/Contents/MacOS/KeePassX'
