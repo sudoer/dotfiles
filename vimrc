@@ -128,6 +128,9 @@ set laststatus=2
 " stack windows very tightly
 set winminheight=0
 
+" I keep pressing ctrl-W in insert mode, which deletes the previous word.
+imap <C-w> <Nop>
+
 
 "=== CURSOR === {{{1
 
