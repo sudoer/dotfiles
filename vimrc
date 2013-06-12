@@ -1,6 +1,6 @@
 
 " NOTES
-" - leader key is defined as backslash
+" - 'leader key' is defined as backslash
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
