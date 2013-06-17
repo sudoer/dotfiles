@@ -290,6 +290,12 @@ if has('gui_macvim')
 endif
 
 
+"=== PATHOGEN === {{{1
+" see https://github.com/tpope/vim-pathogen
+" see http://www.vim.org/scripts/script.php?script_id=2332
+execute pathogen#infect()
+
+
 "=== EXPERIMENTS === {{{1
 
 "if !exists("autocommands_loaded")
@@ -310,5 +316,5 @@ endif
 
 "=== END === 1}}}
 
-" vim: foldmethod=marker
+" novim: foldmethod=marker
 
