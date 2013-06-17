@@ -12,6 +12,7 @@ alias reset="echo -e '\033c'"
 # git
 alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%h %ad %s"'
 alias gitlog1='git log --pretty=oneline | head -20'
+alias gitpullpush='git pull --rebase && git push'
 
 # other
 alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
