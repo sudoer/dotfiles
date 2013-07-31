@@ -14,6 +14,11 @@ alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%
 alias gitlog1='git log --pretty=oneline | head -20'
 alias gitpullpush='git pull --rebase && git push'
 
+# truecrypt
+alias truecrypt="truecrypt --text"
+alias tc="sudo truecrypt --text --auto-mount=favorites --keyfiles= --protect-hidden=no"
+alias tcd="sudo truecrypt --text --dismount"
+
 # other
 alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
 alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
@@ -38,12 +43,10 @@ case $OSTYPE in
          /bin/df -Ph | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias netstatl='sudo lsof -i | grep LISTEN'
-      alias truecrypt="/usr/local/bin/truecrypt --text"
       alias tmux='TERM=xterm-256color tmux'
       ;;
    darwin*)
       alias macvim="/Applications/MacVim.app/Contents/MacOS/MacVim"
-      alias truecrypt="/Applications/TrueCrypt.app/Contents/MacOS/TrueCrypt --text"
       alias gnucash='/Applications/Gnucash.app/Contents/MacOS/Gnucash'
       alias keepassx='/Applications/KeePassX.app/Contents/MacOS/KeePassX'
       alias plistdump='plutil -convert xml1 -o - '
