@@ -39,7 +39,6 @@ case $OSTYPE in
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       alias netstatl='sudo lsof -i | grep LISTEN'
-      alias tmux='TERM=xterm-256color tmux'
       function df () {
          /bin/df -Ph | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
@@ -48,4 +47,42 @@ case $OSTYPE in
       alias plistdump='plutil -convert xml1 -o - '
       ;;
 esac
+
+
+#-------------------------------------------------------------------------------
+
+# http://raim.codingfarm.de/blog/2013/01/30/tmux-update-environment/
+# re-evaluate SSH and DISPLAY parms without the leading dashes so X11 works
+# See also http://readystate4.com/2011/03/31/refresh-a-stale-tmux-session/
+function tmux() {
+
+   local tmux=$(type -fp tmux)
+
+   case $OSTYPE in
+      linux-gnu*)
+         export TERM=xterm-256color
+         ;;
+   esac
+
+   case "$1" in
+      update-environment|env|x11)
+         local v
+         while read v; do
+            if [[ $v == -* ]]; then
+               unset ${v/#-/}
+            else
+               # Add quotes around the argument
+               v=${v/=/=\"}
+               v=${v/%/\"}
+               eval export $v
+            fi
+         done < <(tmux show-environment)
+         ;;
+      *)
+         $tmux "$@"
+         ;;
+   esac
+}
+
+#-------------------------------------------------------------------------------
 
