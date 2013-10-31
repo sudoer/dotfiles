@@ -2,8 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# GIT TEST adding on digit.
-
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $SHLVL -eq 1 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
    export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
