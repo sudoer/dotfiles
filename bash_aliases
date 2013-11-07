@@ -20,8 +20,6 @@ alias tc="sudo truecrypt --text --auto-mount=favorites --keyfiles= --protect-hid
 alias tcd="sudo truecrypt --text --dismount"
 
 # other
-alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
-alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
 alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
 alias rot13="gcipher -c Rot -k 13"
 function do-over () { cmd=$* ; while true ; do date ; $cmd ; sleep 1 ; done }
@@ -35,7 +33,9 @@ function calc() { python -c "from math import *; print $*"; }
 # platform-specific
 case $OSTYPE in
    linux-gnu*)
+      alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
       alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade'
+      alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       alias netstatl='sudo lsof -i | grep LISTEN'
@@ -45,6 +45,7 @@ case $OSTYPE in
       ;;
    darwin*)
       alias plistdump='plutil -convert xml1 -o - '
+      alias date='gdate'
       ;;
 esac
 
