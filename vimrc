@@ -293,7 +293,9 @@ endif
 "=== PATHOGEN === {{{1
 " see https://github.com/tpope/vim-pathogen
 " see http://www.vim.org/scripts/script.php?script_id=2332
-execute pathogen#infect()
+if filereadable(expand("~/.vim/autoload/pathogen.vim"))
+   execute pathogen#infect()
+endif
 
 
 "=== EXPERIMENTS === {{{1
