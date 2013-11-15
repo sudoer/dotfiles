@@ -13,6 +13,7 @@ alias reset="echo -e '\033c'"
 alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%h %ad %s"'
 alias gitlog1='git log --pretty=oneline | head -20'
 alias gitpullpush='git pull --rebase && git push'
+#function gitrmdeleted () { git rm $(git status | grep '#\s*deleted:' | awk '{print $3}') }
 
 # truecrypt
 alias truecrypt="truecrypt --text"
@@ -28,7 +29,16 @@ alias script='script "script-$(date +%Y%m%d-%H%M%S)-$$"'
 alias week='date +%V'
 alias wiki="google-chrome --enable-file-cookies $HOME/SO/core/tiddlywiki/tklc-aporter.html"
 alias twitter='twidge lsrecent | sed -e :a -e "$!N;s/\n  */ /;ta" -e "P;D"'
-function calc() { python -c "from math import *; print $*"; }
+function calc () { python -c "from math import *; print $*"; }
+
+function endscript () {
+   if [[ $(ps -ef | grep "$USER  *$PPID" | awk '{print $8}') == "script" ]] ; then
+      echo "exiting 'script' session"
+      exit
+   else
+      echo "not inside a 'script' session"
+   fi
+}
 
 # platform-specific
 case $OSTYPE in
