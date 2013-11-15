@@ -4,8 +4,8 @@
 
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $SHLVL -eq 1 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
-   export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
    if [[ -d "$HOME/logs" ]] ; then
+      export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
       exec script "$HOME/logs/$ALAN_SCRIPT_LOG"
    else
       #DEBUG export > $HOME/x.$$

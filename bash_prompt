@@ -66,7 +66,9 @@ function custom_prompt {
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n" ; fi
 
    local level=""
-   if [[ $SHLVL -gt 3 ]] ; then level="${DKGRAY}[$(($SHLVL-3))]${RESET}" ; fi
+   local shlvlbase=1
+   if [[ ! -z $ALAN_SCRIPT_LOG ]] ; then shlvlbase=$((shlvlbase+2)) ; fi
+   if [[ $SHLVL -gt $shlvlbase ]] ; then level="${DKGRAY}[$(($SHLVL-$shlvlbase))]${RESET}" ; fi
 
    local time="${LTPURPLE}\t${RESET}"
 
