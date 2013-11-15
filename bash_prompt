@@ -66,9 +66,12 @@ function custom_prompt {
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n" ; fi
 
    local level=""
-   local shlvlbase=1
-   if [[ ! -z $ALAN_SCRIPT_LOG ]] ; then shlvlbase=$((shlvlbase+2)) ; fi
-   if [[ $SHLVL -gt $shlvlbase ]] ; then level="${DKGRAY}[$(($SHLVL-$shlvlbase))]${RESET}" ; fi
+   local arrows=">"
+   if [[ ! -z $ALAN_SHLVL ]] ; then
+      [[ $ALAN_SHLVL -gt 1 ]] && level="${DKGRAY}[$ALAN_SHLVL]${RESET}"
+      local spaces=$(printf "%${ALAN_SHLVL}s")
+      arrows="${WHITE}${spaces// />}${RESET}"
+   fi
 
    local time="${LTPURPLE}\t${RESET}"
 
@@ -79,7 +82,7 @@ function custom_prompt {
    local pathcolor=
    local path="${LTBLUE}\$(prompt_cwd)${RESET}"
 
-   PS1="${cc}${git}${level}${time}|${user}:${path}\$ "
+   PS1="${level}${cc}${git}${time}|${user}:${path}${arrows} "
 
    #  # craziness
    #  echo -n -e "\033[0;90m"

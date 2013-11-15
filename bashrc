@@ -3,7 +3,7 @@
 # for examples
 
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
-if [[ ( -n "$PS1" ) && ( $SHLVL -eq 1 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
+if [[ ( -n "$PS1" ) && ( $ALAN_SHLVL -eq 0 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
    if [[ -d "$HOME/logs" ]] ; then
       export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
       exec script "$HOME/logs/$ALAN_SCRIPT_LOG"
@@ -13,6 +13,7 @@ if [[ ( -n "$PS1" ) && ( $SHLVL -eq 1 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
    fi
 fi
 
+export ALAN_SHLVL=$(($ALAN_SHLVL+1))
 export ALAN_HOME_BASHRC=1
 
 ################################################################################

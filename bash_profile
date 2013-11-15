@@ -3,6 +3,7 @@
 # the files are located in the bash-doc package.
 
 export ALAN_HOME_BASHPROFILE=1
+export ALAN_SHLVL=0
 
 # the default umask is set in /etc/login.defs
 #umask 022
