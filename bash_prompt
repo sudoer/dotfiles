@@ -57,11 +57,6 @@ function custom_prompt {
    local      DKGRAY="\[\033[0;90m\]"
    local       RESET="\[\033[00m\]"
 
-   local usercolor="${LTGREEN}"
-   local timecolor="${LTPURPLE}"
-   local pathcolor="${LTBLUE}"
-   if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
-
    local cc=""
    local ccbranch=$(prompt_cc_branch)
    if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}\n" ; fi
@@ -70,13 +65,24 @@ function custom_prompt {
    local gitbranch=$(prompt_git_branch)
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n" ; fi
 
-   PS1="${cc}${git}${timecolor}\t${RESET}|${usercolor}\u@\h${RESET}:${pathcolor}\$(prompt_cwd)${RESET}\$ "
+   local level=""
+   if [[ $SHLVL -gt 3 ]] ; then level="${DKGRAY}[$(($SHLVL-3))]${RESET}" ; fi
 
-#  # craziness
-#  echo -n -e "\033[0;90m"
-#  fortune
-#  echo -n -e "\033[0;0m"
+   local time="${LTPURPLE}\t${RESET}"
 
+   local usercolor="${LTGREEN}"
+   if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
+   local user="${usercolor}\u@\h${RESET}"
+
+   local pathcolor=
+   local path="${LTBLUE}\$(prompt_cwd)${RESET}"
+
+   PS1="${cc}${git}${level}${time}|${user}:${path}\$ "
+
+   #  # craziness
+   #  echo -n -e "\033[0;90m"
+   #  fortune
+   #  echo -n -e "\033[0;0m"
 }
 
 # run it once
