@@ -102,6 +102,7 @@ set nowrap
 set tabstop=4
 set softtabstop=4
 set expandtab  " use :retab to convert existing tabs using expandtab (tab->4sp)
+autocmd FileType make set noexpandtab
 
 " indentation / prettification
 set shiftwidth=4  " used by > indent and = reformat
