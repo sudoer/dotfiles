@@ -4,7 +4,7 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"=== BACKUPS === {{{1
+"{{{1 === BACKUPS ===
 
 ""  " save backup files~ to $HOME/.vim-save
 ""  " but don't freak out if $HOME/.vim-save does not exist
@@ -12,11 +12,12 @@ set backup
 set backupdir=~/.vim-save,.
 
 
-"=== EMBEDDED MODE LINES === {{{1
+"{{{1 === EMBEDDED MODE LINES ===
+
 set modeline
 
 
-"=== INDENTATION === {{{1
+"{{{1 === INDENTATION ===
 
 " under no circumstances should you auto-indent
 set nocindent
@@ -24,7 +25,7 @@ set nosmartindent
 set noautoindent
 
 
-"=== FILE TYPES === {{{1
+"{{{1 === FILE TYPES ===
 
 " non-standard file types
 "au BufRead,BufNewFile *.t set filetype=perl
@@ -33,7 +34,7 @@ au BufRead,BufNewFile *.ino set filetype=cpp   " arduino CPP
 syntax enable
 
 
-"=== COLORS === {{{1
+"{{{1 === COLORS ===
 
 " color numbers >> http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png
 set t_Co=256
@@ -46,7 +47,7 @@ highlight PreProc     ctermfg=white ctermbg=none cterm=bold
 highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
 
 
-"=== FOLDING === {{{1
+"{{{1 === FOLDING ===
 
 set foldenable
 set foldmethod=manual
@@ -54,7 +55,7 @@ set foldmarker={{{,}}}
 highlight Folded      ctermfg=blue  ctermbg=none
 
 
-"=== SEARCH === {{{1
+"{{{1 === SEARCH ===
 
 set incsearch
 set hlsearch
@@ -66,13 +67,13 @@ set nogdefault  " (do not) assume global '/g' option when searching
 nmap <silent> <leader>/ :nohlsearch<CR> " clear highlighted search
 
 
-"=== MENU === {{{1
+"{{{1 === MENU ===
 
 set wildmenu
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 
 
-"=== SPELLING === {{{1
+"{{{1 === SPELLING ===
 
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_us
@@ -83,7 +84,7 @@ highlight SpellRare  ctermfg=none ctermbg=none cterm=underline
 highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
 
 
-"=== LINE NUMBERS === {{{1
+"{{{1 === LINE NUMBERS ===
 
 nmap <silent> <leader>n :set number!<CR>
 set number
@@ -97,7 +98,7 @@ set matchpairs+=<:>
 set nowrap
 
 
-"=== TABS / INDENT === {{{1
+"{{{1 === TABS / INDENT ===
 
 set tabstop=4
 set softtabstop=4
@@ -121,7 +122,7 @@ highlight NonText ctermfg=238 ctermbg=none cterm=none
 highlight SpecialKey ctermfg=darkblue ctermbg=none cterm=none
 
 
-"=== WINDOW === {{{1
+"{{{1 === WINDOW ===
 
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
@@ -133,7 +134,7 @@ set winminheight=0
 imap <C-w> <Nop>
 
 
-"=== CURSOR === {{{1
+"{{{1 === CURSOR ===
 
 " remember last cursor position (if within file limits)
 autocmd BufReadPost *
@@ -148,7 +149,7 @@ set cursorline           " highlight current line
 highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
 
 
-"=== MOUSE === {{{1
+"{{{1 === MOUSE ===
 
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
@@ -156,7 +157,7 @@ set mouse=n
 nmap <silent> <leader>m set mouse=<CR>
 
 
-"=== WINDOWS === {{{1
+"{{{1 === WINDOWS ===
 
 ""nnoremap <F5>   <C-W>W
 ""nnoremap <S-F5> <C-W>W<C-W>_
@@ -169,14 +170,14 @@ nnoremap <C-W><Down> <C-W>w<C-W>_
 nnoremap <F2> <C-W>_
 
 
-"=== KEYBOARD === {{{1
+"{{{1 === KEYBOARD ===
 
 " ESCAPE & composed key timeouts
 set notimeout timeoutlen=300
 set ttimeout ttimeoutlen=100
 
 
-"=== SCREEN / TMUX === {{{1
+"{{{1 === SCREEN / TMUX ===
 
 " Fix home and end keybindings for screen, particularly on Mac.
 " (For some reason this fixes the arrow keys too. huh?.
@@ -194,7 +195,7 @@ if &term == "screen"
 endif
 
 
-"=== VIMDIFF === {{{1
+"{{{1 === VIMDIFF ===
 
 if &diff
    "set t_Co=256
@@ -203,13 +204,14 @@ if &diff
 endif
 
 
-"=== HUH? === {{{1
+"{{{1 === HUH? ===
+
 " For when you forget to sudo.. Really Write the file.
 " (but this causes a weird pause on all W's in command line)
 "" cmap w!! w !sudo tee % >/dev/null
 
 
-"=== LOCAL === {{{1
+"{{{1 === LOCAL ===
 
 " Use local vimrc if available {
     if filereadable(expand("~/.vimrc.local"))
@@ -218,9 +220,8 @@ endif
 " }
 
 
-"=== FUNCTIONS === {{{1
+"{{{1 === FUNCTIONS ===
 
-" Quiet() {{{2
 function! Quiet()
    set nolist
    set nospell
@@ -229,7 +230,7 @@ endfunction
 nmap <silent> <leader>q :call Quiet()<CR>
 
 
-"=== LARGE FILES === {{{1
+"{{{1 === LARGE FILES ===
 
 " Protect large files from sourcing and other overhead.
 " Files become read only
@@ -250,7 +251,7 @@ if !exists("alan_largefile_protection")
 endif
 
 
-"=== OS DETECTION === {{{1
+"{{{1 === OS DETECTION ===
 let s:uname = system("echo -n \"$(uname)\"")
 if !v:shell_error
    if s:uname == "Linux"
@@ -262,7 +263,7 @@ if !v:shell_error
 endif
 
 
-"=== GVIM === {{{1
+"{{{1 === GVIM ===
 
 if has('gui_running')
    " colors
@@ -276,7 +277,7 @@ if has('gui_running')
 endif
 
 
-"=== MACVIM === {{{1
+"{{{1 === MACVIM ===
 
 if has('gui_macvim')
    " colors
@@ -291,7 +292,7 @@ if has('gui_macvim')
 endif
 
 
-"=== PATHOGEN === {{{1
+"{{{1 === PATHOGEN ===
 " see https://github.com/tpope/vim-pathogen
 " see http://www.vim.org/scripts/script.php?script_id=2332
 if filereadable(expand("~/.vim/autoload/pathogen.vim"))
@@ -299,7 +300,7 @@ if filereadable(expand("~/.vim/autoload/pathogen.vim"))
 endif
 
 
-"=== EXPERIMENTS === {{{1
+"{{{1 === EXPERIMENTS ===
 
 "if !exists("autocommands_loaded")
 "  let autocommands_loaded = 1
@@ -317,7 +318,7 @@ endif
 " IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
 
-"=== END === 1}}}
+"}}}1
 
-" novim: foldmethod=marker
+" vim: fdm=marker fmr={{{,}}}
 
