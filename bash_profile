@@ -29,6 +29,7 @@ echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
 
 # status
 tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
+screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
 
 # local bash profile
 [ -f ~/.bash_profile.local ] && source ~/.bash_profile.local
