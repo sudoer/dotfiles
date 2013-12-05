@@ -262,6 +262,7 @@ if !v:shell_error
    endif
    if s:uname == "Darwin"
       " do Mac stuff here
+      set mouse=
    endif
 endif
 
