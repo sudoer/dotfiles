@@ -210,6 +210,9 @@ endif
 " (but this causes a weird pause on all W's in command line)
 "" cmap w!! w !sudo tee % >/dev/null
 
+" do not interpret numbers with leading zeros as octal
+" set nrformats=
+
 
 "{{{1 === LOCAL ===
 
