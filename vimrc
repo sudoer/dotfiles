@@ -1,6 +1,7 @@
 
 " NOTES
 " - <leader> key is defined as backslash, used for my custom keystrokes
+" - This file starts off FOLDED. To unfold, use zo or zr.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -122,16 +123,61 @@ highlight NonText ctermfg=238 ctermbg=none cterm=none
 highlight SpecialKey ctermfg=darkblue ctermbg=none cterm=none
 
 
-"{{{1 === WINDOW ===
+"{{{1 === SCREEN LAYOUT ===
 
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
 
+
+"{{{1 === WINDOWS ===
+
+" NOTES
+" start horizontal split by "vim -o file1 file2"
+" start vertical split by "vim -O file1 file2"
+" at run-time, use :sp file1 and :vsp file2
+" navigate with <C-w>h/j/k/l
+" wrapped navigate with <C-w>w/W
+" move windows with <C-w>H/J/K/L
+" resize less/more/equal/max with <C-w>-/+/=/_
+" vertical resize less/more/equal with <C-w></>/=/|
+
 " stack windows very tightly
 set winminheight=0
+set winminwidth=0
 
 " I keep pressing ctrl-W in insert mode, which deletes the previous word.
 imap <C-w> <Nop>
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" After moving to a new window, maximize it.
+"" nnoremap <C-W><Up>   <C-W>W<C-W>_
+"" nnoremap <C-W><Down> <C-W>w<C-W>_
+
+" Quicker window movement with control up/down.
+" NOTE - This does not work on Mac OSX.
+nnoremap <C-Up>    <C-W>k<C-W>_
+nnoremap <C-Down>  <C-W>j<C-W>_
+nnoremap <C-Left>  <C-W>h<C-W>_
+nnoremap <C-Right> <C-W>l<C-W>_
+
+" Quicker window movement with control h/j/k/l.
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" function keys: F5=equal, F4=max
+nnoremap <F3> <C-W>=
+nnoremap <F4> <C-W>_
+
+" function keys: F5=left, F6=shorter, F7=taller, F8=right
+nnoremap <F5> <C-W><
+nnoremap <F6> <C-W>-
+nnoremap <F7> <C-W>+
+nnoremap <F8> <C-W>>
 
 
 "{{{1 === CURSOR ===
@@ -155,19 +201,6 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 set ttymouse=xterm2
 set mouse=n
 nmap <silent> <leader>m set mouse=<CR>
-
-
-"{{{1 === WINDOWS ===
-
-""nnoremap <F5>   <C-W>W
-""nnoremap <S-F5> <C-W>W<C-W>_
-""nnoremap <F6>   <C-W>w
-""nnoremap <S-F6> <C-W>w<C-W>_
-nnoremap <C-Up>      <C-W>W<C-W>_
-nnoremap <C-Down>    <C-W>w<C-W>_
-nnoremap <C-W><Up>   <C-W>W<C-W>_
-nnoremap <C-W><Down> <C-W>w<C-W>_
-nnoremap <F2> <C-W>_
 
 
 "{{{1 === KEYBOARD ===
