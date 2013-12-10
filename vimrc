@@ -230,11 +230,34 @@ endif
 
 "{{{1 === VIMDIFF ===
 
+" NOTES
+" find next/prev change ]c/[c
+" obtain/put diff from/to other window: do/dp
+" do a diff on existing vsplit: :diffthis
+" refresh diffs: :diffupdate
+" stop doing diff: :diffoff
+
 if &diff
    "set t_Co=256
    "set background=dark
    "colorscheme peaksea
 endif
+
+"set diffopt=iwhite,icase
+set diffopt=filler,context:9
+
+" use fewer colors than normal vimdiff
+" http://stackoverflow.com/questions/2019281/load-different-colorscheme-when-using-vimdiff
+"" highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"" highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"" highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"" highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+" use more intuitive colors than normal vimdiff
+highlight DiffAdd    cterm=bold ctermfg=229 ctermbg=28 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=124 ctermbg=88 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=none ctermfg=11  ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=Red
 
 
 "{{{1 === HUH? ===
