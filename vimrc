@@ -1,9 +1,11 @@
 
-" NOTES
-" - <leader> key is defined as backslash, used for my custom keystrokes
-" - This file starts off FOLDED. To unfold, use zo or zr.
+" This file starts off FOLDED. Do zo to unfold a section or zR to unfold all.
+" vim: fdm=marker fmr={{{,}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" NOTES
+" - <leader> key is defined as backslash, used for my custom keystrokes
 
 "{{{1 === BACKUPS ===
 
@@ -380,5 +382,4 @@ endif
 
 "}}}1
 
-" vim: fdm=marker fmr={{{,}}}
 
