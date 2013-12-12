@@ -20,17 +20,8 @@ alias truecrypt="truecrypt --text"
 alias tc="sudo truecrypt --text --auto-mount=favorites --keyfiles= --protect-hidden=no"
 alias tcd="sudo truecrypt --text --dismount"
 
-# other
-alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
-alias rot13="gcipher -c Rot -k 13"
-function do-over () { cmd=$* ; while true ; do date ; $cmd ; sleep 1 ; done }
-alias logterm="exec script \"$HOME/logs/terminal.\$(date +%Y%m%d.%H%M%S).\$$\""
+# script
 alias script='script "script-$(date +%Y%m%d-%H%M%S)-$$"'
-alias week='date +%V'
-alias wiki="google-chrome --enable-file-cookies $HOME/SO/core/tiddlywiki/tklc-aporter.html"
-alias twitter='twidge lsrecent | sed -e :a -e "$!N;s/\n  */ /;ta" -e "P;D"'
-function calc () { python -c "from math import *; print $*"; }
-
 function endscript () {
    if [[ $(ps -ef | grep "$USER  *$PPID" | awk '{print $8}') == "script" ]] ; then
       echo "exiting 'script' session"
@@ -40,12 +31,17 @@ function endscript () {
    fi
 }
 
+# other
+alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
+alias rot13="gcipher -c Rot -k 13"
+alias week='date +%V'
+function do-over () { cmd=$* ; while true ; do date ; $cmd ; sleep 1 ; done }
+function calc () { python -c "from math import *; print $*"; }
+
 # platform-specific
 case $OSTYPE in
    linux-gnu*)
-      alias age='echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="9/20/1968 12:00:00" +%s ) ) / 86400 + 1 ))'
       alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade'
-      alias caching_days='echo $(( ( $(date +%s) - $(date --date="11/11/2006 0:00:00" +%s ) ) / 86400 + 1 ))'
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       alias netstatl='sudo lsof -i | grep LISTEN'

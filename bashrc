@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+################################################################################
+
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $ALAN_SHLVL -eq 0 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
    if [[ -d "$HOME/logs" ]] ; then
@@ -90,8 +92,8 @@ esac
 if [ -n "$DISPLAY" ] && [ -x /usr/bin/xclip ] ; then
     # Work around a bash bug: \C-@ does not work in a key binding
     bind '"\C-x\C-m": set-mark'
-    # The '#' characters ensure that kill commands have text to work on; if
-    # not, this binding would malfunction at the start or end of a line.
+    # The '#' characters ensure that kill commands have text to work on.
+    # if not, this binding would malfunction at the start or end of a line.
     bind 'Control-v: "#\C-b\C-k#\C-x\C-?\"$(xclip -o -selection c)\"\e\C-e\C-x\C-m\C-a\C-y\C-?\C-e\C-y\ey\C-x\C-x\C-d"'
 fi
 
@@ -132,6 +134,7 @@ export PATH
 
 ################################################################################
 
+# DIRECTORY BOOKMARKS
 # http://stackoverflow.com/questions/7374534/directory-bookmarking-for-bash
 function cdb() {
     USAGE="Usage: cdb [-c|-g|-d|-l] [bookmark]"
@@ -185,12 +188,6 @@ stty erase 
 # svn requires either EDITOR or SVN_EDITOR
 export SVN_EDITOR=vim
 export EDITOR=vim
-export BROWSER=/home/alan/bin/browser.sh
-
-# some other app preferences
-export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 
 ################################################################################
 
@@ -199,10 +196,13 @@ case $OSTYPE in
       # DEBIAN PACKAGE DEVELOPER STUFF
       export DEBEMAIL="alan.porter@sentosa.us"
       export DEBFULLNAME="Alan Porter"
+      # some other app preferences
+      export BROWSER=/home/alan/bin/browser.sh
+      export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
+      export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+      export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
       ;;
 esac
 
 ################################################################################
-
-# GIT TEST on chutney
 

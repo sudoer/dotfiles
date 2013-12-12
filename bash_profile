@@ -18,10 +18,10 @@ case $OSTYPE in
    darwin*)
       # MacPorts
       export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+      #export CPPFLAGS="-I/opt/local/include $CPPFLAGS"
+      #export LDFLAGS="-L/opt/local/lib $LDFLAGS"
       # Fink
       source /fink/bin/init.sh
-      ##?? export CPPFLAGS="-I/opt/local/include $CPPFLAGS"
-      ##?? export LDFLAGS="-L/opt/local/lib $LDFLAGS"
       ;;
 esac
 
