@@ -26,6 +26,6 @@ machines.
 
 If you have questions or suggestions, feel free to send
 them my way.
-                        Alan Porter
-                        alan@alanporter.com
+
+Alan Porter, alan@alanporter.com
 
