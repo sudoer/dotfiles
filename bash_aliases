@@ -48,6 +48,7 @@ case $OSTYPE in
       function df () {
          /bin/df -Ph | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
+      alias open='xdg-open'
       ;;
    darwin*)
       alias plistdump='plutil -convert xml1 -o - '
