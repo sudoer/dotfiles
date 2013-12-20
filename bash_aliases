@@ -38,6 +38,9 @@ alias week='date +%V'
 function do-over () { cmd=$* ; while true ; do date ; $cmd ; sleep 1 ; done }
 function calc () { python -c "from math import *; print $*"; }
 
+# fix my own mistakes
+function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
+
 # platform-specific
 case $OSTYPE in
    linux-gnu*)
