@@ -70,13 +70,18 @@ set nogdefault  " (do not) assume global '/g' option when searching
 nmap <silent> <leader>/ :nohlsearch<CR> " clear highlighted search
 
 
-"{{{1 === MENU ===
+"{{{1 === TAB COMPLETION ===
 
+" TAB completion:
+" match as much as you can, show options, pressing RIGHT will navigate a list
 set wildmenu
-set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=longest,list
 
 
 "{{{1 === SPELLING ===
+
+" NOTES
+" for spell-checker suggestions, do z=
 
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_us
