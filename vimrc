@@ -214,12 +214,12 @@ set ttimeout ttimeoutlen=100
 
 "{{{1 === SCREEN / TMUX ===
 
-" Fix home and end keybindings for screen, particularly on Mac.
-" (For some reason this fixes the arrow keys too. huh?.
-map  [F $
-imap [F $
-map  [H g0
-imap [H g0
+"DOESNTWORK  " Fix home and end keybindings for screen, particularly on Mac.
+"DOESNTWORK  " (For some reason this fixes the arrow keys too. huh?.
+"DOESNTWORK  map  [F $
+"DOESNTWORK  imap [F $
+"DOESNTWORK  map  [H g0
+"DOESNTWORK  imap [H g0
 
 
 " see http://tmux.cvs.sourceforge.net/viewvc/tmux/tmux/FAQ
