@@ -14,6 +14,8 @@ alias gitlog='git log --abbrev=8 --abbrev-commit --date=short --pretty=format:"%
 alias gitlog1='git log --pretty=oneline | head -20'
 alias gitpullpush='git pull --rebase && git push'
 #function gitrmdeleted () { git rm $(git status | grep '#\s*deleted:' | awk '{print $3}') }
+alias gittree1="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+alias gittree2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 
 # truecrypt
 alias truecrypt="truecrypt --text"
