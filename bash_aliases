@@ -70,6 +70,10 @@ esac
 function tmux() {
 
    local tmux=$(type -fp tmux)
+   if [[ -z $tmux ]] ; then
+      echo "tmux not installed"
+      return
+   fi
 
    case $OSTYPE in
       linux-gnu*)
