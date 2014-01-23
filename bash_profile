@@ -8,15 +8,13 @@ export ALAN_SHLVL=0
 # the default umask is set in /etc/login.defs
 #umask 022
 
-# set PATH so it includes user's private bin if it exists
-[ -d ~/bin ] && PATH="$HOME/bin:$PATH"
-
 # platform-specific
 case $OSTYPE in
    linux-gnu*)
       ;;
    darwin*)
       # MacPorts
+      export PATH="/opt/local/libexec/gnubin:$PATH"
       export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
       #export CPPFLAGS="-I/opt/local/include $CPPFLAGS"
       #export LDFLAGS="-L/opt/local/lib $LDFLAGS"
@@ -24,6 +22,9 @@ case $OSTYPE in
       source /fink/bin/init.sh
       ;;
 esac
+
+# set PATH so it includes user's private bin if it exists
+[ -d ~/bin ] && PATH="$HOME/bin:$PATH"
 
 # welcome, fun
 echo "welcome to $(hostname -s)"

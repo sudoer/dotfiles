@@ -117,13 +117,13 @@ export LC_COLLATE="C"             # sort files in a unixy kind of way
 function path_append () {
    add_me=$1
    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-   [ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ] && PATH="$PATH:$add_me"
+   [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
 }
 
 function path_prepend () {
    add_me=$1
    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-   [ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ] && PATH="$add_me:$PATH"
+   [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
 }
 
 # add these directories if they're not already in the path
