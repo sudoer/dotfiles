@@ -203,6 +203,25 @@ set cursorline           " highlight current line
 highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
 
 
+"{{{1 === COPY/PASTE AND REGISTERS ===
+" :let @x = "something"   - write to a register
+" :dis                    - show all registers
+
+set cpoptions=aABceFs>
+
+
+"{{{1 === COMMAND MODE ===
+
+" NOTES about the "command-line window", a multi-line version of command line:
+" This is often seen when we mis-type :q as q: .
+" From normal mode, q: pulls up the "command-line window" with history of ex commands.
+" From normal mode, q/ pulls up the "command-line window" with history of searches.
+" From command mode, <C-f> expands the current command line into a window.
+
+" history of ex commands
+set history=200
+
+
 "{{{1 === MOUSE ===
 
 " use mouse to switch windows and move cursor
