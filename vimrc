@@ -188,6 +188,26 @@ nnoremap <F7> <C-W>+
 nnoremap <F8> <C-W>>
 
 
+"{{{1 === SCREEN TABS ===
+
+" gt = go to next tab ("go tab")
+" gT = go to previous tab
+" {N}gt = go to tab {N}
+" <C-w>T = break current window out to a new tab
+" :tabnew {filename} = tab edit {filename}
+" vim -p file1 file2 = open in tabs
+
+:hi TabLine     ctermfg=white       ctermbg=22      cterm=none
+:hi TabLineSel  ctermfg=yellow      ctermbg=34      cterm=bold
+:hi TabLineFill ctermfg=lightgreen  ctermbg=22      cterm=none
+:hi Title       ctermfg=cyan
+
+" ALSO - see crazy custom tabline functions
+" http://www.theworldofstuff.com/linux/vimrc.txt
+" http://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
+" http://vim.wikia.com/index.php?title=Show_tab_number_in_your_tab_line&oldid=29439 (GUI only)
+
+
 "{{{1 === CURSOR ===
 
 " remember last cursor position (if within file limits)
