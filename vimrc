@@ -134,6 +134,7 @@ highlight SpecialKey ctermfg=darkblue ctermbg=none cterm=none
 
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
+set ruler
 
 
 "{{{1 === WINDOWS ===
