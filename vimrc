@@ -166,22 +166,22 @@ set splitright
 
 " Quicker window movement with control up/down.
 " NOTE - This does not work on Mac OSX.
-nnoremap <C-Up>    <C-W>k<C-W>_
-nnoremap <C-Down>  <C-W>j<C-W>_
 nnoremap <C-Left>  <C-W>h<C-W>_
+nnoremap <C-Down>  <C-W>j<C-W>_
+nnoremap <C-Up>    <C-W>k<C-W>_
 nnoremap <C-Right> <C-W>l<C-W>_
 
 " Quicker window movement with control h/j/k/l.
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h<C-W>_
+nnoremap <C-j> <C-w>j<C-W>_
+nnoremap <C-k> <C-w>k<C-W>_
+nnoremap <C-l> <C-w>l<C-W>_
 
-" function keys: F5=equal, F4=max
+" function keys: F3=equal, F4=max
 nnoremap <F3> <C-W>=
 nnoremap <F4> <C-W>_
 
-" function keys: F5=left, F6=shorter, F7=taller, F8=right
+" function keys: F5=left, F6=less, F7=more, F8=right
 nnoremap <F5> <C-W><
 nnoremap <F6> <C-W>-
 nnoremap <F7> <C-W>+
