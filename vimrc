@@ -280,9 +280,11 @@ endif
 " NOTES
 " find next/prev change ]c/[c
 " obtain/put diff from/to other window: do/dp
-" do a diff on existing vsplit: :diffthis
-" refresh diffs: :diffupdate
-" stop doing diff: :diffoff
+" do a diff on existing vsplit >> :diffthis
+" refresh diffs >> :diffupdate
+" stop doing diff >> :diffoff
+" neat trick >> :newtab file1, :vsp file2, :windo diffthis
+" shorter >> :newtab file1, :vert diffsplit file2 (or :diffsplit file2 for horizontal split)
 
 if &diff
    "set t_Co=256
