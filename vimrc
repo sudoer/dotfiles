@@ -7,6 +7,94 @@
 " NOTES
 " - <leader> key is defined as backslash, used for my custom keystrokes
 
+"{{{1 === CURSOR MOVEMENT ===
+
+" to move cursor up/down to DISPLAY lines (on long wrapped lines) >> gj/gk
+" to move cursor to beginning/end of DISPLAY lines >> g0/g$
+
+" swap REAL vs DISPLAY line up/down motions:
+"" nnoremap k gk
+"" nnoremap gk k
+"" nnoremap j gj
+"" nnoremap gj j
+
+" train yourself not to use the arrow keys (temporary)
+"" noremap <Up>    <Nop>
+"" noremap <Down>  <Nop>
+"" noremap <Left>  <Nop>
+"" noremap <Right> <Nop>
+
+" w = next word, b = back a word (use W/B for WORDS)
+" ALSO, e = end of word, ge = end of previous word
+
+" f = find char, ; = find again
+" F = backwards find char, , = backwards find again
+" t = search "unTil" before char, T = search backwards "unTil"
+
+let mapleader="\\"
+"" TO SWAP \ AND , >> let mapleader=","
+"" TO SWAP \ AND , >> noremap \ ,
+
+
+"{{{1 === VISUAL MODE ===
+
+" v = visual mode by char
+" V = visual mode by line
+" <C-v> = visual mode by block
+
+
+"{{{1 === OPERATOR PENDING MODE ===
+
+" d_ = delete _something_
+" c_ = change _semething_
+" y_ = yank _something_
+
+
+"{{{1 === MARKS ===
+
+" mx = set mark x
+" 'x = go to line of mark x
+" `x = go to mark x
+
+" special marks:
+" `` = position before the last jump within current file
+" `. = location of last change
+" `^ = location of last insertion
+" `[ = start of last change or yank
+" `] = end of last change or yank
+" `< = start of last visual selection
+" `> = end of last visual selection
+
+
+"{{{1 === COMMAND MODE ===
+
+" NOTES about the "command-line window", a multi-line version of command line:
+" This is often seen when we mis-type :q as q: .
+" From normal mode, q: pulls up the "command-line window" with history of ex commands.
+" From normal mode, q/ pulls up the "command-line window" with history of searches.
+" From command mode, <C-f> expands the current command line into a window.
+
+" history of ex commands
+set history=200
+
+
+"{{{1 === TEXT OBJECTS ===
+
+" delimited (block) text object = a delimited piece of text, like xml tag, string, stuff in parens, etc
+"    ) = parens, } = curly braces, ] = square brackets, > = angle brackets
+"    b = braces (parens), B = curly braces, "    ] = square brackets, > = angle brackets, t = xml tags,
+"    ' = single quotes, " = double quotes, ` = backticks
+" language (non-block) text object
+"    w = word, W = WORD, s = sentence, p = paragraph
+
+" use text objects in visual mode to select a block
+" use text objects in operator pending mode to operate on a block
+
+" i_ = INSIDE a text object, where _ is one of >> ) } ] > ` ' " t b B
+" a_ = AROUND a text object
+" usually, you CHANGE INSIDE and DELETE AROUND
+
+
 "{{{1 === BACKUPS ===
 
 ""  " save backup files~ to $HOME/.vim-save
@@ -101,6 +189,7 @@ set number
 set showmatch
 set matchpairs=(:),{:},[:]
 set matchpairs+=<:>
+" move between matching pairs >> %
 
 " wrapping
 set nowrap
@@ -202,13 +291,17 @@ nnoremap <F8> <C-W>>
 :hi TabLineFill ctermfg=lightgreen  ctermbg=22      cterm=none
 :hi Title       ctermfg=cyan
 
+" function keys: F9=prev, F10=next
+nnoremap <F9>  gT
+nnoremap <F10> gt
+
 " ALSO - see crazy custom tabline functions
 " http://www.theworldofstuff.com/linux/vimrc.txt
 " http://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
 " http://vim.wikia.com/index.php?title=Show_tab_number_in_your_tab_line&oldid=29439 (GUI only)
 
 
-"{{{1 === CURSOR ===
+"{{{1 === CURSOR APPEARANCE ===
 
 " remember last cursor position (if within file limits)
 autocmd BufReadPost *
@@ -222,24 +315,11 @@ set virtualedit=onemore  " past right end by one
 set cursorline           " highlight current line
 highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
 
-
 "{{{1 === COPY/PASTE AND REGISTERS ===
 " :let @x = "something"   - write to a register
 " :dis                    - show all registers
 
 set cpoptions=aABceFs>
-
-
-"{{{1 === COMMAND MODE ===
-
-" NOTES about the "command-line window", a multi-line version of command line:
-" This is often seen when we mis-type :q as q: .
-" From normal mode, q: pulls up the "command-line window" with history of ex commands.
-" From normal mode, q/ pulls up the "command-line window" with history of searches.
-" From command mode, <C-f> expands the current command line into a window.
-
-" history of ex commands
-set history=200
 
 
 "{{{1 === MOUSE ===
@@ -401,7 +481,14 @@ if has('gui_macvim')
 endif
 
 
-"{{{1 === PATHOGEN ===
+"{{{1 === PLUGINS ===
+
+" "matchit", a built-in vim plugin - match keyword pairs (if/endif)
+" "surround" by Tim Pope - changes surrounding quotes or brackets
+
+
+"{{{1 === PLUGIN:PATHOGEN ===
+
 " see https://github.com/tpope/vim-pathogen
 " see http://www.vim.org/scripts/script.php?script_id=2332
 if filereadable(expand("~/.vim/autoload/pathogen.vim"))
@@ -409,7 +496,7 @@ if filereadable(expand("~/.vim/autoload/pathogen.vim"))
 endif
 
 
-"{{{1 === EXPERIMENTS ===
+"{{{1 === FOR FURTHER STUDY ===
 
 "if !exists("autocommands_loaded")
 "  let autocommands_loaded = 1
