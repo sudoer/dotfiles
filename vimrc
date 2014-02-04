@@ -58,8 +58,8 @@ let mapleader="\\"
 
 " special marks:
 " `` = position before the last jump within current file
-" `. = location of last change
-" `^ = location of last insertion
+" `. = location of last change (g; will go back through changes, g, will go forward)
+" `^ = location of last insertion (gi will continue inserting here)
 " `[ = start of last change or yank
 " `] = end of last change or yank
 " `< = start of last visual selection
@@ -513,6 +513,7 @@ endif
 
 " IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
+" vim: jumplist, changelist, vimgrep
 
 "}}}1
 
