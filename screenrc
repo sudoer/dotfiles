@@ -1,4 +1,6 @@
 
+escape ^Bb
+
 ### COLOR ###
 term screen-256color
 
