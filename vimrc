@@ -350,15 +350,29 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 "   / contains the last search pattern
 
 " from command mode:
-" :let @x = "something"   - write to a register
-" :reg 0a                 - show specific registers
-" :reg                    - show all registers
-" :dis                    - show all registers
+" :let @x = "foo" - write to a register
+" :reg 0a         - show specific registers
+" :reg            - show all registers
+" :dis            - show all registers
+" :put x          - put contents of register x below the current line
 
 " When appending to a register, put a line break before the appended text.
 set cpoptions+=>
 
 " gp and gP paste, but leave the cursor at the other end
+
+
+"{{{1 === MACROS ===
+
+" start recording macro x >> qx
+" use lowercase letters to REPLACE register contents
+" use uppercase letters to APPEND register contents
+" end recording macro >> q
+
+" in normal mode >> @x
+" in visual mode >> '<,'>normal @x  (runs macro once for each selected line)
+" to see macro contents >> :reg x
+" to run a macro on all files >> :argdo normal @x
 
 
 "{{{1 === MOUSE ===
@@ -398,7 +412,7 @@ endif
 
 " NOTES
 " find next/prev change ]c/[c
-" obtain/put diff from/to other window: do/dp
+" obtain/put diff from/to other window >> do/dp
 " do a diff on existing vsplit >> :diffthis
 " refresh diffs >> :diffupdate
 " stop doing diff >> :diffoff
@@ -428,7 +442,7 @@ highlight DiffChange cterm=none ctermfg=11  ctermbg=17 gui=none guifg=bg guibg=R
 highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=Red
 
 
-"{{{1 === HUH? ===
+"{{{1 === HUH? WILD STUFF ===
 
 " For when you forget to sudo.. Really Write the file.
 " (Note mapping w!! causes a weird pause on all :w's)
