@@ -1,6 +1,7 @@
 
 " This file starts off FOLDED. Do zo to unfold a section or zR to unfold all.
-" vim: fdm=marker fmr={{{,}}}
+" vim: fmr={{{,}}}
+" vim: fdm=marker
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -77,6 +78,9 @@ let mapleader="\\"
 " history of ex commands
 set history=200
 
+" map %% to 'directory of current file', normally done using %:h
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 
 "{{{1 === TEXT OBJECTS ===
 
@@ -139,6 +143,13 @@ highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
 
 
 "{{{1 === FOLDING ===
+
+" zo = fold open one
+" zc = fold close one
+" zr = fold reduce one level
+" zR = fold reduce all levels
+" zm = fold more one level
+" zM = fold more all levels
 
 set foldenable
 set foldmethod=manual
@@ -392,8 +403,9 @@ highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=R
 "{{{1 === HUH? ===
 
 " For when you forget to sudo.. Really Write the file.
-" (but this causes a weird pause on all W's in command line)
-"" cmap w!! w !sudo tee % >/dev/null
+" (Note mapping w!! causes a weird pause on all :w's)
+cmap W! w !sudo tee % >/dev/null
+" From command mode, do >> :w !sudo tee % > /dev/null
 
 " do not interpret numbers with leading zeros as octal
 " set nrformats=
@@ -516,5 +528,4 @@ endif
 " vim: jumplist, changelist, vimgrep
 
 "}}}1
-
 
