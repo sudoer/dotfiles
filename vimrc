@@ -327,10 +327,38 @@ set cursorline           " highlight current line
 highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
+
+" from normal mode:
+" "xd = delete into register x
+" "xy = yank from register x
+" "xp = paste from register x
+" use lowercase letters to REPLACE register contents
+" use uppercase letters to APPEND register contents
+
+" from insert mode:
+" <C-r>x = insert contents of register x
+
+" some registers of interest:
+"   0 contains last YANK (not affected by x, (d)elete or (c)hange)
+"   + is the system clipboard
+"   * is the system select (X11 "primary")
+"   = is the "expression register", drops into command mode to take an expression
+"   % contains the current filename
+"   # contains that alternate filename
+"   . contains the last inserted text
+"   : contains the last ex command
+"   / contains the last search pattern
+
+" from command mode:
 " :let @x = "something"   - write to a register
+" :reg 0a                 - show specific registers
+" :reg                    - show all registers
 " :dis                    - show all registers
 
-set cpoptions=aABceFs>
+" When appending to a register, put a line break before the appended text.
+set cpoptions+=>
+
+" gp and gP paste, but leave the cursor at the other end
 
 
 "{{{1 === MOUSE ===
@@ -525,7 +553,7 @@ endif
 
 " IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
-" vim: jumplist, changelist, vimgrep
+" vim >> jumplist, changelist, vimgrep
 
 "}}}1
 
