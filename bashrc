@@ -71,8 +71,9 @@ case $OSTYPE in
       fi
       ;;
    darwin*)
+      export CLICOLOR=1
       export LSCOLORS="Exfxcxdxbxegedabagacad"
-      alias ls='ls -G'
+      alias ls='/bin/ls -G'
       export GREP_OPTIONS='--color=auto'
       export GREP_COLOR='1;31'
       export LESS='-R'

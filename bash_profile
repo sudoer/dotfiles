@@ -14,12 +14,10 @@ case $OSTYPE in
       ;;
    darwin*)
       # MacPorts
-      export PATH="/opt/local/libexec/gnubin:$PATH"
-      export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-      #export CPPFLAGS="-I/opt/local/include $CPPFLAGS"
-      #export LDFLAGS="-L/opt/local/lib $LDFLAGS"
-      # Fink
-      source /fink/bin/init.sh
+      export PATH="/opt/macports/bin:/opt/macports/sbin:$PATH"
+      export PATH="/opt/macports/libexec/gnubin:$PATH"
+      # Fink (before MacPorts in search path)
+      source /opt/fink/bin/init.sh
       ;;
 esac
 
