@@ -40,6 +40,7 @@ let mapleader="\\"
 " v = visual mode by char
 " V = visual mode by line
 " <C-v> = visual mode by block
+" gv = re-select last visual mode selection
 
 
 "{{{1 === OPERATOR PENDING MODE ===
@@ -167,6 +168,12 @@ highlight Folded      ctermfg=blue  ctermbg=none
 " \x = hex character
 " \zs \ze = define submatch (find quoted string, match just the string)
 
+" search suffixes:
+" g = global (many per line)
+" c = confirm
+" n = no (just show count, do not replace)
+" e = suppress errors
+
 set incsearch
 set hlsearch
 highlight search    ctermfg=yellow ctermbg=darkblue cterm=bold
@@ -182,8 +189,17 @@ set nogdefault  " (do not) assume global '/g' option when searching
 " \/ will clear highlighted search
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 
+" from NORMAL or VISUAL mode
+" make & repeat the last search/replace/flags
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
 
-" nice trick: find repeated words /\v<(\w+)\_s+\1>
+" nice tricks:
+" find repeated words >> /\v<(\w+)\_s+\1>
+" :&& = repeat same search, same replace, same flags (nice to use from VISUAL MODE)
+" g& = :%&& = :%s//~/& = repeat same search, same replace, same flags, for ALL lines
+" :%s/\d\+/\=submatch(0)-1/g = add one to every number
+" :s/\v(<man>|<dog>)/\={"foo":"bar","bar":"foo"}[submatch(1)]/g = swap 'foo' and 'bar'
 
 
 "{{{1 === TAB COMPLETION ===
@@ -367,11 +383,13 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 "   / contains the last search pattern
 
 " from command mode:
+" <C-r>x = insert contents of register x
 " :let @x = "foo" - write to a register
 " :reg 0a         - show specific registers
 " :reg            - show all registers
 " :dis            - show all registers
 " :put x          - put contents of register x below the current line
+" :%s//\=@0/g     - use register 0 (yank register) as replacement text
 
 " When appending to a register, put a line break before the appended text.
 set cpoptions+=>
@@ -459,6 +477,12 @@ highlight DiffChange cterm=none ctermfg=11  ctermbg=17 gui=none guifg=bg guibg=R
 highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=Red
 
 
+"{{{1 === VIMGREP ===
+
+" search >> :vimgrep pattern filenames
+" puts results in the quickfix list, to view >> :copen
+
+
 "{{{1 === HUH? WILD STUFF ===
 
 " For when you forget to sudo.. Really Write the file.
@@ -508,6 +532,13 @@ if !exists("alan_largefile_protection")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
   augroup END
 endif
+
+
+"{{{1 === MULTIPLE FILES ===
+
+" to work with many files >> :args **/*.txt
+" to allow navigating away from files without closing >> :hidden
+" to search/replace across all files >> :argdo %s/foo/bar/ge
 
 
 "{{{1 === OS DETECTION ===
