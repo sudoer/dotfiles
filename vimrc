@@ -180,7 +180,8 @@ set smartcase
 set nogdefault  " (do not) assume global '/g' option when searching
 
 " \/ will clear highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
+
 
 " nice trick: find repeated words /\v<(\w+)\_s+\1>
 
