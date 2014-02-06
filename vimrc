@@ -5,9 +5,6 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" NOTES
-" - <leader> key is defined as backslash, used for my custom keystrokes
-
 "{{{1 === CURSOR MOVEMENT ===
 
 " to move cursor up/down to DISPLAY lines (on long wrapped lines) >> gj/gk
@@ -32,9 +29,10 @@
 " F = backwards find char, , = backwards find again
 " t = search "unTil" before char, T = search backwards "unTil"
 
+" <leader> key defaults to backslash, I use it for my custom keystrokes
 let mapleader="\\"
-"" TO SWAP \ AND , >> let mapleader=","
-"" TO SWAP \ AND , >> noremap \ ,
+"" TO SWAP \ AND , DO THIS >> let mapleader=","
+"" TO SWAP \ AND , DO THIS >> noremap \ ,
 
 
 "{{{1 === VISUAL MODE ===
@@ -380,7 +378,7 @@ set cpoptions+=>
 " use mouse to switch windows and move cursor
 set ttymouse=xterm2
 set mouse=n
-nmap <silent> <leader>m set mouse=<CR>
+nmap <silent> <leader>m :set mouse=<CR>
 
 
 "{{{1 === KEYBOARD ===
