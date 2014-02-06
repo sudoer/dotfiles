@@ -157,14 +157,32 @@ highlight Folded      ctermfg=blue  ctermbg=none
 
 "{{{1 === SEARCH ===
 
+" special search codes:
+" \C = force case-sensitive search
+" \c = force case-insensitive search
+" \m = use vim's default "magic" search (ALMOST regex)
+" \M = use vi's older "nomagic" search
+" \v = very magic search (very regex, all punctuation except _ have special meaning)
+" \V = very nomagic search, or "verbatim" search (only \ has special meaning)
+" \x = hex character
+" \zs \ze = define submatch (find quoted string, match just the string)
+
 set incsearch
 set hlsearch
-set noignorecase
-set nosmartcase
 highlight search    ctermfg=yellow ctermbg=darkblue cterm=bold
 highlight incsearch ctermfg=white  ctermbg=cyan cterm=bold
+
+" ignore case... unless we type an uppercase in the search
+" or use \c or \C to force case insensitive or sensitive
+set ignorecase
+set smartcase
+
 set nogdefault  " (do not) assume global '/g' option when searching
-nmap <silent> <leader>/ :nohlsearch<CR> " clear highlighted search
+
+" \/ will clear highlighted search
+nmap <silent> <leader>/ :nohlsearch<CR>
+
+" nice trick: find repeated words /\v<(\w+)\_s+\1>
 
 
 "{{{1 === TAB COMPLETION ===
