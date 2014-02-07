@@ -35,10 +35,12 @@ function endscript () {
 
 # other
 alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
+alias logterm="exec script \"$HOME/logs/terminal.\$(date +%Y%m%d.%H%M%S).\$$\""
 alias rot13="gcipher -c Rot -k 13"
 alias week='date +%V'
 function do-over () { cmd=$* ; while true ; do date ; $cmd ; sleep 1 ; done }
 function calc () { python -c "from math import *; print $*"; }
+function daysince () { echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="$1 12:00:00" +%s ) ) / 86400 + 1 )); }
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
