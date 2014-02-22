@@ -1,4 +1,3 @@
-
 " This file starts off FOLDED. Do zo to unfold a section or zR to unfold all.
 " vim: fmr={{{,}}}
 " vim: fdm=marker
@@ -41,6 +40,8 @@ let mapleader="\\"
 " V = visual mode by line
 " <C-v> = visual mode by block
 " gv = re-select last visual mode selection
+
+" see colorscheme
 
 
 "{{{1 === OPERATOR PENDING MODE ===
@@ -134,11 +135,8 @@ syntax enable
 set t_Co=256
 
 " see :help group-name
-set bg=dark
-highlight Comment     ctermfg=cyan  ctermbg=none cterm=none
-highlight Identifier  ctermfg=green ctermbg=none cterm=none
-highlight PreProc     ctermfg=white ctermbg=none cterm=bold
-highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
+" see :help hl-normal (and friends)
+colorscheme alanporter1
 
 
 "{{{1 === FOLDING ===
@@ -153,7 +151,6 @@ highlight Ignore      ctermfg=grey  ctermbg=none cterm=none
 set foldenable
 set foldmethod=manual
 set foldmarker={{{,}}}
-highlight Folded      ctermfg=blue  ctermbg=none
 
 
 "{{{1 === SEARCH ===
@@ -176,8 +173,6 @@ highlight Folded      ctermfg=blue  ctermbg=none
 
 set incsearch
 set hlsearch
-highlight search    ctermfg=yellow ctermbg=darkblue cterm=bold
-highlight incsearch ctermfg=white  ctermbg=cyan cterm=bold
 
 " ignore case... unless we type an uppercase in the search
 " or use \c or \C to force case insensitive or sensitive
@@ -218,10 +213,6 @@ set wildmode=longest,list
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_us
 set spell
-highlight SpellBad   ctermfg=none ctermbg=none cterm=underline
-highlight SpellCap   ctermfg=none ctermbg=none cterm=underline
-highlight SpellRare  ctermfg=none ctermbg=none cterm=underline
-highlight SpellLocal ctermfg=none ctermbg=none cterm=underline
 
 
 "{{{1 === LINE NUMBERS ===
@@ -259,8 +250,7 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
 "  - the "NonText" highlighting group for "eol", "extends" and "precedes"
 "  - the "SpecialKey" highlighting group for "nbsp", "tab" and "trail"
 " See ":help 'listchars'".
-highlight NonText ctermfg=238 ctermbg=none cterm=none
-highlight SpecialKey ctermfg=darkblue ctermbg=none cterm=none
+" see colorscheme
 
 
 "{{{1 === SCREEN LAYOUT ===
@@ -330,11 +320,6 @@ nnoremap <F8> <C-W>>
 " :tabnew {filename} = tab edit {filename}
 " vim -p file1 file2 = open in tabs
 
-:hi TabLine     ctermfg=white       ctermbg=22      cterm=none
-:hi TabLineSel  ctermfg=yellow      ctermbg=34      cterm=bold
-:hi TabLineFill ctermfg=lightgreen  ctermbg=22      cterm=none
-:hi Title       ctermfg=cyan
-
 " function keys: F9=prev, F10=next
 nnoremap <F9>  gT
 nnoremap <F10> gt
@@ -357,7 +342,7 @@ autocmd BufReadPost *
 set scrolloff=3          " within 3 of top/bottom
 set virtualedit=onemore  " past right end by one
 set cursorline           " highlight current line
-highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of current line
+
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
 
@@ -374,8 +359,8 @@ highlight cursorline ctermfg=none ctermbg=234 cterm=none " highlight bg color of
 " some registers of interest:
 "   0 contains last YANK (not affected by x, (d)elete or (c)hange)
 "   + is the system clipboard
-"   * is the system select (X11 "primary")
-"   = is the "expression register", drops into command mode to take an expression
+"   * is the system select (X11 'primary')
+"   = is the 'expression register', drops into command mode to take an expression
 "   % contains the current filename
 "   # contains that alternate filename
 "   . contains the last inserted text
@@ -457,7 +442,7 @@ endif
 if &diff
    "set t_Co=256
    "set background=dark
-   "colorscheme peaksea
+   "colorscheme alanporter1
 endif
 
 "set diffopt=iwhite,icase
@@ -470,11 +455,6 @@ set diffopt=filler,context:9
 "" highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 "" highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 
-" use more intuitive colors than normal vimdiff
-highlight DiffAdd    cterm=bold ctermfg=229 ctermbg=28 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=124 ctermbg=88 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=none ctermfg=11  ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=Red
 
 
 "{{{1 === VIMGREP ===
@@ -483,8 +463,7 @@ highlight DiffText   cterm=bold ctermfg=11  ctermbg=4  gui=none guifg=bg guibg=R
 " puts results in the quickfix list, to view >> :copen
 
 
-"{{{1 === HUH? WILD STUFF ===
-
+"{{{1 === HUH? WILD STUFF === 
 " For when you forget to sudo.. Really Write the file.
 " (Note mapping w!! causes a weird pause on all :w's)
 cmap W! w !sudo tee % >/dev/null
@@ -521,8 +500,7 @@ if !exists("alan_largefile_protection")
   let alan_largefile_protection = 1
   " Large files are > 10M
   " Set options:
-  " eventignore+=FileType (no syntax highlighting etc
-  " assumes FileType always on)
+  " eventignore+=FileType (no syntax highlighting etc assumes FileType always on)
   " noswapfile (save copy of file)
   " bufhidden=unload (save memory when other file is viewed)
   " buftype=nowritefile (is read-only)
@@ -557,14 +535,14 @@ endif
 "{{{1 === GVIM ===
 
 if has('gui_running')
-   " colors
-   """color vo_dark
-   hi Normal guibg=black guifg=yellow
-   set bg=dark
-   syn on
-   " size
-   set lines=50
-   set columns=120
+"  " colors
+"  """color vo_dark
+"  hi Normal guibg=black guifg=yellow
+"  set bg=dark
+"  syn on
+"  " size
+"  set lines=50
+"  set columns=120
 endif
 
 
@@ -572,14 +550,14 @@ endif
 
 if has('gui_macvim')
    " colors
-   hi Normal guibg=black guifg=white
-   set guifont=Monaco:h14
+   """ hi Normal guibg=black guifg=white
+   """ set guifont=Monaco:h14
    " GUI Option to remove the Toolbar (T)
-   set guioptions-=T
-   colorscheme shine
+   """ set guioptions-=T
+   """ colorscheme shine
    " size
-   set lines=32
-   set columns=110
+   """ set lines=32
+   """ set columns=110
 endif
 
 
