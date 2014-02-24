@@ -73,7 +73,10 @@ function custom_prompt {
    local gitbranch=$(prompt_git_branch)
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n${level}" ; fi
 
-   local time="${LTPURPLE}\t${RESET}"
+   # weekdays=('?' 'm' 't' 'w' 'h' 'f' 's' 'S')
+   # dow=${weekdays[$(date +%u)]}
+   dom=$(date +%d)
+   local time="${LTPURPLE}${dom}${PURPLE}/${LTPURPLE}\t${RESET}"
 
    local usercolor="${LTGREEN}"
    if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
