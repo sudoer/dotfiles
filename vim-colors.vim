@@ -11,10 +11,10 @@ highlight SpecialKey       ctermfg=darkblue     ctermbg=none       cterm=none   
 
 " CURRENT POSITION
 highlight CursorLine       ctermfg=none         ctermbg=234        cterm=none   " highlight bg color of current line
-highlight CursorColumn     ctermfg=none         ctermbg=none       cterm=BOLD
+highlight CursorColumn     ctermfg=none         ctermbg=none       cterm=bold
 highlight Cursor           ctermfg=black        ctermbg=white      cterm=reverse
 highlight LineNr           ctermfg=243          ctermbg=235        cterm=none
-highlight CursorLineNr     ctermfg=235          ctermbg=243        cterm=none   " MacVIM only ?
+highlight CursorLineNr     ctermfg=yellow       ctermbg=232        cterm=bold
 
 " MORE POSITION
 highlight Visual           ctermfg=none         ctermbg=darkgray   cterm=none
@@ -28,7 +28,7 @@ highlight TabLineFill      ctermfg=lightgreen   ctermbg=22         cterm=none
 " STATUS BAR
 highlight StatusLine       ctermfg=white        ctermbg=darkgray   cterm=none
 highlight StatusLineNC     ctermfg=yellow       ctermbg=238        cterm=none
-highlight ModeMsg          ctermfg=black        ctermbg=cyan       cterm=BOLD    " mode, like --INSERT--
+highlight ModeMsg          ctermfg=black        ctermbg=cyan       cterm=bold    " mode, like --INSERT--
 
 " SCREEN AREAS
 highlight VertSplit        ctermfg=237          ctermbg=238        cterm=none
