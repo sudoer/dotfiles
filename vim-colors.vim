@@ -11,23 +11,24 @@ highlight SpecialKey       ctermfg=darkblue     ctermbg=none       cterm=none   
 
 " CURRENT POSITION
 highlight CursorLine       ctermfg=none         ctermbg=234        cterm=none   " highlight bg color of current line
+highlight CursorLineNr     ctermfg=yellow       ctermbg=234        cterm=bold
+highlight LineNr           ctermfg=244          ctermbg=235        cterm=none
 highlight CursorColumn     ctermfg=none         ctermbg=none       cterm=bold
 highlight Cursor           ctermfg=black        ctermbg=white      cterm=reverse
-highlight LineNr           ctermfg=243          ctermbg=235        cterm=none
-highlight CursorLineNr     ctermfg=yellow       ctermbg=232        cterm=bold
 
 " MORE POSITION
 highlight Visual           ctermfg=none         ctermbg=darkgray   cterm=none
 highlight MatchParen       ctermfg=none         ctermbg=darkcyan   cterm=none
 
 " TABS
-highlight TabLineSel       ctermfg=yellow       ctermbg=34         cterm=bold
-highlight TabLine          ctermfg=white        ctermbg=22         cterm=none
+highlight TabLineSel       ctermfg=white        ctermbg=34         cterm=bold
+highlight TabLine          ctermfg=lightgray    ctermbg=22         cterm=none
 highlight TabLineFill      ctermfg=lightgreen   ctermbg=22         cterm=none
+highlight Title            ctermfg=darkcyan     ctermbg=none       cterm=none   " num splits in tab, title on :set all
 
 " STATUS BAR
-highlight StatusLine       ctermfg=white        ctermbg=darkgray   cterm=none
-highlight StatusLineNC     ctermfg=yellow       ctermbg=238        cterm=none
+highlight StatusLine       ctermfg=white        ctermbg=245        cterm=bold
+highlight StatusLineNC     ctermfg=lightgray    ctermbg=238        cterm=none
 highlight ModeMsg          ctermfg=black        ctermbg=cyan       cterm=bold    " mode, like --INSERT--
 
 " SCREEN AREAS
@@ -59,7 +60,6 @@ highlight WarningMsg       ctermfg=white        ctermbg=red        cterm=none
 highlight Question         ctermfg=yellow       ctermbg=none       cterm=none
 
 " OTHER SCREENS, like :set all
-highlight Title            ctermfg=225          ctermbg=none       cterm=bold   " title from :set all
 highlight MoreMsg          ctermfg=121          ctermbg=none       cterm=bold    " MORE prompt
 
 " SYNTAX HIGHLIGHTING
