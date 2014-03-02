@@ -257,6 +257,8 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
 
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
+" show character under cursor (%b\ 0x%B), line (%l), column (%c), percentage (%P)
+set statusline=%<%f%h%m%r%=%b\ 0x%B\ \ %l,%c%V\ %P
 set ruler
 
 
