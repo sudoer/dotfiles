@@ -136,7 +136,10 @@ set t_Co=256
 
 " see :help group-name
 " see :help hl-normal (and friends)
-colorscheme alanporter1
+
+if filereadable(expand("~/.vim/colors/alanporter1.vim"))
+    colorscheme alanporter1
+endif
 
 
 "{{{1 === FOLDING ===
