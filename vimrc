@@ -139,6 +139,8 @@ set t_Co=256
 
 if filereadable(expand("~/.vim/colors/alanporter1.vim"))
     colorscheme alanporter1
+else
+    set bg=dark
 endif
 
 
@@ -216,6 +218,13 @@ set wildmode=longest,list
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_us
 set spell
+
+" NOTE - This may be overridden if we include a color scheme.
+" But we include it here to look OK with the default color scheme.
+highlight SpellBad    ctermfg=none  ctermbg=none  cterm=underline
+highlight SpellCap    ctermfg=none  ctermbg=none  cterm=underline
+highlight SpellRare   ctermfg=none  ctermbg=none  cterm=underline
+highlight SpellLocal  ctermfg=none  ctermbg=none  cterm=underline
 
 
 "{{{1 === LINE NUMBERS ===
@@ -599,6 +608,7 @@ endif
 " IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
 " vim >> jumplist, changelist, vimgrep
+
 
 "}}}1
 
