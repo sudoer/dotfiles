@@ -252,9 +252,11 @@ highlight Directory        ctermfg=lightblue    ctermbg=none       cterm=none
 " zm = fold more one level
 " zM = fold more all levels
 
-set foldenable
-set foldmethod=manual
-set foldmarker={{{,}}}
+if has('folding')
+   set foldenable
+   set foldmethod=manual
+   set foldmarker={{{,}}}
+endif
 
 
 "{{{1 === SEARCH ===
@@ -504,9 +506,11 @@ set cpoptions+=>
 "{{{1 === MOUSE ===
 
 " use mouse to switch windows and move cursor
-set ttymouse=xterm2
-set mouse=n
-nmap <silent> <leader>m :set mouse=<CR>
+if has('mouse')
+   set ttymouse=xterm2
+   set mouse=n
+   nmap <silent> <leader>m :set mouse=<CR>
+endif
 
 
 "{{{1 === KEYBOARD ===
@@ -633,7 +637,6 @@ if !v:shell_error
    endif
    if s:uname == "Darwin"
       " do Mac stuff here
-      set mouse=
    endif
 endif
 
