@@ -2,6 +2,8 @@
 " vim: fmr={{{,}}}
 " vim: fdm=marker
 
+" edit, then source it back in using >> :so %  or  :so $MYVIMRC
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "{{{1 === CURSOR MOVEMENT ===
@@ -314,11 +316,20 @@ set wildmode=longest,list
 "{{{1 === SPELLING ===
 
 " NOTES
-" for spell-checker suggestions, do z=
+" navigate to next/prev spelling error >> [s / ]s
+" for spell-checker suggestions >> z=
+" from insert mode >> <C-x><C-s> for spelling autocompletion
+" same thing, but scan backwards from cursor >> <C-x>s
+
+" add word to spellcheck file >> zg
+" remove word from spellcheck file >> zw
+" undo add/remove >> zug
 
 nmap <silent> <leader>s :set spell!<CR>
-set spelllang=en_us
+set spelllang=en   " or en_us
 set spell
+
+" add project spellfile >> setlocal spellfile+=~/work/myjargon.utf-8.add
 
 
 "{{{1 === LINE NUMBERS ===
@@ -619,6 +630,8 @@ set diffopt=filler,context:9
 
 "{{{1 === QUICK NAVIGATION ===
 
+" navigate to next/prev spelling error >> [s / ]s
+
 " stolen from https://github.com/tpope/vim-unimpaired/
 
 " buffers
@@ -767,6 +780,10 @@ endif
 
 "{{{1 === PLUGINS ===
 
+set nocompatible
+filetype plugin on
+
+" check theese out:
 " "matchit", a built-in vim plugin - match keyword pairs (if/endif)
 " "surround" by Tim Pope - changes surrounding quotes or brackets
 
