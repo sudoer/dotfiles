@@ -573,7 +573,102 @@ set diffopt=filler,context:9
 " puts results in the quickfix list, to view >> :copen
 
 
-"{{{1 === HUH? WILD STUFF === 
+"{{{1 === CTAGS ===
+
+" install package: exuberant-ctags
+" push to definition of tag >> <C-]> or :tag {keyword} or Ctrl-LeftClick
+" pop to previous tag position >> <C-t> or Ctrl-RightClick
+
+" for a menu of multiple matches >> g<C-]> or :tjump {keyword}
+" after-the-fact, to get the menu >> :tselect
+" to go to other matches >> :tnext, :tprev, :tfirst, :tlast
+
+" open the definition in a new split >> <C-w><C-]>
+" open the definition in a new vertical split >> map <something> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" open the definition in a new tab >> map <something> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+" to re-gen tags after every write >>
+" :autocmd BufWritePost * call system("ctags -R")
+
+
+"{{{1 === JUMP LIST ===
+
+" go back through the jump list >> <C-o>
+" go forward through the jump list >> <C-i>
+" show the jump list >> :jumps
+
+
+"{{{1 === MAKE / QUICK FIX LIST / LOCATION LIST ===
+
+" to make and jump to first error >> :make
+" to make without moving >> :make!
+
+" go back through the quick fix list >> :cnext
+" go forward through the quick fix list >> :cprev
+" also >> :cfirst, :clast, :cnfile, :cpfile, :cc N, :copen, :cclose
+
+" location list is like quick list... except:
+" - location list is per-window, quick fix list is global
+" - use :lmake, :lgrep, :lvimdiff
+" - location list commands use l instead of c
+
+" run some other command with :make >> :setlocal makeprg=blah\ blah\ %
+" tell vim how to parse errors >> :setlocal errorformat=...
+" similarly, :grep can be changed with grepprg and grepformat
+
+
+"{{{1 === QUICK NAVIGATION ===
+
+" stolen from https://github.com/tpope/vim-unimpaired/
+
+" buffers
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" argument list
+nnoremap <silent> [a :previous<CR>
+nnoremap <silent> ]a :next<CR>
+nnoremap <silent> [A :first<CR>
+nnoremap <silent> ]A :last<CR>
+
+" quixfix list
+nnoremap <silent> [q :cprevious<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [Q :cfirst<CR>
+nnoremap <silent> ]Q :clast<CR>
+
+" location list
+nnoremap <silent> [l :lprevious<CR>
+nnoremap <silent> ]l :lnext<CR>
+nnoremap <silent> [L :lfirst<CR>
+nnoremap <silent> ]L :llast<CR>
+
+" tags
+nnoremap <silent> [t :tprevious<CR>
+nnoremap <silent> ]t :tnext<CR>
+nnoremap <silent> [T :tfirst<CR>
+nnoremap <silent> ]T :tlast<CR>
+
+
+"{{{1 === AUTOCOMPLETE ===
+
+" <C-n>      Generic keywords
+" <C-x><C-n> Current buffer keywords
+" <C-x><C-i> Included file keywords
+" <C-x><C-]> tags file keywords
+" <C-x><C-k> Dictionary lookup
+" <C-x><C-l> Whole line completion
+" <C-x><C-f> Filename completion
+" <C-x><C-o> Omni-completion
+
+" define which categories are used for "generic" complete
+set complete=.,w,b,u,t,i
+
+
+"{{{1 === HUH? WILD STUFF ===
+
 " For when you forget to sudo.. Really Write the file.
 " (Note mapping w!! causes a weird pause on all :w's)
 cmap W! w !sudo tee % >/dev/null
