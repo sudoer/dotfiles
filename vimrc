@@ -134,6 +134,7 @@ syntax enable
 "{{{1 === COLORS ===
 
 " color numbers >> http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png
+" convert to RGB >> http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
 set t_Co=256
 
 " see :help group-name
@@ -752,14 +753,9 @@ endif
 "{{{1 === GVIM ===
 
 if has('gui_running')
-"  " colors
-"  """color vo_dark
-"  hi Normal guibg=black guifg=yellow
-"  set bg=dark
-"  syn on
-"  " size
-"  set lines=50
-"  set columns=120
+   highlight Normal      guifg=yellow  guibg=black
+   highlight Cursor      guifg=yellow  guibg=black      gui=reverse
+   highlight CursorLine                guibg=#101010
 endif
 
 
