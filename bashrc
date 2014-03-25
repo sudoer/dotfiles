@@ -46,11 +46,11 @@ shopt -s checkwinsize
 
 # COLOR
 
-# 0   = default colour 1   = bold 4   = underlined 5   = flashing text 7   = reverse field
-# 31  = red 32  = green 33  = orange 34  = blue 35  = purple 36  = cyan 37  = grey
-# 40  = black bg 41  = red bg 42  = green bg 43  = orange bg 44  = blue bg 45  = purple bg 46  = cyan bg 47  = grey bg
-# 90  = dark grey 91  = lt red 92  = lt green 93  = yellow 94  = lt blue 95  = lt purple 96  = turquoise
-# 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
+# 0 = default color, 1 = bold, 4 = underlined, 5 = flashing text, 7 = reverse field
+# 31 = red, 32 = green, 33 = orange, 34 = blue, 35 = purple, 36 = cyan, 37 = grey
+# 40 = black bg, 41 = red bg, 42 = green bg, 43 = orange bg, 44 = blue bg, 45 = purple bg, 46 = cyan bg, 47 = grey bg
+# 90 = dark grey, 91 = lt red, 92 = lt green, 93 = yellow, 94 = lt blue, 95 = lt purple, 96 = turquoise
+# 100 = dark grey bg, 101 = lt red bg, 102 = lt green bg, 103 = yellow bg, 104 = lt blue bg, 105 = lt purple bg, 106 = turquoise bg
 
 case $OSTYPE in
    linux-gnu*)
@@ -63,7 +63,7 @@ case $OSTYPE in
          fi
          alias ls='ls --color=auto'
          # grep
-         export GREP_OPTIONS='--color=auto'
+         export GREP_OPTIONS='--devices=skip --color=auto'
          export GREP_COLOR='1;31'
          #AP alias grep='grep --color=always' # only use 'always' in interactive shells
          # less
