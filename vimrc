@@ -753,9 +753,11 @@ endif
 "{{{1 === GVIM ===
 
 if has('gui_running')
-   highlight Normal      guifg=yellow  guibg=black
-   highlight Cursor      guifg=yellow  guibg=black      gui=reverse
-   highlight CursorLine                guibg=#101010
+   set lines=45 columns=120
+   set bg=dark
+   highlight Normal      guifg=lightgray guibg=black
+   highlight Cursor      guifg=orange    guibg=black      gui=reverse
+   highlight CursorLine                  guibg=#101010
 endif
 
 
