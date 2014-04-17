@@ -23,7 +23,13 @@ function prompt_cc_branch {
 # }
 
 function prompt_cwd {
-   local promptcwd="${PWD/#$HOME/~}"
+   local promptcwd
+   case "${BASH_VERSION%%.*}" in
+       3) promptcwd="${PWD/#$HOME/~}"
+           ;;
+       4) promptcwd="${PWD/#$HOME/\~}"
+           ;;
+   esac
    local pwdmaxlen=45
    local pwdstartlen=11
    if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
