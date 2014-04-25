@@ -24,12 +24,10 @@ function prompt_cc_branch {
 
 function prompt_cwd {
    local promptcwd
-   case "${BASH_VERSION%%.*}" in
-       3) promptcwd="${PWD/#$HOME/~}"
-           ;;
-       4) promptcwd="${PWD/#$HOME/\~}"
-           ;;
-   esac
+   # in bash 4.3 and later, we need to escape the tilde
+   promptcwd="${PWD/#$HOME/\~}"
+   # in bash 4.2 and earlier, the backslash will show up in the prompt, remove it
+   promptcwd="${promptcwd/\\/}"
    local pwdmaxlen=45
    local pwdstartlen=11
    if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
