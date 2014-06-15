@@ -34,6 +34,7 @@
 let mapleader="\\"
 "" TO SWAP \ AND , DO THIS >> let mapleader=","
 "" TO SWAP \ AND , DO THIS >> noremap \ ,
+let maplocalleader="\\"
 
 
 "{{{1 === VISUAL MODE ===
@@ -116,10 +117,27 @@ set modeline
 
 "{{{1 === INDENTATION ===
 
-" under no circumstances should you auto-indent
-set nocindent
+" Four different indentation rules, in this order:
+" indentexpr, cindent, smartindent, autoindent
+
+" (1) indentexpr
+set indentexpr=
+
+" (2) C-style indentation
+" Note that top-level functions must have { in the first column.
+set cindent
+" see :help cinoptions for a complete list of rules.
+set cinoptions=(1s,m1,li
+
+" (3) smartindent = Do smart autoindenting when starting a new line (not as good as cindent).
+" When 'cindent' is on, setting 'smartindent' has no effect.
 set nosmartindent
+
+" (4) autoindent = Copy indent from current line when starting a new line.
 set noautoindent
+
+" textwidth = right margin for wrapping for normal input and 'gq' reformatting.
+set textwidth=0
 
 
 "{{{1 === FILE TYPES ===
@@ -793,6 +811,11 @@ filetype plugin on
 if filereadable(expand("~/.vim/autoload/pathogen.vim"))
    execute pathogen#infect()
 endif
+
+
+"{{{1 === VIMWIKI ===
+
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 
 "{{{1 === FOR FURTHER STUDY ===
