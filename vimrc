@@ -30,6 +30,10 @@
 " F = backwards find char, , = backwards find again
 " t = search "unTil" before char, T = search backwards "unTil"
 
+" nice tricks
+" gg = go to top of file
+" '' = go to previous cursor location
+
 " <leader> key defaults to backslash, I use it for my custom keystrokes
 let mapleader="\\"
 "" TO SWAP \ AND , DO THIS >> let mapleader=","
@@ -52,6 +56,8 @@ let maplocalleader="\\"
 " d_ = delete _something_
 " c_ = change _semething_
 " y_ = yank _something_
+
+" =_ >> fix indention on _something_
 
 
 "{{{1 === MARKS ===
@@ -117,6 +123,8 @@ set modeline
 
 "{{{1 === INDENTATION ===
 
+" =_ >> manually indent _something_ (operator pending mode, also works in visual block mode)
+
 " Four different indentation rules, in this order:
 " indentexpr, cindent, smartindent, autoindent
 
@@ -131,6 +139,9 @@ set cinoptions=(1s,m1,li
 
 " (3) smartindent = Do smart autoindenting when starting a new line (not as good as cindent).
 " When 'cindent' is on, setting 'smartindent' has no effect.
+
+" personal preference - under no circumstances should you auto-indent
+set nocindent
 set nosmartindent
 
 " (4) autoindent = Copy indent from current line when starting a new line.
@@ -147,6 +158,7 @@ set textwidth=0
 au BufRead,BufNewFile *.ino set filetype=cpp   " arduino CPP
 
 syntax enable
+set synmaxcol=0
 
 
 "{{{1 === COLORS ===
@@ -375,6 +387,10 @@ autocmd FileType make set noexpandtab
 
 " indentation / prettification
 set shiftwidth=4  " used by > indent and = reformat
+
+" textwidth is used by 'gq' to wrap paragraphs
+" also used when entering text manually, so set to 0
+set textwidth=0
 
 " show tabs and trailing spaces
 nmap <silent> <leader>l :set list!<CR>
@@ -836,6 +852,11 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
 " IDEAS >> http://spf13.com/post/perfect-vimrc-vim-config-file/
 
 " vim >> jumplist, changelist, vimgrep
+
+" speed
+set ttyfast " u got a fast terminal
+set ttyscroll=3
+set lazyredraw " to avoid scrolling problems
 
 
 "}}}1
