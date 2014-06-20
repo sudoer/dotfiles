@@ -55,6 +55,35 @@ function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forg
 
 #-------------------------------------------------------------------------------
 
+# ssh wrapper that rename current tmux window to the hostname of the remote host.
+function ssh () {
+    # Do nothing if we are not inside tmux or ssh is called without arguments
+    local ssh_rc=0
+    if [[ -z $PS1 || -z $TMUX ]] ; then
+        $(which ssh) $@
+        ssh_rc=$?
+        return $ssh_rc
+    fi
+    # The hostname is the last parameter
+    local remote="${@: -1}"
+    remote=${remote#*@}
+    local old_name="$(tmux display-message -p '#W')"
+    local renamed=0
+    # Save the current name
+    if [[ $remote != -* ]]; then
+        renamed=1
+        tmux rename-window $remote
+    fi
+    $(which ssh) $@
+    ssh_rc=$?
+    if [[ $renamed == 1 ]]; then
+        tmux rename-window "$old_name"
+    fi
+    return $ssh_rc
+}
+
+#-------------------------------------------------------------------------------
+
 function ssh-reagent () {
    for agent in /tmp/ssh-*/agent.*; do
       export SSH_AUTH_SOCK=$agent
