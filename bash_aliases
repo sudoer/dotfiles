@@ -106,7 +106,8 @@ case $OSTYPE in
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       alias netstatl='sudo lsof -i | grep LISTEN'
       function df () {
-         /bin/df -Ph | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
+         # grep added to remove redundant line for rootfs
+         /bin/df -Ph | grep -v '/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias open='xdg-open'
       ;;
