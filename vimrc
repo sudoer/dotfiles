@@ -357,6 +357,7 @@ set wildmode=longest,list
 " undo add/remove >> zug
 
 nmap <silent> <leader>s :set spell!<CR>
+nnoremap <leader>S ea<C-X><C-S>
 set spelllang=en   " or en_us
 set spell
 
