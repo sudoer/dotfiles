@@ -34,6 +34,11 @@ esac
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S  '
+if [[ -d $HOME/.bash_history ]] ; then
+    HISTFILE="$HOME/.bash_history/history.$(date +%Y%m%d.%H%M%S).$$"
+else
+    HISTFILE="$HOME/.bash_history"
+fi
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
