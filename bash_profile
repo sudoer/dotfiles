@@ -21,6 +21,9 @@ case $OSTYPE in
       ;;
 esac
 
+# colors (just once, when we log in)
+eval $(dircolors)
+
 # set PATH so it includes user's private bin if it exists
 [ -d ~/bin ] && PATH="$HOME/bin:$PATH"
 
