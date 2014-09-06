@@ -57,15 +57,16 @@ shopt -s checkwinsize
 # 90 = dark grey, 91 = lt red, 92 = lt green, 93 = yellow, 94 = lt blue, 95 = lt purple, 96 = turquoise
 # 100 = dark grey bg, 101 = lt red bg, 102 = lt green bg, 103 = yellow bg, 104 = lt blue bg, 105 = lt purple bg, 106 = turquoise bg
 
+# ls
+if [ -f $HOME/.dircolors ] ; then
+   eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
+else
+   eval "$(dircolors -b 2>/dev/null)"
+fi
+
 case $OSTYPE in
    linux-gnu*)
       if [ "$TERM" != "dumb" ]; then
-         # ls
-         if [ -f $HOME/.dircolors ] ; then
-            eval "`dircolors -b $HOME/.dircolors 2>/dev/null`"
-         else
-            eval "`dircolors -b 2>/dev/null`"
-         fi
          alias ls='ls --color=auto'
          # grep
          export GREP_OPTIONS='--devices=skip --color=auto'
