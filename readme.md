@@ -29,3 +29,6 @@ them my way.
 
 Alan Porter, alan@alanporter.com
 
+
+PS - accessible via ssh or https
+
