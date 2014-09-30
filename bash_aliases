@@ -65,7 +65,7 @@ function ssh () {
         ssh_rc=$?
         return $ssh_rc
     fi
-    # The hostname is the last parameter
+    # BIG ASSUMPTION - The hostname is the last parameter.
     local remote="${@: -1}"
     remote=${remote#*@}
     local old_name="$(tmux display-message -p '#W')"
