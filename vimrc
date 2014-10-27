@@ -832,7 +832,7 @@ endif
 
 "{{{1 === VIMWIKI ===
 
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'path_html': '~/vimwiki_html/', 'syntax': 'markdown', 'ext': '.md', 'css_file': 'style.css', 'custom_wiki2html': '/home/alan/opt/vimwiki_md2html/misaka_md2html.py', 'auto_export': 1 }]
 
 
 "{{{1 === FOR FURTHER STUDY ===
