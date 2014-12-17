@@ -200,11 +200,7 @@ export EDITOR=vim
 
 case $OSTYPE in
    linux-gnu)
-      # DEBIAN PACKAGE DEVELOPER STUFF
-      export DEBEMAIL="alan.porter@sentosa.us"
-      export DEBFULLNAME="Alan Porter"
       # some other app preferences
-      export BROWSER=/home/alan/bin/browser.sh
       export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
       export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
       export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
