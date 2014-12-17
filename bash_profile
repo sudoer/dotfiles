@@ -16,7 +16,7 @@ case $OSTYPE in
       # MacPorts
       export PATH="/opt/macports/bin:/opt/macports/sbin:$PATH"
       export PATH="/opt/macports/libexec/gnubin:$PATH"
-      # Fink (before MacPorts in search path)
+      # Fink
       source /opt/fink/bin/init.sh
       ;;
 esac
