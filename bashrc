@@ -45,7 +45,7 @@ fi
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
 
 ################################################################################
 
@@ -89,14 +89,14 @@ esac
 ################################################################################
 
 # PROMPT, ALIASES
-[ -f ~/.bash_prompt ]  && source ~/.bash_prompt
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-[ -f ~/.bashrc.local ]   && source ~/.bashrc.local
+[[ -f ~/.bash_prompt ]]  && source ~/.bash_prompt
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
+[[ -f ~/.bashrc.local ]]   && source ~/.bashrc.local
 
 ################################################################################
 
 # Make Control-v paste, if in X and if xclip available - Josh Triplett
-if [ -n "$DISPLAY" ] && [ -x /usr/bin/xclip ] ; then
+if [[ -n "$DISPLAY" ]] && [[ -x /usr/bin/xclip ]] ; then
     # Work around a bash bug: \C-@ does not work in a key binding
     bind '"\C-x\C-m": set-mark'
     # The '#' characters ensure that kill commands have text to work on.

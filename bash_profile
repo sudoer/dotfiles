@@ -9,10 +9,10 @@ export ALAN_SHLVL=0
 #umask 022
 
 # set PATH so it includes user's private bin if it exists
-[ -d ~/bin ] && PATH="$HOME/bin:$PATH"
+[[ -d ~/bin ]] && PATH="$HOME/bin:$PATH"
 
 # local bash profile (before fun, to set up paths)
-[ -f ~/.bash_profile.local ] && source ~/.bash_profile.local
+[[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
 
 # welcome, fun
 echo "welcome to $(hostname -s)"
@@ -25,5 +25,5 @@ screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /
 # Include .bashrc if it exists.
 # Do this last, because my bashrc will do an 'exec script'
 # to log all output (for top-level shells).
-[ -f ~/.bashrc ] && source ~/.bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
 
