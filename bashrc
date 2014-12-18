@@ -91,7 +91,6 @@ esac
 # PROMPT, ALIASES
 [[ -f ~/.bash_prompt ]]  && source ~/.bash_prompt
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
-[[ -f ~/.bashrc.local ]]   && source ~/.bashrc.local
 
 ################################################################################
 
@@ -208,4 +207,6 @@ case $OSTYPE in
 esac
 
 ################################################################################
+
+[[ -f ~/.bashrc.local ]]   && source ~/.bashrc.local
 
