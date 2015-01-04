@@ -806,8 +806,8 @@ if has('gui_macvim')
    set guifont=Monaco:h14
    " GUI Option to remove the Toolbar (T)
    """ set guioptions-=T
-   colorscheme darkblue
-   colorscheme desert
+   ""OK colorscheme darkblue
+   ""OK colorscheme desert
    colorscheme evening
    " size
    """ set lines=32
