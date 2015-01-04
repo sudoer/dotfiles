@@ -176,11 +176,11 @@ highlight NonText          ctermfg=238          ctermbg=none       cterm=none   
 highlight SpecialKey       ctermfg=darkblue     ctermbg=none       cterm=none   " list keys: tabs, trailing spaces
 
 " CURRENT POSITION
-highlight CursorLine       ctermfg=none         ctermbg=234        cterm=none   " highlight bg color of current line
-highlight CursorLineNr     ctermfg=yellow       ctermbg=234        cterm=bold
-highlight LineNr           ctermfg=244          ctermbg=235        cterm=none
-highlight CursorColumn     ctermfg=none         ctermbg=none       cterm=bold
 highlight Cursor           ctermfg=black        ctermbg=white      cterm=reverse
+highlight LineNr           ctermfg=244          ctermbg=235        cterm=none
+highlight CursorLineNr     ctermfg=yellow       ctermbg=234        cterm=bold
+highlight CursorLine       ctermfg=none         ctermbg=234        cterm=none   " see: set cursorline
+highlight CursorColumn     ctermfg=none         ctermbg=234        cterm=none   " see: set cursorcolumn
 
 " MORE POSITION
 highlight Visual           ctermfg=none         ctermbg=darkgray   cterm=none
@@ -194,12 +194,12 @@ highlight Title            ctermfg=darkcyan     ctermbg=none       cterm=none   
 
 " STATUS BAR
 highlight StatusLine       ctermfg=white        ctermbg=245        cterm=bold
+highlight User1            ctermfg=black        ctermbg=245        cterm=bold    " stuff within %1* and %0*
 highlight StatusLineNC     ctermfg=lightgray    ctermbg=238        cterm=none
 highlight ModeMsg          ctermfg=black        ctermbg=cyan       cterm=bold    " mode, like --INSERT--
 
 " SCREEN AREAS
 highlight VertSplit        ctermfg=237          ctermbg=238        cterm=none
-" highlight ColorColumn  " highlight a column, like 80 or a right margin
 
 " FOLDING
 highlight Folded           ctermfg=blue         ctermbg=none       cterm=none
@@ -411,7 +411,8 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
 " show status line on bottom (0=never, 1=when >1 windows, 2=always)
 set laststatus=2
 " show character under cursor (%b\ 0x%B), line (%l), column (%c), percentage (%P)
-set statusline=%<%f%h%m%r%=%b\ 0x%B\ \ %l,%c%V\ %P
+" 1 filename[HLP][+][RO]  (sep)  10%(cut here) line=6565,col=24 ASCII=32,0x20
+set statusline=%n:%f\ %h%m%r%=(%l,%v)\ %P\ %<%14(%1*ASCII=%03b\,0x%02B%0*%)
 set ruler
 
 
@@ -481,7 +482,7 @@ nnoremap <F10> gt
 
 " ALSO - see crazy custom tabline functions
 " http://www.theworldofstuff.com/linux/vimrc.txt
-" http://stackoverflow.com/questions/7238113/customising-the-colours-of-vims-tab-bar
+
 " http://vim.wikia.com/index.php?title=Show_tab_number_in_your_tab_line&oldid=29439 (GUI only)
 
 
@@ -496,7 +497,8 @@ autocmd BufReadPost *
 " cursor limits:
 set scrolloff=3          " within 3 of top/bottom
 set virtualedit=onemore  " past right end by one
-set cursorline           " highlight current line
+set nocursorline         " highlight current line
+set nocursorcolumn       " highlight current column
 
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
