@@ -77,6 +77,9 @@ function custom_prompt {
    local gitbranch=$(prompt_git_branch)
    if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n${level}" ; fi
 
+   local venv=""
+   if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}\n${level}" ; fi
+
    weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
    dow=${weekdays[$(\date +%u)]}
    dom=$(\date +%d)
@@ -89,7 +92,7 @@ function custom_prompt {
    local pathcolor=
    local path="${LTBLUE}\$(prompt_cwd)${RESET}"
 
-   PS1="${level}${cc}${git}${time}|${user}:${path}\$ "
+   PS1="${level}${cc}${git}${venv}${time}|${user}:${path}\$ "
 
    #  # craziness
    #  echo -n -e "\033[0;90m"
