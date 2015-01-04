@@ -25,7 +25,7 @@ export ALAN_HOME_BASHRC=1
 
 # This does the same thing
 case "$-" in
-*i*) echo "interactive shell" ;;
+*i*) : ;; ## echo "interactive shell" ;;
 *)   return ;;
 esac
 
@@ -39,6 +39,7 @@ if [[ -d $HOME/.bash_history ]] ; then
 else
     HISTFILE="$HOME/.bash_history"
 fi
+echo "Saving shell history to $HISTFILE"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -194,6 +195,11 @@ stty erase 
 # svn requires either EDITOR or SVN_EDITOR
 export SVN_EDITOR=vim
 export EDITOR=vim
+
+# command hash - caches locations of executables
+# - use "hash -r" to rebuild
+# - "set +h" to disable hashing
+set +h
 
 ################################################################################
 
