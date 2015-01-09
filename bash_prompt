@@ -112,7 +112,8 @@ PROMPT_COMMAND='custom_prompt'
 
 case "$TERM" in
 xterm*|rxvt*)
-    titlebar="\${USER}@\${HOSTNAME}:\${PWD}"
+    # titlebar="\${USER}@\${HOSTNAME}:\${PWD}"
+    titlebar="\${USER}@\${HOSTNAME%%.*}"
     PROMPT_COMMAND="$PROMPT_COMMAND ; echo -ne \"\033]0;$titlebar\007\""
     #PROMPT_COMMAND="$PROMPT_COMMAND ; echo -ne \"\033]30;$tab\007\""
     ;;
