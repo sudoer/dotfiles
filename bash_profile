@@ -11,16 +11,24 @@ export ALAN_SHLVL=0
 # set PATH so it includes user's private bin if it exists
 [[ -d ~/bin ]] && PATH="$HOME/bin:$PATH"
 
-# welcome, fun
-echo "welcome to $(hostname -s)"
-echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
+# very basic welcome
+echo "welcome to ${HOSTNAME%%.*}"
+TITLEBAR="$USER@${HOSTNAME%%.*}"
 
-# status
-tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
-screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
-
-# local bash profile (run late, output should be after fun & status above)
+#----------------------------------------
+# run local bash profile, if it exists
+# STUFF I LIKE TO DO IN .bash_profile.local :
+# - FORTUNE
+#   echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
+# - TMUX/SCREEN/VIRTUALBOX STATUS
+#   tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
+#   screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
+#   VBoxManage list runningvms | sed -e 's/^/vbox: /g'
+# - NETWORK STATS
+#   vnstat -m --style 1
+#   vnstat -d --style 1 | head -5 ; vnstat -d --style 1 | tail -10
 [[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
+#----------------------------------------
 
 # Include .bashrc if it exists.
 # Do this last, because my bashrc will do an 'exec script'

@@ -39,7 +39,7 @@ if [[ -d $HOME/.bash_history ]] ; then
 else
     HISTFILE="$HOME/.bash_history"
 fi
-echo "Saving shell history to $HISTFILE"
+echo "saving shell history to $HISTFILE"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
