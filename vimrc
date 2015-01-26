@@ -783,6 +783,11 @@ if !v:shell_error
    endif
    if s:uname == "Darwin"
       " do Mac stuff here
+      " Support copy-to-system-clipboard using Command-C and Command-V,
+      " even though Apple vim is compiled without 'clipboard' support (see vim --version)
+      " http://vim.wikia.com/wiki/In_line_copy_and_paste_to_system_clipboard
+      vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+      nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
    endif
 endif
 
