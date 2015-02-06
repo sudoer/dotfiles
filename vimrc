@@ -151,6 +151,16 @@ set noautoindent
 set textwidth=0
 
 
+"{{{1 === FORMAT OPTIONS ===
+
+" to see current settings >>> :set formatoptions?
+" for list of options >>> :help fo-table
+set formatoptions-=c   " auto-wrap comments
+set formatoptions-=r   " insert comment leader on CR
+set formatoptions-=o   " insert comment leader on O or o line insert
+set formatoptions=q    " format using gq
+
+
 "{{{1 === FILE TYPES ===
 
 " non-standard file types
@@ -783,11 +793,12 @@ if !v:shell_error
    endif
    if s:uname == "Darwin"
       " do Mac stuff here
-      " Support copy-to-system-clipboard using Command-C and Command-V,
-      " even though Apple vim is compiled without 'clipboard' support (see vim --version)
+      " Apple vim is compiled without 'clipboard' support (see vim --version).
       " http://vim.wikia.com/wiki/In_line_copy_and_paste_to_system_clipboard
+      " Support copy-to-system-clipboard using control-C in visual block mode.
       vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-      nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
+      " and control-V in normal mode (NOTE: covers up block-visual key sequence).
+      " DISABLED: nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
    endif
 endif
 
