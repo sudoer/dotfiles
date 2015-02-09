@@ -95,6 +95,12 @@ esac
 
 ################################################################################
 
+# History - do this after prompt, since it uses $PROMPT_COMMAND
+shopt -s histappend
+PROMPT_COMMAND="history -a ; $PROMPT_COMMAND"
+
+################################################################################
+
 # Make Control-v paste, if in X and if xclip available - Josh Triplett
 if [[ -n "$DISPLAY" ]] && [[ -x /usr/bin/xclip ]] ; then
     # Work around a bash bug: \C-@ does not work in a key binding
