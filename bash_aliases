@@ -28,13 +28,30 @@ alias truecrypt="truecrypt --text"
 alias tc="sudo truecrypt --text --auto-mount=favorites --keyfiles= --protect-hidden=no"
 alias tcd="sudo truecrypt --text --dismount"
 
-# virtual environments
-alias venv_start='source $(which virtualenvwrapper.sh)'
-alias venv_make='mkvirtualenv'
-alias venv_use='workon'
-alias venv_exit='deactivate'
-alias venv_rm='rmvirtualenv'
-alias venv_list='lsvirtualenv'
+# virtual environments - native virtualenv
+# stores environment in a local directory
+function venv () {
+   case "$1" in
+      create) virtualenv $2 ;;
+      use)    source $2/bin/activate ;;
+      exit)   deactivate ;;
+      *)      echo "venv create|use|exit"
+   esac
+}
+
+# virtual environments - virtualenvwrapper
+# stores all environments in a common place
+function venvw () {
+   case "$1" in
+      start)  source $(which virtualenvwrapper.sh) ;;
+      create) mkvirtualenv $2 ;;
+      use)    workon $2 ;;
+      exit)   deactivate ;;
+      rm)     rmvirtualenv $2 ;;
+      list)   lsvirtualenv ;;
+      *)      echo "venvw start|create|use|exit|rm|list"
+   esac
+}
 
 # script
 alias script='script "script-$(date +%Y%m%d-%H%M%S)-$$"'
