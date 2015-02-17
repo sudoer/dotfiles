@@ -850,6 +850,16 @@ if filereadable(expand("~/.vim/autoload/pathogen.vim"))
 endif
 
 
+"{{{1 === PLUGIN:NERDTREE ===
+
+" see https://github.com/scrooloose/nerdtree
+if isdirectory(expand("~/.vim/bundle/nerdtree"))
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    map <leader>t :NERDTreeToggle<CR>
+endif
+
+
 "{{{1 === VIMWIKI ===
 
 " let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'path_html': '~/vimwiki_html/', 'syntax': 'markdown', 'ext': '.md', 'css_file': 'style.css', 'custom_wiki2html': '/home/alan/opt/vimwiki_md2html/misaka_md2html.py', 'auto_export': 1 }]
