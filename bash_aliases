@@ -35,7 +35,9 @@ function venv () {
       create) virtualenv $2 ;;
       use)    source $2/bin/activate ;;
       exit)   deactivate ;;
-      *)      echo "venv create|use|exit"
+      save)   pip freeze > $2.pip-pkgs ;;
+      load)   pip install -r $2.pip-pkgs ;;
+      *)      echo "venv create|use|save|load|exit"
    esac
 }
 
