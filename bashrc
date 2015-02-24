@@ -18,6 +18,10 @@ fi
 export ALAN_SHLVL=$(($ALAN_SHLVL+1))
 export ALAN_HOME_BASHRC=1
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# an alternative: investigate http://unix.stackexchange.com/questions/25639/how-to-automatically-record-all-your-terminal-sessions-with-script-utility
+# test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'script' || (script -f $HOME/$(date +"%d-%b-%y_%H-%M-%S")_shell.log)
+
 ################################################################################
 
 # If not running interactively, don't do anything more
