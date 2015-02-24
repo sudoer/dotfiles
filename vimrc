@@ -155,10 +155,13 @@ set textwidth=0
 
 " to see current settings >>> :set formatoptions?
 " for list of options >>> :help fo-table
-set formatoptions-=c   " auto-wrap comments
-set formatoptions-=r   " insert comment leader on CR
-set formatoptions-=o   " insert comment leader on O or o line insert
-set formatoptions=q    " format using gq
+set formatoptions+=c   " auto-wrap comments
+set formatoptions+=r   " insert comment leader on CR
+set formatoptions+=o   " insert comment leader on O or o line insert
+set formatoptions+=q   " format using gq
+
+" press \p to set (or unset) paste mode (which squelches the options above)
+nmap <silent> <leader>p :set paste!<CR>
 
 
 "{{{1 === FILE TYPES ===
