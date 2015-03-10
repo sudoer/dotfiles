@@ -74,9 +74,8 @@ case $OSTYPE in
       if [ "$TERM" != "dumb" ]; then
          alias ls='ls --color=auto'
          # grep
-         export GREP_OPTIONS='--devices=skip --color=auto'
+         alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
          export GREP_COLOR='1;31'
-         #AP alias grep='grep --color=always' # only use 'always' in interactive shells
          # less
          export LESS='-R'
       fi
@@ -85,7 +84,7 @@ case $OSTYPE in
       export CLICOLOR=1
       export LSCOLORS="Exfxcxdxbxegedabagacad"
       alias ls='/bin/ls -G'
-      export GREP_OPTIONS='--color=auto'
+      alias grep='grep --color=auto'
       export GREP_COLOR='1;31'
       export LESS='-R'
       ;;
