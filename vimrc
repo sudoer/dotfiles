@@ -6,6 +6,12 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"{{{1 === VI OR VIM ===
+"
+" note - setting or resetting 'compatible' will overwrite 'formatoptions'
+set nocompatible
+
+
 "{{{1 === CURSOR MOVEMENT ===
 
 " to move cursor up/down to DISPLAY lines (on long wrapped lines) >> gj/gk
@@ -157,8 +163,15 @@ set textwidth=0
 " for list of options >>> :help fo-table
 set formatoptions+=c   " auto-wrap comments
 set formatoptions+=r   " insert comment leader on CR
-set formatoptions+=o   " insert comment leader on O or o line insert
+set formatoptions-=o   " insert comment leader on O or o line insert
 set formatoptions+=q   " format using gq
+
+" see http://stackoverflow.com/a/23326474/542630
+" formatoptions is overwritten by a C file plugin loaded after .vimrc.
+augroup Format-Options
+    autocmd!
+    autocmd BufEnter * setlocal formatoptions+=crq formatoptions-=o
+augroup END
 
 " press \p to set (or unset) paste mode (which squelches the options above)
 nmap <silent> <leader>p :set paste!<CR>
@@ -836,7 +849,6 @@ endif
 
 "{{{1 === PLUGINS ===
 
-set nocompatible
 filetype plugin on
 
 " check theese out:
@@ -863,9 +875,18 @@ if isdirectory(expand("~/.vim/bundle/nerdtree"))
 endif
 
 
+"{{{1 === SPECIAL FILE TYPES ===
+
+" MARKDOWN
+" use https://github.com/plasticboy/vim-markdown
+" no need for this >> au BufNewFile,BufRead *.md,*.markdown setlocal filetype=mkd
+let g:vim_markdown_folding_disabled=1
+
+
 "{{{1 === VIMWIKI ===
 
 " let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'path_html': '~/vimwiki_html/', 'syntax': 'markdown', 'ext': '.md', 'css_file': 'style.css', 'custom_wiki2html': '/home/alan/opt/vimwiki_md2html/misaka_md2html.py', 'auto_export': 1 }]
+let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'path_html': '~/vimwiki/html/', 'syntax': 'markdown', 'ext': '.wiki', 'css_file': 'style.css', 'custom_wiki2html': 'vimwiki-to-html.sh', 'auto_export': 1 }]
 
 
 "{{{1 === FOR FURTHER STUDY ===
@@ -892,6 +913,8 @@ set ttyfast " u got a fast terminal
 set ttyscroll=3
 set lazyredraw " to avoid scrolling problems
 
+" redraw
+nmap <silent> <leader>r :redraw!<CR>
 
 "}}}1
 
