@@ -19,9 +19,10 @@ alias gittree1="git log --graph --abbrev-commit --decorate --date=relative --for
 alias gittree2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 
 # VirtualBox
-function vbox_start { sh -xc "VBoxManage startvm $1 --type headless" ; }
-function vbox_pause { sh -xc "VBoxManage controlvm $1 savestate" ; }
-function vbox_stop  { sh -xc "VBoxManage controlvm $1 poweroff" ; }
+function vbox_start { sh -xc "VBoxManage startvm \"$1\" --type headless" ; }
+function vbox_pause { sh -xc "VBoxManage controlvm \"$1\" savestate" ; }
+function vbox_stop  { sh -xc "VBoxManage controlvm \"$1\" poweroff" ; }
+function vbox_list  { sh -xc "VBoxManage list runningvms" ; }
 
 # truecrypt
 alias truecrypt="truecrypt --text"
