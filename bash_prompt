@@ -80,6 +80,9 @@ function custom_prompt {
    local venv=""
    if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}\n${level}" ; fi
 
+   # local docker=""
+   # if [ -n "$DOCKER_HOST" ] ; then docker="${ORANGE}[docker $DOCKER_HOST]${RESET}\n${level}" ; fi
+
    weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
    dow=${weekdays[$(\date +%u)]}
    dom=$(\date +%d)
