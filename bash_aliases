@@ -30,9 +30,9 @@ function vbox () {
       start)    { sh -xc "VBoxManage startvm \"$vmname\" --type headless" ; } ;;
       pause)    { sh -xc "VBoxManage controlvm \"$vmname\" savestate" ; } ;;
       stop)     { sh -xc "VBoxManage controlvm \"$vmname\" poweroff" ; } ;;
-      running)  { sh -xc "VBoxManage list runningvms" ; } ;;
-      list)     { sh -xc "VBoxManage list vms" ; } ;;
-      *)        echo "vbox start|pause|stop|running|list" ;;
+      list)     { sh -xc "VBoxManage list runningvms" ; } ;;
+      all)      { sh -xc "VBoxManage list vms" ; } ;;
+      *)        echo "vbox start|pause|stop|list|all" ;;
    esac
 }
 
