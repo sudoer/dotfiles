@@ -80,8 +80,12 @@ function custom_prompt {
    local venv=""
    if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}\n${level}" ; fi
 
-   # local docker=""
-   # if [ -n "$DOCKER_HOST" ] ; then docker="${ORANGE}[docker $DOCKER_HOST]${RESET}\n${level}" ; fi
+   local docker=""
+   if [ -n "$DOCKER_HOST" ] ; then
+       docker="${DOCKER_HOST##*/}"
+       docker="${docker%%:*}"
+       docker="${ORANGE}[docker $docker]${RESET}\n${level}"
+   fi
 
    weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
    dow=${weekdays[$(\date +%u)]}
@@ -95,7 +99,7 @@ function custom_prompt {
    local pathcolor=
    local path="${LTBLUE}\$(prompt_cwd)${RESET}"
 
-   PS1="${level}${cc}${git}${venv}${time}|${user}:${path}\$ "
+   PS1="${level}${cc}${git}${venv}${docker}${time}|${user}:${path}\$ "
 
    #  # craziness
    #  echo -n -e "\033[0;90m"
