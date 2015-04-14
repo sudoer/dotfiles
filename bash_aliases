@@ -146,6 +146,7 @@ case $OSTYPE in
          /bin/df -Ph | grep -v '/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias open='xdg-open'
+      alias pstree='ps xawf -eo pid,user,args'
       ;;
    darwin*)
       alias plistdump='plutil -convert xml1 -o - '
