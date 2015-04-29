@@ -219,6 +219,10 @@ case $OSTYPE in
       export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
       export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
       ;;
+   darwin*)
+      # turn off special handling of ._* files in tar, etc.
+      export COPYFILE_DISABLE=1
+      ;;
 esac
 
 ################################################################################
