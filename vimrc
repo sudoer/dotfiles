@@ -6,10 +6,13 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"{{{1 === VI OR VIM ===
+"{{{1 === BASICS ===
 "
+" As the help says, 'Make vim behave in a more useful way'.
+" 'nocompatible' must be on the first uncommented line
 " note - setting or resetting 'compatible' will overwrite 'formatoptions'
 set nocompatible
+set encoding=utf-8
 
 
 "{{{1 === CURSOR MOVEMENT ===
@@ -116,10 +119,13 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 "{{{1 === BACKUPS ===
 
-""  " save backup files~ to $HOME/.vim-save
-""  " but don't freak out if $HOME/.vim-save does not exist
+" Use backups - http://stackoverflow.com/a/15317146
+if !isdirectory(expand('~/.vim/backup/', 1))
+    silent call mkdir(expand('~/.vim/backup', 1), 'p')
+endif
 set backup
-set backupdir=~/.vim-save,.
+set writebackup
+set backupdir=~/.vim/backup//
 
 
 "{{{1 === EMBEDDED MODE LINES ===
@@ -130,6 +136,7 @@ set modeline
 "{{{1 === INDENTATION ===
 
 " =_ >> manually indent _something_ (operator pending mode, also works in visual block mode)
+" examples: =i{ >> indent inside block, =a{ >> indent a block
 
 " Four different indentation rules, in this order:
 " indentexpr, cindent, smartindent, autoindent
@@ -174,7 +181,7 @@ augroup Format-Options
 augroup END
 
 " press \p to set (or unset) paste mode (which squelches the options above)
-nmap <silent> <leader>p :set paste!<CR>
+nmap <silent> <leader>P :set paste!<CR>
 
 
 "{{{1 === FILE TYPES ===
@@ -211,6 +218,7 @@ highlight CursorColumn     ctermfg=none         ctermbg=234        cterm=none   
 " MORE POSITION
 highlight Visual           ctermfg=none         ctermbg=darkgray   cterm=none
 highlight MatchParen       ctermfg=none         ctermbg=darkcyan   cterm=none
+highlight ColorColumn                           ctermbg=22         guibg=darkgreen
 
 " TABS
 highlight TabLineSel       ctermfg=white        ctermbg=34         cterm=bold
@@ -339,6 +347,9 @@ endif
 set incsearch
 set hlsearch
 
+" unhighlight the last search pattern on Enter
+nn <silent> <cr> :nohlsearch<cr><cr>
+
 " ignore case... unless we type an uppercase in the search
 " or use \c or \C to force case insensitive or sensitive
 set ignorecase
@@ -392,7 +403,7 @@ set spell
 
 "{{{1 === LINE NUMBERS ===
 
-nmap <silent> <leader>n :set number!<CR>
+nmap <silent> <leader># :set number!<CR>
 set number
 
 " highlight parens
@@ -430,6 +441,12 @@ set list listchars=tab:>-,trail:·,precedes:<,extends:>,eol:«
 "  - the "SpecialKey" highlighting group for "nbsp", "tab" and "trail"
 " See ":help 'listchars'".
 " see colorscheme
+
+
+"{{{1 === BUFFERS ===
+map <leader>c :bp<bar>sp<bar>bn<bar>bd<CR>
+map <leader>n :bnext!<cr>
+map <leader>p :bprevious!<cr>
 
 
 "{{{1 === SCREEN LAYOUT ===
@@ -525,6 +542,9 @@ set scrolloff=3          " within 3 of top/bottom
 set virtualedit=onemore  " past right end by one
 set nocursorline         " highlight current line
 set nocursorcolumn       " highlight current column
+
+" highlight where lines extend past 80 characters
+call matchadd('ColorColumn', '\%82v', 100)
 
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
@@ -681,6 +701,7 @@ set diffopt=filler,context:9
 " go back through the quick fix list >> :cnext
 " go forward through the quick fix list >> :cprev
 " also >> :cfirst, :clast, :cnfile, :cpfile, :cc N, :copen, :cclose
+" to clear >> :cex[]
 
 " location list is like quick list... except:
 " - location list is per-window, quick fix list is global
@@ -870,8 +891,28 @@ endif
 " see https://github.com/scrooloose/nerdtree
 if isdirectory(expand("~/.vim/bundle/nerdtree"))
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     map <leader>t :NERDTreeToggle<CR>
+endif
+
+
+"{{{1 === PLUGIN:AIRLINE ===
+
+if isdirectory(expand("~/.vim/bundle/vim-airline"))
+    " at run-time >> :AirlineTheme understated
+    let g:airline_theme = 'light'
+    " other nice themes: bubblegum understated
+    set laststatus=2
+    set noshowmode
+    let g:airline#extensions#tabline#enabled = 1
+endif
+
+
+"{{{1 === PLUGIN:TAGBAR ===
+
+" see http://majutsushi.github.io/tagbar/
+if isdirectory(expand("~/.vim/bundle/tagbar"))
+    map <leader>T :TagbarToggle<CR>
 endif
 
 
@@ -915,6 +956,10 @@ set lazyredraw " to avoid scrolling problems
 
 " redraw
 nmap <silent> <leader>r :redraw!<CR>
+
+" nice personal vimrc files
+" https://github.com/jdavis/dotfiles/blob/master/.vimrc
+
 
 "}}}1
 
