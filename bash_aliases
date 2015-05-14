@@ -151,6 +151,7 @@ case $OSTYPE in
       alias plistdump='plutil -convert xml1 -o - '
       alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
       alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+      alias macvim="open -a MacVim.app $*"
       ;;
 esac
 

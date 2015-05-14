@@ -49,6 +49,9 @@ let mapleader="\\"
 "" TO SWAP \ AND , DO THIS >> noremap \ ,
 let maplocalleader="\\"
 
+" Allows the backspace to delete indenting, end of lines, and over the start of insert
+set backspace=indent,eol,start
+
 
 "{{{1 === VISUAL MODE ===
 
@@ -543,8 +546,10 @@ set virtualedit=onemore  " past right end by one
 set nocursorline         " highlight current line
 set nocursorcolumn       " highlight current column
 
-" highlight where lines extend past 80 characters
-call matchadd('ColorColumn', '\%82v', 100)
+" highlight where lines extend past 'so-many' characters
+" matchadd(group,pattern,priority)
+" pattern '%NNv' matches anything on virtual column NN (after tabs are expanded)
+call matchadd('ColorColumn', '\%120v', 100)
 
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
@@ -830,12 +835,17 @@ if !v:shell_error
    endif
    if s:uname == "Darwin"
       " do Mac stuff here
+
       " Apple vim is compiled without 'clipboard' support (see vim --version).
       " http://vim.wikia.com/wiki/In_line_copy_and_paste_to_system_clipboard
       " Support copy-to-system-clipboard using control-C in visual block mode.
       vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
       " and control-V in normal mode (NOTE: covers up block-visual key sequence).
       " DISABLED: nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
+
+      " command-left and command-right = prev/next tab
+      nnoremap <D-Left>  gT
+      nnoremap <D-Right> gt
    endif
 endif
 
@@ -862,6 +872,7 @@ if has('gui_macvim')
    ""OK colorscheme darkblue
    ""OK colorscheme desert
    colorscheme evening
+   highlight SpecialKey  guifg=blue
    " size
    """ set lines=32
    """ set columns=110
@@ -904,7 +915,9 @@ if isdirectory(expand("~/.vim/bundle/vim-airline"))
     " other nice themes: bubblegum understated
     set laststatus=2
     set noshowmode
-    let g:airline#extensions#tabline#enabled = 1
+    if !has('gui_macvim')
+        let g:airline#extensions#tabline#enabled = 1
+    endif
 endif
 
 
