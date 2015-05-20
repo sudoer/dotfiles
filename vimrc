@@ -424,7 +424,9 @@ set nowrap
 set tabstop=4
 set softtabstop=4
 set expandtab  " use :retab to convert existing tabs using expandtab (tab->4sp)
-autocmd FileType make set noexpandtab
+
+" makefiles should keep tabs intact
+autocmd FileType make setlocal noexpandtab
 
 " indentation / prettification
 set shiftwidth=4  " used by > indent and = reformat
@@ -876,6 +878,7 @@ if has('gui_macvim')
    " size
    """ set lines=32
    """ set columns=110
+   set tabpagemax=50
 endif
 
 
