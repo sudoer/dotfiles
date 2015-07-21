@@ -48,20 +48,6 @@ function venv () {
    esac
 }
 
-# virtual environments - virtualenvwrapper
-# stores all environments in a common place
-function venvw () {
-   case "$1" in
-      start)  source $(which virtualenvwrapper.sh) ;;
-      create) mkvirtualenv $2 ;;
-      use)    workon $2 ;;
-      exit)   deactivate ;;
-      rm)     rmvirtualenv $2 ;;
-      list)   lsvirtualenv ;;
-      *)      echo "venvw start|create|use|exit|rm|list"
-   esac
-}
-
 # script
 alias script='script "script-$(date +%Y%m%d-%H%M%S)-$$"'
 function endscript () {
