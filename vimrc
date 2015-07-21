@@ -192,6 +192,7 @@ nmap <silent> <leader>P :set paste!<CR>
 " non-standard file types
 "au BufRead,BufNewFile *.t set filetype=perl
 au BufRead,BufNewFile *.ino set filetype=cpp   " arduino CPP
+au BufRead,BufNewFile *.scala set filetype=scala   " scala
 
 syntax enable
 set synmaxcol=0
