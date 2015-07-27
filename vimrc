@@ -149,15 +149,12 @@ set indentexpr=
 
 " (2) C-style indentation
 " Note that top-level functions must have { in the first column.
-set cindent
+set nocindent
 " see :help cinoptions for a complete list of rules.
 set cinoptions=(1s,m1,li
 
 " (3) smartindent = Do smart autoindenting when starting a new line (not as good as cindent).
 " When 'cindent' is on, setting 'smartindent' has no effect.
-
-" personal preference - under no circumstances should you auto-indent
-set nocindent
 set nosmartindent
 
 " (4) autoindent = Copy indent from current line when starting a new line.
@@ -171,8 +168,8 @@ set textwidth=0
 
 " to see current settings >>> :set formatoptions?
 " for list of options >>> :help fo-table
-set formatoptions+=c   " auto-wrap comments
-set formatoptions+=r   " insert comment leader on CR
+set formatoptions-=c   " auto-wrap comments
+set formatoptions-=r   " insert comment leader on CR
 set formatoptions-=o   " insert comment leader on O or o line insert
 set formatoptions+=q   " format using gq
 
@@ -180,7 +177,7 @@ set formatoptions+=q   " format using gq
 " formatoptions is overwritten by a C file plugin loaded after .vimrc.
 augroup Format-Options
     autocmd!
-    autocmd BufEnter * setlocal formatoptions+=crq formatoptions-=o
+    autocmd BufEnter * setlocal formatoptions+=q formatoptions-=cro
 augroup END
 
 " press \p to set (or unset) paste mode (which squelches the options above)
