@@ -1,0 +1,5 @@
+
+# set pager-view = line-number:yes text
+# set diff-view = line-number:yes,interval=1 text
+
+
