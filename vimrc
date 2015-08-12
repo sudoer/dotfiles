@@ -605,7 +605,9 @@ set cpoptions+=>
 
 "{{{1 === MOUSE ===
 
-" use mouse to switch windows and move cursor
+" Use mouse to switch windows and move cursor
+" On Mac, use ALT+mouse to select words.
+" On Linux, use SHIFT+mouse to select words.
 if has('mouse')
    set ttymouse=xterm2
    set mouse=n
