@@ -1,0 +1,25 @@
+## Put the following in your $HOME/.gitconfig:
+## [include]
+##     path = .git_aliases
+
+[alias]
+    pc-lgf = log -C -M --follow --graph --date=short --pretty=format:'%C(blue)%cd %C(magenta)| %C(blue)%h %C(magenta)| %Creset%s %C(yellow)<%an>%C(red)%d'
+    pc-l  = log --name-status --relative
+    pc-lp = log -p --relative --ignore-space-at-eol -b --stat
+    pc-lpr = log -p --relative --ignore-space-at-eol -b --stat --reverse
+    pc-d  = diff --ignore-space-at-eol -b
+    pc-dw = diff --ignore-space-at-eol -b --word-diff=color
+    pc-dc = diff --ignore-space-at-eol -b --cached
+    pc-s = show -w -b --stat -p
+    pc-st = status
+    pc-stu = status --untracked-files=all
+    pc-tree  = log --graph --date=short --pretty=format:'%C(blue)%cd %C(magenta)| %C(blue)%h %C(magenta)| %C(reset)%s %C(yellow)<%an>%C(red)%d'
+    # my legacy stuff
+    log1 = log --abbrev=8 --abbrev-commit --date=short --pretty=format:'%h %ad %s'
+    log2  = log --pretty=oneline
+    # my newer stuff
+    diffb = diff --ignore-space-at-eol -b
+    tree = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(dim white)%s%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)' --all
+    tree2 = log --graph --abbrev-commit --decorate                --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    logs = log --stat -p --relative --ignore-space-at-eol -b --stat
+
