@@ -3,6 +3,7 @@
 ##     path = .git_aliases
 
 [alias]
+    # borrowed from Paul Chiconski, try these out
     pc-lgf = log -C -M --follow --graph --date=short --pretty=format:'%C(blue)%cd %C(magenta)| %C(blue)%h %C(magenta)| %Creset%s %C(yellow)<%an>%C(red)%d'
     pc-l  = log --name-status --relative
     pc-lp = log -p --relative --ignore-space-at-eol -b --stat
@@ -19,7 +20,7 @@
     log2  = log --pretty=oneline
     # my newer stuff
     diffb = diff --ignore-space-at-eol -b
-    tree = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(dim white)%s%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)' --all
-    tree2 = log --graph --abbrev-commit --decorate                --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    tree =  log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(dim white)%s%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)' --all --date=relative
+    tree2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(red)<%an>%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
     logs = log --stat -p --relative --ignore-space-at-eol -b --stat
 
