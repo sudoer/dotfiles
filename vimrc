@@ -241,8 +241,8 @@ highlight Folded           ctermfg=blue         ctermbg=none       cterm=none
 
 " SPELLING
 highlight SpellBad         ctermfg=none         ctermbg=none       cterm=underline
-highlight SpellCap         ctermfg=none         ctermbg=none       cterm=underline
-highlight SpellRare        ctermfg=none         ctermbg=none       cterm=underline
+highlight SpellCap         ctermfg=none         ctermbg=none       cterm=none
+highlight SpellRare        ctermfg=none         ctermbg=none       cterm=none
 highlight SpellLocal       ctermfg=none         ctermbg=none       cterm=underline
 
 " VIMDIFF
