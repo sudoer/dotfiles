@@ -18,15 +18,17 @@ TITLEBAR="$USER@${HOSTNAME%%.*}"
 #----------------------------------------
 # run local bash profile, if it exists
 # STUFF I LIKE TO DO IN .bash_profile.local :
+# - MACHINE STATS
+#   uptime
 # - FORTUNE
 #   echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
+# - NETWORK STATS
+#   vnstat -m --style 1
+#   vnstat -d --style 1 | head -5 ; vnstat -d --style 1 | tail -10
 # - TMUX/SCREEN/VIRTUALBOX STATUS
 #   tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
 #   screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
 #   VBoxManage list runningvms | sed -e 's/^/vbox: /g'
-# - NETWORK STATS
-#   vnstat -m --style 1
-#   vnstat -d --style 1 | head -5 ; vnstat -d --style 1 | tail -10
 [[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
 #----------------------------------------
 
