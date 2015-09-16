@@ -201,16 +201,14 @@ function cdb() {
 # backspace
 stty erase 
 
-# svn requires either EDITOR or SVN_EDITOR
-export SVN_EDITOR=vim
-export EDITOR=vim
-
 # command hash - caches locations of executables
 # - use "hash -r" to rebuild
 # - "set +h" to disable hashing
 set +h
 
 ################################################################################
+
+# OS-SPECIFIC STUFF
 
 case $OSTYPE in
    linux-gnu)
@@ -222,8 +220,25 @@ case $OSTYPE in
    darwin*)
       # turn off special handling of ._* files in tar, etc.
       export COPYFILE_DISABLE=1
+      # bind HOME and END to reasonable escape sequences that work in vim, tmux and shell
+      bind '"\e[1~":"\eOH"'
+      bind '"\e[4~":"\eOF"'
       ;;
 esac
+
+################################################################################
+
+# APP-SPECIFIC STUFF
+
+# svn requires either EDITOR or SVN_EDITOR
+export SVN_EDITOR=vim
+export EDITOR=vim
+
+## # tmux HOME/END keys
+## if [[ -n "$TMUX" ]] ; then
+##   bind '"\e[1~":"\eOH"'
+##   bind '"\e[4~":"\eOF"'
+## fi
 
 ################################################################################
 

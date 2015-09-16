@@ -624,14 +624,6 @@ set ttimeout ttimeoutlen=100
 
 "{{{1 === SCREEN / TMUX ===
 
-"DOESNTWORK  " Fix home and end keybindings for screen, particularly on Mac.
-"DOESNTWORK  " (For some reason this fixes the arrow keys too. huh?.
-"DOESNTWORK  map  [F $
-"DOESNTWORK  imap [F $
-"DOESNTWORK  map  [H g0
-"DOESNTWORK  imap [H g0
-
-
 " see http://tmux.cvs.sourceforge.net/viewvc/tmux/tmux/FAQ
 if &term == "screen"
    set t_kN=[6;*~
@@ -850,6 +842,13 @@ if !v:shell_error
       " command-left and command-right = prev/next tab
       nnoremap <D-Left>  gT
       nnoremap <D-Right> gt
+
+      " Fix HOME and END keybindings for Mac.
+      map  [F $
+      imap [F $
+      map  [H g0
+      imap [H g0
+
    endif
 endif
 
