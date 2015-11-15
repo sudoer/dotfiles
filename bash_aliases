@@ -69,7 +69,8 @@ function calc () { python -c "from math import *; print $*"; }
 function daysince () { echo $(( ( $(date --date="12:00:00" +%s) - $(date --date="$1 12:00:00" +%s ) ) / 86400 + 1 )); }
 function testmail () { to="$1" ; date | sh -xc "mail -s '$(date) ($(hostname))' $to" ; }
 function sshloop () { to="$1" ; while true ; do date ; ssh $to ; sleep 2 ; done ; }
-function nospace() { local x="$1" ; mv -v "$x" "${x// /_}" ; }
+function nospace () { local x="$1" ; mv -v "$x" "${x// /_}" ; }
+function nospaces () { for x in *\ * ; do mv -v "$x" "${x// /_}" ; done ; }
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }

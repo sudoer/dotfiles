@@ -618,7 +618,7 @@ endif
 "{{{1 === KEYBOARD ===
 
 " ESCAPE & composed key timeouts
-set notimeout timeoutlen=300
+set timeout  timeoutlen=100
 set ttimeout ttimeoutlen=100
 
 
