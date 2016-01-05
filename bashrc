@@ -7,9 +7,17 @@
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $ALAN_SHLVL -eq 0 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
     if [[ -d "$HOME/logs" ]] ; then
-        export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
-        echo "logging to $ALAN_SCRIPT_LOG"
-        exec script "$HOME/logs/$ALAN_SCRIPT_LOG"
+        case $OSTYPE in
+            linux-gnu*) scriptcmd=script ;;
+            darwin*) scriptcmd=ttyrrec ;;
+        esac
+        if type $scriptcmd > /dev/null 2>&1 ; then
+            export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
+            echo "logging (via $scriptcmd) to $ALAN_SCRIPT_LOG"
+            exec $scriptcmd "$HOME/logs/$ALAN_SCRIPT_LOG"
+        else
+            echo "no console logging - could not find '$scriptcmd'"
+        fi
     else
         #DEBUG export > $HOME/x.$$
         echo "no console logging"
@@ -30,8 +38,8 @@ export ALAN_HOME_BASHRC=1
 
 # This does the same thing
 case "$-" in
-*i*) : ;; ## echo "interactive shell" ;;
-*)   return ;;
+    *i*) : ;; ## echo "interactive shell" ;;
+    *)   return ;;
 esac
 
 ################################################################################
@@ -65,30 +73,30 @@ shopt -s checkwinsize
 
 # ls
 if [ -f $HOME/.dircolors ] ; then
-   eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
+    eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
 else
-   eval "$(dircolors -b 2>/dev/null)"
+    eval "$(dircolors -b 2>/dev/null)"
 fi
 
 case $OSTYPE in
-   linux-gnu*)
-      if [ "$TERM" != "dumb" ]; then
-         alias ls='ls --color=auto'
-         # grep
-         alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
-         export GREP_COLOR='1;31'
-         # less
-         export LESS='-R'
-      fi
-      ;;
-   darwin*)
-      export CLICOLOR=1
-      export LSCOLORS="Exfxcxdxbxegedabagacad"
-      alias ls='/bin/ls -G'
-      alias grep='grep --color=auto'
-      export GREP_COLOR='1;31'
-      export LESS='-R'
-      ;;
+    linux-gnu*)
+        if [ "$TERM" != "dumb" ]; then
+            alias ls='ls --color=auto'
+            # grep
+            alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
+            export GREP_COLOR='1;31'
+            # less
+            export LESS='-R'
+        fi
+        ;;
+    darwin*)
+        export CLICOLOR=1
+        export LSCOLORS="Exfxcxdxbxegedabagacad"
+        alias ls='/bin/ls -G'
+        alias grep='grep --color=auto'
+        export GREP_COLOR='1;31'
+        export LESS='-R'
+        ;;
 esac
 
 ################################################################################
@@ -132,15 +140,15 @@ export LC_COLLATE="C"             # sort files in a unixy kind of way
 # PATH
 
 function path_append () {
-   add_me=$1
-   # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-   [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
+    add_me=$1
+    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
+    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
 }
 
 function path_prepend () {
-   add_me=$1
-   # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-   [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
+    add_me=$1
+    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
+    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
 }
 
 # add these directories if they're not already in the path
@@ -212,19 +220,19 @@ set +h
 # OS-SPECIFIC STUFF
 
 case $OSTYPE in
-   linux-gnu)
-      # some other app preferences
-      export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
-      export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-      export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
-      ;;
-   darwin*)
-      # turn off special handling of ._* files in tar, etc.
-      export COPYFILE_DISABLE=1
-      # bind HOME and END to reasonable escape sequences that work in vim, tmux and shell
-      bind '"\e[1~":"\eOH"'
-      bind '"\e[4~":"\eOF"'
-      ;;
+    linux-gnu)
+        # some other app preferences
+        export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
+        export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+        export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
+        ;;
+    darwin*)
+        # turn off special handling of ._* files in tar, etc.
+        export COPYFILE_DISABLE=1
+        # bind HOME and END to reasonable escape sequences that work in vim, tmux and shell
+        bind '"\e[1~":"\eOH"'
+        bind '"\e[4~":"\eOF"'
+        ;;
 esac
 
 ################################################################################
