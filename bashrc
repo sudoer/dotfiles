@@ -6,13 +6,14 @@
 
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $ALAN_SHLVL -eq 0 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
-   if [[ -d "$HOME/logs" ]] ; then
-      export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
-      exec script "$HOME/logs/$ALAN_SCRIPT_LOG"
-   else
-      #DEBUG export > $HOME/x.$$
-      echo "no console logging"
-   fi
+    if [[ -d "$HOME/logs" ]] ; then
+        export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
+        echo "logging to $ALAN_SCRIPT_LOG"
+        exec script "$HOME/logs/$ALAN_SCRIPT_LOG"
+    else
+        #DEBUG export > $HOME/x.$$
+        echo "no console logging"
+    fi
 fi
 
 export ALAN_SHLVL=$(($ALAN_SHLVL+1))
