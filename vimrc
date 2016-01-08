@@ -617,9 +617,9 @@ endif
 
 "{{{1 === KEYBOARD ===
 
-" ESCAPE & composed key timeouts
-set timeout  timeoutlen=100
-set ttimeout ttimeoutlen=100
+" ESCAPE & composed key timeouts, including leader key commands
+set timeout  timeoutlen=1000
+set ttimeout ttimeoutlen=1000
 
 
 "{{{1 === SCREEN / TMUX ===
