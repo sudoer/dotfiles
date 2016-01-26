@@ -6,17 +6,18 @@
 
 # If this is a TOP-LEVEL & INTERACTIVE shell, then log everything.
 if [[ ( -n "$PS1" ) && ( $ALAN_SHLVL -eq 0 ) && ( -z "$ALAN_SCRIPT_LOG" ) ]] ; then
-    if [[ -d "$HOME/logs" ]] ; then
+    if [[ -d "$HOME/log/terminal" ]] ; then
         case $OSTYPE in
             linux-gnu*) scriptcmd=script ;;
-            darwin*) scriptcmd=ttyrrec ;;
+            darwin*) scriptcmd=ttyrec ;;
         esac
         if type $scriptcmd > /dev/null 2>&1 ; then
             export ALAN_SCRIPT_LOG="terminal.$(date +%Y%m%d.%H%M%S).$$"
             echo "logging (via $scriptcmd) to $ALAN_SCRIPT_LOG"
-            exec $scriptcmd "$HOME/logs/$ALAN_SCRIPT_LOG"
+            exec $scriptcmd "$HOME/log/terminal/$ALAN_SCRIPT_LOG"
         else
             echo "no console logging - could not find '$scriptcmd'"
+            echo "path = $PATH"
         fi
     else
         #DEBUG export > $HOME/x.$$
