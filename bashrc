@@ -82,7 +82,7 @@ fi
 case $OSTYPE in
     linux-gnu*)
         if [ "$TERM" != "dumb" ]; then
-            alias ls='ls --color=auto'
+            alias ls='ls --color=auto -F'
             # grep
             alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
             export GREP_COLOR='1;31'

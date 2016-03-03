@@ -75,7 +75,7 @@ function custom_prompt {
 
    local git=""
    local gitbranch=$(prompt_git_branch)
-   if [ -n "$gitbranch" ] ; then git="${YELLOW}[git $gitbranch]${RESET}\n${level}" ; fi
+   if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}\n${level}" ; fi
 
    local venv=""
    if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}\n${level}" ; fi
@@ -97,7 +97,7 @@ function custom_prompt {
    local user="${usercolor}\u@${HOSTNAME%%.*}${RESET}"  # note - $HOSTNAME can be overridden in the shell
 
    local pathcolor=
-   local path="${LTBLUE}\$(prompt_cwd)${RESET}"
+   local path="${YELLOW}\$(prompt_cwd)${RESET}"
 
    PS1="${level}${cc}${git}${venv}${docker}${time}|${user}:${path}\$ "
 
