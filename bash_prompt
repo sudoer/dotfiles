@@ -99,7 +99,7 @@ function custom_prompt {
    local pathcolor=
    local path="${YELLOW}\$(prompt_cwd)${RESET}"
 
-   PS1="${level}${cc}${git}${venv}${docker}${time}|${user}:${path}\$ "
+   PS1="${level}${cc}${git}${venv}${docker}${time}|${user}:${path}$ "
 
    #  # craziness
    #  echo -n -e "\033[0;90m"
