@@ -66,39 +66,31 @@ shopt -s checkwinsize
 
 # COLOR
 
-# 0 = default color, 1 = bold, 4 = underlined, 5 = flashing text, 7 = reverse field
-# 31 = red, 32 = green, 33 = orange, 34 = blue, 35 = purple, 36 = cyan, 37 = grey
-# 40 = black bg, 41 = red bg, 42 = green bg, 43 = orange bg, 44 = blue bg, 45 = purple bg, 46 = cyan bg, 47 = grey bg
-# 90 = dark grey, 91 = lt red, 92 = lt green, 93 = yellow, 94 = lt blue, 95 = lt purple, 96 = turquoise
-# 100 = dark grey bg, 101 = lt red bg, 102 = lt green bg, 103 = yellow bg, 104 = lt blue bg, 105 = lt purple bg, 106 = turquoise bg
+# TODO - do we need this? if [ "$TERM" != "dumb" ] ;
 
 # ls
-if [ -f $HOME/.dircolors ] ; then
-    eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
-else
-    eval "$(dircolors -b 2>/dev/null)"
-fi
-
 case $OSTYPE in
     linux-gnu*)
-        if [ "$TERM" != "dumb" ]; then
-            alias ls='ls --color=auto -F'
-            # grep
-            alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
-            export GREP_COLOR='1;31'
-            # less
-            export LESS='-R'
+        if [ -f $HOME/.dircolors ] ; then
+            eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
+        else
+            eval "$(dircolors -b 2>/dev/null)"
         fi
+        alias ls='ls --color=auto -F'
         ;;
     darwin*)
         export CLICOLOR=1
-        export LSCOLORS="Exfxcxdxbxegedabagacad"
+        export LSCOLORS="Dxfxcxdxbxegedabagacad"
         alias ls='/bin/ls -G'
-        alias grep='grep --color=auto'
-        export GREP_COLOR='1;31'
-        export LESS='-R'
         ;;
 esac
+
+# grep
+alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
+export GREP_COLOR='1;31'
+
+# less
+export LESS='-R'
 
 ################################################################################
 
