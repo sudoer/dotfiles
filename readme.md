@@ -12,17 +12,25 @@ a directory called **$HOME/.dotfiles**.  Then I create
 symlinks to the actual files, like this:
 
     cd $HOME
-    git clone git@github.com:sudoer/dotfiles.git .dotfiles
+    git clone https://github.com/sudoer/dotfiles.git .dotfiles
     # check to see if I am covering up something "good"
     diff .dotfiles/bashrc .bashrc
     mv .bashrc .bashrc.orig
     ln -s .dotfiles/bashrc .bashrc
     ... and so on...
 
+There is a script called `links.sh` that makes these
+symlinks for me automatically.
+
 When I make a change to a local dot file, I go into the
-$HOME/.dotfiles directory and do my git commits and push
-them up here so I can see that same change on my other
-machines.
+$HOME/.dotfiles directory and commit the changes and push
+them up to github so the changes can be pulled down to all
+of the other systems that I use.
+
+Some dotfiles, like .bash_profile and .bashrc, sometimes
+need a local-only change that is not shared with other
+machines.  In those cases, I typically "include" a local
+file called .bash_profile.local or .bashrc.local.
 
 If you have questions or suggestions, feel free to send
 them my way.
