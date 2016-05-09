@@ -921,6 +921,13 @@ if isdirectory(expand("~/.vim/bundle/vim-airline"))
     set noshowmode
     if !has('gui_macvim')
         let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#show_buffers = 0
+        let g:airline#extensions#tabline#show_splits = 0
+        let g:airline#extensions#tabline#show_tabs = 1
+        let g:airline#extensions#tabline#show_tab_nr = 1
+        let g:airline#extensions#tabline#show_tab_type = 1
+        let g:airline#extensions#tabline#show_close_button = 0
+        let g:airline#extensions#tabline#close_symbol = '×'
     endif
 endif
 
