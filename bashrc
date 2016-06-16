@@ -1,6 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 ################################################################################
 
@@ -244,5 +242,9 @@ export EDITOR=vim
 
 ################################################################################
 
-[[ -f ~/.bashrc.local ]]   && source ~/.bashrc.local
+# almost last - do local bashrc
+[[ -f $HOME/.bashrc.local ]]   && source $HOME/.bashrc.local
+
+# very last - clear any errors in $? in the prompt
+[[ $(type -t prompt_init) == 'function' ]] && prompt_init
 

@@ -1,4 +1,3 @@
-################################################################################
 
 function prompt_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
@@ -161,14 +160,18 @@ function custom_prompt {
     # The prompt ($PS1) will be rendered after this function is finished.
 }
 
-# trap error codes
-trap prompt_trap_error ERR
+function prompt_init () {
+    # clear old trapped errors
+    prompt_exit=""
+    # trap error codes
+    trap prompt_trap_error ERR
+    # run it once now
+    custom_prompt
+    # run it on each prompt
+    export PROMPT_COMMAND='custom_prompt'
+}
 
-# run it once now
-custom_prompt
+# initialize here - note: may be re-initialized in shell startup files
+prompt_init
 
-# run it on each prompt
-PROMPT_COMMAND='custom_prompt'
-
-################################################################################
 
