@@ -38,13 +38,15 @@ function vbox () {
 # virtual environments - native virtualenv
 # stores environment in a local directory
 function venv () {
+   local name=${2:-venv}
    case "$1" in
-      create) virtualenv $2 ;;
-      use)    source $2/bin/activate ;;
+      create) virtualenv $name ;;
+      list)   ls -1 */bin/activate | sed -e 's|/.*$||g' ;;
+      use)    source $name/bin/activate ;;
       exit)   deactivate ;;
-      save)   pip freeze > $2.pip-pkgs ;;
-      load)   pip install -r $2.pip-pkgs ;;
-      *)      echo "venv create|use|save|load|exit" ;;
+      save)   pip freeze > $name.pip-pkgs ;;
+      load)   pip install -r $name.pip-pkgs ;;
+      *)      echo "venv create|list|use|save|load|exit" ;;
    esac
 }
 
