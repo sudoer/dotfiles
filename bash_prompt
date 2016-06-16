@@ -1,3 +1,4 @@
+#!/bin/echo this file should be sourced
 
 function prompt_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
@@ -72,19 +73,23 @@ function custom_prompt {
         arrows="${WHITE}${spaces// />}${RESET}"
     fi
 
-    # THESE ITEMS TAKE UP AN ENTIRE LINE OF THEIR OWN
+    # THESE ITEMS ARE ON THE TOP STATUS LINE
 
+    # clearcase
     local cc=""
     local ccbranch=$(prompt_cc_branch)
     if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}" ; fi
 
+    # git
     local git=""
     local gitbranch=$(prompt_git_branch)
     if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}" ; fi
 
+    # python virtual environment
     local venv=""
     if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}" ; fi
 
+    # docker
     local docker=""
     if [ -n "$DOCKER_HOST" ] ; then
          docker="${DOCKER_HOST##*/}"
@@ -92,20 +97,36 @@ function custom_prompt {
          docker="${ORANGE}[docker $docker]${RESET}"
     fi
 
-    # THESE PARTS ARE PRINTED ON THE MAIN PROMPT LINE
+    # backgrounded or stopped jobs
+    local backgroundjobs=$(jobs -r | wc -l)
+    local stoppedjobs=$(jobs -s | wc -l)
+    local jobs=""
+    if [[ ( $backgroundjobs -gt 0 ) && ( $stoppedjobs -gt 0 ) ]] ; then
+        jobs="${CYAN}[jobs bg:$backgroundjobs, ${PURPLE}st:$stoppedjobs${CYAN}]${RESET}"
+    elif [[ $backgroundjobs -gt 0 ]] ; then
+        jobs="${CYAN}[jobs bg:$backgroundjobs]${RESET}"
+    elif [[ $stoppedjobs -gt 0 ]] ; then
+        jobs="${CYAN}[jobs ${PURPLE}st:$stoppedjobs${CYAN}]${RESET}"
+    fi
 
+    # THESE ARE PARTS OF THE MAIN PROMPT LINE
+
+    # date/time
     weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
     dow=${weekdays[$(\date +%u)]}
     dom=$(\date +%d)
     local time="${LTPURPLE}${dow}${dom}${PURPLE}/${LTPURPLE}\t${RESET}"
 
+    # username
     local usercolor="${LTGREEN}"
     if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
     # note - $HOSTNAME can be overridden in the shell
     local user="${usercolor}\u@${HOSTNAME%%.*}${RESET}"
 
+    # current working directory
     local path="${YELLOW}\$(prompt_cwd)${RESET}"
 
+    # exit code from last command
     local error=""
     if [[ $prompt_exit == '' ]] ; then
         error=""
@@ -121,16 +142,18 @@ function custom_prompt {
 
     # ASSEMBLE THE PROMPT
 
-    # whole-line parts are indented using the ${level} prefix so they look right
-    local lineSep="\n${level}"
-    local wholeLineParts="${level}"
-    wholeLineParts="${wholeLineParts}${git}${git:+$lineSep}"
-    wholeLineParts="${wholeLineParts}${venv}${venv:+$lineSep}"
-    wholeLineParts="${wholeLineParts}${docker}${docker:+$lineSep}"
-    # inline parts make up the main prompt line
-    local inLineParts="${time}|${user}:${path} ${error}${dollar} "
+    # make up the status line from parts
+    local statusLine=""
+    local statusSep=" "
+    statusLine="${statusLine}${jobs}${jobs:+$statusSep}"
+    statusLine="${statusLine}${git}${git:+$statusSep}"
+    statusLine="${statusLine}${venv}${venv:+$statusSep}"
+    statusLine="${statusLine}${docker}${docker:+$statusSep}"
+    statusLine="${statusLine:+$level}${statusLine}${statusLine:+\n$level}"
+    # make up the main prompt line from parts
+    local promptLine="${time}|${user}:${path} ${error}${dollar} "
     # add them together to make the entire prompt
-    PS1="${wholeLineParts}${inLineParts}"
+    PS1="${statusLine}${promptLine}"
 
     # FUN STUFF BEFORE THE PROMPT IS RENDERED
 
