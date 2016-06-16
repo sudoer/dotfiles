@@ -102,7 +102,7 @@ export LESS='-R'
 
 # History - do this after prompt, since it uses $PROMPT_COMMAND
 shopt -s histappend
-PROMPT_COMMAND="history -a ; $PROMPT_COMMAND"
+PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
 
 ################################################################################
 
