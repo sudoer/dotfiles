@@ -1,164 +1,164 @@
 ################################################################################
 
 function prompt_git_branch {
-   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
 function prompt_cc_branch {
-   # NOTE - must be fast... it is.
-   local cc=""
-   if [ ! -z "$CLEARCASE_ROOT" ] ; then
-       # /view/member_bcr_34649_team_a_aporter
-       basename $CLEARCASE_ROOT
-   fi
+    # NOTE - must be fast... it is.
+    local cc=""
+    if [ ! -z "$CLEARCASE_ROOT" ] ; then
+         # /view/member_bcr_34649_team_a_aporter
+         basename $CLEARCASE_ROOT
+    fi
 }
 
 function prompt_debian_chroot {
-   if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
-      cat /etc/debian_chroot
-   fi
+    if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+        cat /etc/debian_chroot
+    fi
 }
 
 function prompt_cwd {
-   local promptcwd
-   # in bash 4.3 and later, we need to escape the tilde
-   promptcwd="${PWD/#$HOME/\~}"
-   # in bash 4.2 and earlier, the backslash will show up in the prompt, remove it
-   promptcwd="${promptcwd/\\/}"
-   local pwdmaxlen=45
-   local pwdstartlen=11
-   if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
-      local pwdendlen=$(( $pwdmaxlen - $pwdstartlen ))
-      local pwdoffset=$(( ${#promptcwd} - $pwdendlen ))
-      promptcwd="${promptcwd:0:$pwdstartlen}~~${promptcwd:$pwdoffset:$pwdendlen}"
-   fi
-   echo $promptcwd
+    local promptcwd
+    # in bash 4.3 and later, we need to escape the tilde
+    promptcwd="${PWD/#$HOME/\~}"
+    # in bash 4.2 and earlier, the backslash will show up in the prompt, remove it
+    promptcwd="${promptcwd/\\/}"
+    local pwdmaxlen=45
+    local pwdstartlen=11
+    if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
+        local pwdendlen=$(( $pwdmaxlen - $pwdstartlen ))
+        local pwdoffset=$(( ${#promptcwd} - $pwdendlen ))
+        promptcwd="${promptcwd:0:$pwdstartlen}~~${promptcwd:$pwdoffset:$pwdendlen}"
+    fi
+    echo $promptcwd
 }
 
 prompt_exit=""
 function prompt_trap_error () {
-   prompt_exit=$?
+    prompt_exit=$?
 }
 
 function custom_prompt {
-   # 0   = default colour 1   = bold 4   = underlined 5   = flashing text 7   = reverse field
-   # 31  = red 32  = green 33  = orange 34  = blue 35  = purple 36  = cyan 37  = grey
-   # 40  = black bg 41  = red bg 42  = green bg 43  = orange bg 44  = blue bg 45  = purple bg 46  = cyan bg 47  = grey bg
-   # 90  = dark grey 91  = lt red 92  = lt green 93  = yellow 94  = lt blue 95  = lt purple 96  = turquoise
-   # 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
-   local         RED="\[\033[0;31m\]"
-   local       LTRED="\[\033[1;31m\]"
-   local       GREEN="\[\033[0;32m\]"
-   local     LTGREEN="\[\033[1;32m\]"
-   local      ORANGE="\[\033[0;33m\]"
-   local      YELLOW="\[\033[1;33m\]"
-   local        BLUE="\[\033[0;34m\]"
-   local      LTBLUE="\[\033[1;34m\]"
-   local      PURPLE="\[\033[0;35m\]"
-   local    LTPURPLE="\[\033[1;35m\]"
-   local        CYAN="\[\033[0;36m\]"
-   local      LTCYAN="\[\033[1;36m\]"
-   local       WHITE="\[\033[1;37m\]"
-   local      LTGRAY="\[\033[0;37m\]"
-   local      DKGRAY="\[\033[0;90m\]"
-   local       RESET="\[\033[00m\]"
+    # 0   = default colour 1   = bold 4   = underlined 5   = flashing text 7   = reverse field
+    # 31  = red 32  = green 33  = orange 34  = blue 35  = purple 36  = cyan 37  = grey
+    # 40  = black bg 41  = red bg 42  = green bg 43  = orange bg 44  = blue bg 45  = purple bg 46  = cyan bg 47  = grey bg
+    # 90  = dark grey 91  = lt red 92  = lt green 93  = yellow 94  = lt blue 95  = lt purple 96  = turquoise
+    # 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
+    local         RED="\[\033[0;31m\]"
+    local       LTRED="\[\033[1;31m\]"
+    local       GREEN="\[\033[0;32m\]"
+    local     LTGREEN="\[\033[1;32m\]"
+    local      ORANGE="\[\033[0;33m\]"
+    local      YELLOW="\[\033[1;33m\]"
+    local        BLUE="\[\033[0;34m\]"
+    local      LTBLUE="\[\033[1;34m\]"
+    local      PURPLE="\[\033[0;35m\]"
+    local    LTPURPLE="\[\033[1;35m\]"
+    local        CYAN="\[\033[0;36m\]"
+    local      LTCYAN="\[\033[1;36m\]"
+    local       WHITE="\[\033[1;37m\]"
+    local      LTGRAY="\[\033[0;37m\]"
+    local      DKGRAY="\[\033[0;90m\]"
+    local       RESET="\[\033[00m\]"
 
-   # SHELL LEVELS CAN BE INDICATED WITH ARROWS OR A NUMBER
+    # SHELL LEVELS CAN BE INDICATED WITH ARROWS OR A NUMBER
 
-   local level=""
-   local arrows=">"
-   if [[ ! -z $ALAN_SHLVL ]] ; then
-      [[ $ALAN_SHLVL -gt 1 ]] && level="${DKGRAY}[$ALAN_SHLVL]${RESET}"
-      local spaces=$(printf "%${ALAN_SHLVL}s")
-      arrows="${WHITE}${spaces// />}${RESET}"
-   fi
+    local level=""
+    local arrows=">"
+    if [[ ! -z $ALAN_SHLVL ]] ; then
+        [[ $ALAN_SHLVL -gt 1 ]] && level="${DKGRAY}[$ALAN_SHLVL]${RESET}"
+        local spaces=$(printf "%${ALAN_SHLVL}s")
+        arrows="${WHITE}${spaces// />}${RESET}"
+    fi
 
-   # THESE ITEMS TAKE UP AN ENTIRE LINE OF THEIR OWN
+    # THESE ITEMS TAKE UP AN ENTIRE LINE OF THEIR OWN
 
-   local cc=""
-   local ccbranch=$(prompt_cc_branch)
-   if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}" ; fi
+    local cc=""
+    local ccbranch=$(prompt_cc_branch)
+    if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}" ; fi
 
-   local git=""
-   local gitbranch=$(prompt_git_branch)
-   if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}" ; fi
+    local git=""
+    local gitbranch=$(prompt_git_branch)
+    if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}" ; fi
 
-   local venv=""
-   if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}" ; fi
+    local venv=""
+    if [ -n "$VIRTUAL_ENV" ] ; then venv="${GREEN}[venv $VIRTUAL_ENV]${RESET}" ; fi
 
-   local docker=""
-   if [ -n "$DOCKER_HOST" ] ; then
-       docker="${DOCKER_HOST##*/}"
-       docker="${docker%%:*}"
-       docker="${ORANGE}[docker $docker]${RESET}"
-   fi
+    local docker=""
+    if [ -n "$DOCKER_HOST" ] ; then
+         docker="${DOCKER_HOST##*/}"
+         docker="${docker%%:*}"
+         docker="${ORANGE}[docker $docker]${RESET}"
+    fi
 
-   # THESE PARTS ARE PRINTED ON THE MAIN PROMPT LINE
+    # THESE PARTS ARE PRINTED ON THE MAIN PROMPT LINE
 
-   weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
-   dow=${weekdays[$(\date +%u)]}
-   dom=$(\date +%d)
-   local time="${LTPURPLE}${dow}${dom}${PURPLE}/${LTPURPLE}\t${RESET}"
+    weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
+    dow=${weekdays[$(\date +%u)]}
+    dom=$(\date +%d)
+    local time="${LTPURPLE}${dow}${dom}${PURPLE}/${LTPURPLE}\t${RESET}"
 
-   local usercolor="${LTGREEN}"
-   if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
-   # note - $HOSTNAME can be overridden in the shell
-   local user="${usercolor}\u@${HOSTNAME%%.*}${RESET}"
+    local usercolor="${LTGREEN}"
+    if [ $EUID == 0 ] ; then usercolor="${LTRED}" ; fi
+    # note - $HOSTNAME can be overridden in the shell
+    local user="${usercolor}\u@${HOSTNAME%%.*}${RESET}"
 
-   local path="${YELLOW}\$(prompt_cwd)${RESET}"
+    local path="${YELLOW}\$(prompt_cwd)${RESET}"
 
-   local error=""
-   if [[ $prompt_exit == '' ]] ; then
-      error=""
-      dollar="${GREEN}\$${RESET}"
-   elif [[ $prompt_exit -eq 0 ]] ; then
-      error="${GREEN}OK${RESET} "
-      dollar="${RED}\$${RESET}"
-   else
-      error="[${LTRED}${prompt_exit}${RESET}] "
-      dollar="${RED}\$${RESET}"
-   fi
-   unset prompt_exit
+    local error=""
+    if [[ $prompt_exit == '' ]] ; then
+        error=""
+        dollar="${GREEN}\$${RESET}"
+    elif [[ $prompt_exit -eq 0 ]] ; then
+        error="${GREEN}OK${RESET} "
+        dollar="${RED}\$${RESET}"
+    else
+        error="[${LTRED}${prompt_exit}${RESET}] "
+        dollar="${RED}\$${RESET}"
+    fi
+    unset prompt_exit
 
-   # ASSEMBLE THE PROMPT
+    # ASSEMBLE THE PROMPT
 
-   # whole-line parts are indented using the ${level} prefix so they look right
-   local lineSep="\n${level}"
-   local wholeLineParts="${level}"
-   wholeLineParts="${wholeLineParts}${git}${git:+$lineSep}"
-   wholeLineParts="${wholeLineParts}${venv}${venv:+$lineSep}"
-   wholeLineParts="${wholeLineParts}${docker}${docker:+$lineSep}"
-   # inline parts make up the main prompt line
-   local inLineParts="${time}|${user}:${path} ${error}${dollar} "
-   # add them together to make the entire prompt
-   PS1="${wholeLineParts}${inLineParts}"
+    # whole-line parts are indented using the ${level} prefix so they look right
+    local lineSep="\n${level}"
+    local wholeLineParts="${level}"
+    wholeLineParts="${wholeLineParts}${git}${git:+$lineSep}"
+    wholeLineParts="${wholeLineParts}${venv}${venv:+$lineSep}"
+    wholeLineParts="${wholeLineParts}${docker}${docker:+$lineSep}"
+    # inline parts make up the main prompt line
+    local inLineParts="${time}|${user}:${path} ${error}${dollar} "
+    # add them together to make the entire prompt
+    PS1="${wholeLineParts}${inLineParts}"
 
-   # FUN STUFF BEFORE THE PROMPT IS RENDERED
+    # FUN STUFF BEFORE THE PROMPT IS RENDERED
 
-   #  # craziness
-   #  echo -n -e "\033[0;90m"
-   #  fortune
-   #  echo -n -e "\033[0;0m"
+    #  # craziness
+    #  echo -n -e "\033[0;90m"
+    #  fortune
+    #  echo -n -e "\033[0;0m"
 
-   # TITLE BAR
+    # TITLE BAR
 
-   # On xterm-like shells, set the title bar EVERY TIME we draw the prompt.
-   # That way, we can SSH into a box and the title changes, and then it
-   # changes back when we exit back to our local shell.
+    # On xterm-like shells, set the title bar EVERY TIME we draw the prompt.
+    # That way, we can SSH into a box and the title changes, and then it
+    # changes back when we exit back to our local shell.
 
-   case "$TERM" in
-   xterm*|rxvt*)
-      if [[ -n $TITLEBAR ]] ; then
-         echo -ne "\033]0;$TITLEBAR\007"
-      else
-         echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"  # some like ${PWD} too
-      fi
-      ;;
-   *)
-      ;;
-   esac
+    case "$TERM" in
+    xterm*|rxvt*)
+        if [[ -n $TITLEBAR ]] ; then
+            echo -ne "\033]0;$TITLEBAR\007"
+        else
+            echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"  # some like ${PWD} too
+        fi
+        ;;
+    *)
+        ;;
+    esac
 
-   # The prompt ($PS1) will be rendered after this function is finished.
+    # The prompt ($PS1) will be rendered after this function is finished.
 }
 
 # trap error codes
