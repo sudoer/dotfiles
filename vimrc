@@ -42,6 +42,18 @@ set encoding=utf-8
 " nice tricks
 " gg = go to top of file
 " '' = go to previous cursor location
+" zz = scroll so that cursor is in the middle of screen
+" zt = scroll so that cursor is in the top of screen
+" zb = scroll so that cursor is in the bottom of screen
+
+" scrolling, without moving the cursor
+" (unless it has to to keep it on the screen)
+" ctrl-B = scroll up one page
+" ctrl-F = scroll down one page
+" ctrl-U = scroll up one half-page
+" ctrl-D = scroll down one half-page
+" ctrl-Y = scroll up one line
+" ctrl-E = scroll down one line
 
 " <leader> key defaults to backslash, I use it for my custom keystrokes
 let mapleader="\\"
