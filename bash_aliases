@@ -108,6 +108,12 @@ function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forg
 ##
 #-------------------------------------------------------------------------------
 
+# run ssh-add to ask for passphrase only when you run SSH
+# http://beyond-syntax.com/blog/2012/01/on-demand-ssh-add/
+alias ssh="( ssh-add -l > /dev/null || ssh-add ) && ssh"
+
+#-------------------------------------------------------------------------------
+
 function ssh-reagent () {
    for agent in /tmp/ssh-*/agent.*; do
       export SSH_AUTH_SOCK=$agent
