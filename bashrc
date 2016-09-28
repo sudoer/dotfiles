@@ -146,6 +146,18 @@ function path_prepend () {
 path_append /usr/sbin
 path_append /sbin
 path_prepend $HOME/bin
+
+# homebrew on mac
+case $OSTYPE in
+    darwin*)
+        type brew >/dev/null 2>&1
+        if [[ $? -eq 0 ]] ; then
+            path_prepend /usr/local/bin
+            path_prepend /usr/local/opt/coreutils/libexec/gnubin
+        fi
+        ;;
+esac
+
 export PATH
 
 ################################################################################

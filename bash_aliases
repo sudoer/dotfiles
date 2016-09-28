@@ -61,6 +61,19 @@ function endscript () {
    fi
 }
 
+# homebrew on mac - man pages
+case $OSTYPE in
+    darwin*)
+        type brew >/dev/null 2>&1
+        if [[ $? -eq 0 ]] ; then
+            # https://gist.github.com/quickshiftin/9130153
+            # Short of learning how to actually configure OSX, here's a hacky way to use
+            # GNU manpages for programs that are GNU ones, and fallback to OSX manpages otherwise
+            alias man='_() { echo $1; man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1 1>/dev/null 2>&1;  if [ "$?" -eq 0 ]; then man -M $(brew --prefix)/opt/coreutils/libexec/gnuman $1; else man $1; fi }; _'
+        fi
+        ;;
+esac
+
 # other
 alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
 alias logterm="exec script \"$HOME/logs/terminal.\$(date +%Y%m%d.%H%M%S).\$$\""
