@@ -87,6 +87,11 @@ function testmail () { to="$1" ; date | sh -xc "mail -s '$(date) ($(hostname))' 
 function sshloop () { to="$1" ; while true ; do date ; ssh $to ; sleep 2 ; done ; }
 function nospace () { local x="$1" ; mv -v "$x" "${x// /_}" ; }
 function nospaces () { for x in *\ * ; do mv -v "$x" "${x// /_}" ; done ; }
+function grep-r () {
+    keywords=$1
+    columns=${COLUMNS:-$(tput cols)}
+    grep --color=always -rin "$keywords" * | cut -c 1-$columns | grep --color=always -i "$keywords"
+}
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
