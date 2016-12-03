@@ -435,6 +435,10 @@ set tabstop=4
 set softtabstop=4
 set expandtab  " use :retab to convert existing tabs using expandtab (tab->4sp)
 
+" trick: to convert 3-space indents to 4-space indents:
+" :set tabstop=3 / :set noexpandtab / :retab! :set tabstop=4 / :set expandtab / :retab!
+
+
 " makefiles should keep tabs intact
 autocmd FileType make setlocal noexpandtab
 
