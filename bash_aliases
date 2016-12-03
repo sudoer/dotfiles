@@ -129,7 +129,7 @@ function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forg
 
 # run ssh-add to ask for passphrase only when you run SSH
 # http://beyond-syntax.com/blog/2012/01/on-demand-ssh-add/
-alias ssh="( ssh-add -l > /dev/null || ssh-add ) && ssh"
+alias ssh="( ssh-add -l > /dev/null || ( echo -n 'ssh-add/ssh-agent - ' ; ssh-add ) ) && ssh"
 
 #-------------------------------------------------------------------------------
 
