@@ -155,31 +155,6 @@ function custom_prompt {
     # add them together to make the entire prompt
     PS1="${statusLine}${promptLine}"
 
-    # FUN STUFF BEFORE THE PROMPT IS RENDERED
-
-    #  # craziness
-    #  echo -n -e "\033[0;90m"
-    #  fortune
-    #  echo -n -e "\033[0;0m"
-
-    # TITLE BAR
-
-    # On xterm-like shells, set the title bar EVERY TIME we draw the prompt.
-    # That way, we can SSH into a box and the title changes, and then it
-    # changes back when we exit back to our local shell.
-
-    case "$TERM" in
-    xterm*|rxvt*)
-        if [[ -n $TITLEBAR ]] ; then
-            echo -ne "\033]0;$TITLEBAR\007"
-        else
-            echo -ne "\033]0;${USER}@${HOSTNAME%%.*}\007"  # some like ${PWD} too
-        fi
-        ;;
-    *)
-        ;;
-    esac
-
     # The prompt ($PS1) will be rendered after this function is finished.
 }
 
@@ -190,8 +165,12 @@ function prompt_init () {
     trap prompt_trap_error ERR
     # run it once now
     custom_prompt
-    # run it on each prompt
+    # Run the custom_prompt function every time we draw a prompt.
     export PROMPT_COMMAND='custom_prompt'
+    # Also, on xterm-like shells, set the window and tab title bars EVERY TIME
+    # we draw the prompt.  This allows us to SSH into a box and the title will
+    # change, and then it will change back when we exit back to our local shell.
+    export PROMPT_COMMAND="$PROMPT_COMMAND ; draw_window_and_tab_titles"
 }
 
 # initialize here - note: may be re-initialized in shell startup files
