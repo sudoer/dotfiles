@@ -1,7 +1,19 @@
 #!/bin/echo this file should be sourced
 
 function prompt_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' -e 's/(HEAD detached at \([0-9a-f]*\))/\1/g'
+}
+function prompt_git_branch_2 {
+    local git_status="$(git status 2> /dev/null)"
+    local on_branch="On branch ([^${IFS}]*)"
+    local on_commit="HEAD detached at ([^${IFS}]*)"
+    if [[ $git_status =~ $on_branch ]]; then
+        local branch=${BASH_REMATCH[1]}
+        echo "$branch"
+    elif [[ $git_status =~ $on_commit ]]; then
+        local commit=${BASH_REMATCH[1]}
+        echo "$commit"
+    fi
 }
 
 function prompt_cc_branch {
@@ -62,6 +74,7 @@ function custom_prompt {
     local      LTGRAY="\[\033[0;37m\]"
     local      DKGRAY="\[\033[0;90m\]"
     local       RESET="\[\033[00m\]"
+    local       OCHRE="\[\033[38;5;95m\]"
 
     # SHELL LEVELS CAN BE INDICATED WITH ARROWS OR A NUMBER
 
@@ -80,10 +93,28 @@ function custom_prompt {
     local ccbranch=$(prompt_cc_branch)
     if [ -n "$ccbranch" ] ; then cc="${LTCYAN}[CC $ccbranch]${RESET}" ; fi
 
-    # git
+#   # git - simple
+#   local git=""
+#   local gitbranch=$(prompt_git_branch)
+#   if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}" ; fi
+
+    # git - more complex
     local git=""
     local gitbranch=$(prompt_git_branch)
-    if [ -n "$gitbranch" ] ; then git="${LTCYAN}[git $gitbranch]${RESET}" ; fi
+    if [ -n "$gitbranch" ] ; then
+        local git_status="$(git status 2> /dev/null)"
+        local branch_color=$RESET
+        if [[ ! $git_status =~ "working tree clean" ]]; then
+            branch_color=$LTCYAN
+        elif [[ $git_status =~ "Your branch is ahead of" ]]; then
+            branch_color=$YELLOW
+        elif [[ $git_status =~ "nothing to commit" ]]; then
+            branch_color=$GREEN
+        else
+            branch_color=$OCHRE
+        fi
+        git="${LTCYAN}[git ${branch_color}$gitbranch${LTCYAN}]${RESET}"
+    fi
 
     # python virtual environment
     local venv=""
