@@ -13,7 +13,8 @@ export ALAN_SHLVL=0
 
 # very basic welcome
 echo "welcome to ${HOSTNAME%%.*}"
-TITLEBAR="$USER@${HOSTNAME%%.*}"
+# WINDOW_TITLE="$USER@${HOSTNAME%%.*}"
+TAB_TITLE="$USER@${HOSTNAME%%.*}"
 
 #----------------------------------------
 # run local bash profile, if it exists

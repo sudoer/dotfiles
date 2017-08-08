@@ -75,6 +75,34 @@ case $OSTYPE in
         ;;
 esac
 
+#-------------------------------------------------------------------------------
+
+# window and tab titles
+
+function window_title() { export WINDOW_TITLE="$*" ; }
+function tab_title() { export TAB_TITLE="$*" ; }
+function draw_window_and_tab_titles() {
+    case "$TERM" in
+    xterm*|rxvt*)
+        # echo -ne "\033]X;text\007"  (where X=0: both, X=1: tab, X=2: window)
+        # window title - only draw if it is set
+        if [[ -n $WINDOW_TITLE ]] ; then
+            echo -ne "\033]2;$WINDOW_TITLE\007"
+        fi
+        # tab title - draw whether it is set or not
+        if [[ -n $TAB_TITLE ]] ;then
+            echo -ne "\033]1;$TAB_TITLE\007"
+        else
+            echo -ne "\033]1;${USER}@${HOSTNAME%%.*}\007"
+        fi
+        ;;
+    *)
+        ;;
+    esac
+}
+
+#-------------------------------------------------------------------------------
+
 # other
 alias colors='for c in $(seq 0 127) ; do echo -en "\033[${c}m$c\0033[0m\t" ; if [ $((c%10)) -eq 9 ] ; then echo "" ; fi ; done ; echo'
 alias logterm="exec script \"$HOME/logs/terminal.\$(date +%Y%m%d.%H%M%S).\$$\""
@@ -88,7 +116,6 @@ function sshloop () { to="$1" ; while true ; do date ; ssh $to ; sleep 2 ; done 
 function nospace () { local x="$1" ; mv -v "$x" "${x// /_}" ; }
 function nospaces () { for x in *\ * ; do mv -v "$x" "${x// /_}" ; done ; }
 alias httpd='python -m SimpleHTTPServer'
-function titlebar() { export TITLEBAR="$*" ; }
 function utc2local () { utc="$*"; date -d @$(TZ=UTC date +%s -d "$utc"); }
 
 # fix my own mistakes
