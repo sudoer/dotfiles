@@ -1012,3 +1012,5 @@ nmap <silent> <leader>r :redraw!<CR>
 
 "}}}1
 
+highlight mkdString   ctermfg=green   ctermbg=none   cterm=none
+
