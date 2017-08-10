@@ -104,7 +104,7 @@ function custom_prompt {
         local branch_color=$COLOR_RESET
         # COLOR_ORANGE = AHEAD OF ORIGIN
         if [[ $git_status =~ "Your branch is ahead of" ]]; then
-            branch_color=$COLOR_LTYELLOW
+            branch_color=$COLOR_ORANGE
         # COLOR_LTCYAN = CLEAN
         elif [[ $git_status =~ "nothing to commit, working tree clean" ]]; then
             branch_color=$COLOR_LTCYAN
