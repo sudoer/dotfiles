@@ -53,17 +53,13 @@ function prompt_trap_error () {
 }
 
 function custom_prompt {
-    # 0   = default colour 1   = bold 4   = underlined 5   = flashing text 7   = reverse field
-    # 31  = red 32  = green 33  = orange 34  = blue 35  = purple 36  = cyan 37  = grey
-    # 40  = black bg 41  = red bg 42  = green bg 43  = orange bg 44  = blue bg 45  = purple bg 46  = cyan bg 47  = grey bg
-    # 90  = dark grey 91  = lt red 92  = lt green 93  = yellow 94  = lt blue 95  = lt purple 96  = turquoise
-    # 100 = dark grey bg 101 = lt red bg 102 = lt green bg 103 = yellow bg 104 = lt blue bg 105 = lt purple bg 106 = turquoise bg
+    # see http://misc.flogisoft.com/bash/tip_colors_and_formatting for a full list
     local         COLOR_RED="\[\033[0;31m\]"
     local       COLOR_LTRED="\[\033[1;31m\]"
     local       COLOR_GREEN="\[\033[0;32m\]"
     local     COLOR_LTGREEN="\[\033[1;32m\]"
-    local      COLOR_ORANGE="\[\033[0;33m\]"
-    local      COLOR_YELLOW="\[\033[1;33m\]"
+    local      COLOR_YELLOW="\[\033[0;33m\]"
+    local    COLOR_LTYELLOW="\[\033[1;33m\]"
     local        COLOR_BLUE="\[\033[0;34m\]"
     local      COLOR_LTBLUE="\[\033[1;34m\]"
     local      COLOR_PURPLE="\[\033[0;35m\]"
@@ -74,6 +70,8 @@ function custom_prompt {
     local      COLOR_LTGRAY="\[\033[0;37m\]"
     local      COLOR_DKGRAY="\[\033[0;90m\]"
     local       COLOR_RESET="\[\033[00m\]"
+    local       COLOR_BROWN="\[\033[38;5;130m\]"
+    local      COLOR_ORANGE="\[\033[38;5;202m\]"
     local       COLOR_OCHRE="\[\033[38;5;95m\]"
 
     # SHELL LEVELS CAN BE INDICATED WITH ARROWS OR A NUMBER
@@ -106,7 +104,7 @@ function custom_prompt {
         local branch_color=$COLOR_RESET
         # COLOR_ORANGE = AHEAD OF ORIGIN
         if [[ $git_status =~ "Your branch is ahead of" ]]; then
-            branch_color=$COLOR_ORANGE
+            branch_color=$COLOR_LTYELLOW
         # COLOR_LTCYAN = CLEAN
         elif [[ $git_status =~ "nothing to commit, working tree clean" ]]; then
             branch_color=$COLOR_LTCYAN
@@ -115,12 +113,12 @@ function custom_prompt {
             branch_color=$COLOR_YELLOW
         elif [[ $git_status =~ "Changes not staged for commit:" ]]; then
             branch_color=$COLOR_YELLOW
+        # COLOR_BROWN = LOCAL UNTRACKED FILES
         elif [[ $git_status =~ "Untracked files:" ]]; then
-            branch_color=$COLOR_YELLOW
-        # COLOR_CYAN = LOCAL UNTRACKED FILES ONLY
+            branch_color=$COLOR_BROWN
         elif [[ $git_status =~ "nothing added to commit but untracked files present" ]]; then
-            branch_color=$COLOR_CYAN
-        # COLOR_OCHRE = ???
+            branch_color=$COLOR_BROWN
+        # COLOR_OCHRE = how do we get here???
         else
             branch_color=$COLOR_OCHRE
         fi
@@ -166,7 +164,7 @@ function custom_prompt {
     local user="${usercolor}\u@${HOSTNAME%%.*}${COLOR_RESET}"
 
     # current working directory
-    local path="${COLOR_YELLOW}\$(prompt_cwd)${COLOR_RESET}"
+    local path="${COLOR_LTYELLOW}\$(prompt_cwd)${COLOR_RESET}"
 
     # exit code from last command
     local error=""
