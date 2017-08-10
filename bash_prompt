@@ -104,12 +104,23 @@ function custom_prompt {
     if [ -n "$gitbranch" ] ; then
         local git_status="$(git status 2> /dev/null)"
         local branch_color=$RESET
-        if [[ ! $git_status =~ "working tree clean" ]]; then
-            branch_color=$GREEN
-        elif [[ $git_status =~ "Your branch is ahead of" ]]; then
-            branch_color=$YELLOW
-        elif [[ $git_status =~ "nothing to commit" ]]; then
+        # ORANGE = AHEAD OF ORIGIN
+        if [[ $git_status =~ "Your branch is ahead of" ]]; then
+            branch_color=$ORANGE
+        # LTCYAN = CLEAN
+        elif [[ $git_status =~ "nothing to commit, working tree clean" ]]; then
             branch_color=$LTCYAN
+        # YELLOW = LOCAL CHANGES
+        elif [[ $git_status =~ "Changes to be committed" ]]; then
+            branch_color=$YELLOW
+        elif [[ $git_status =~ "Changes not staged for commit:" ]]; then
+            branch_color=$YELLOW
+        elif [[ $git_status =~ "Untracked files:" ]]; then
+            branch_color=$YELLOW
+        # CYAN = LOCAL UNTRACKED FILES ONLY
+        elif [[ $git_status =~ "nothing added to commit but untracked files present" ]]; then
+            branch_color=$CYAN
+        # OCHRE = ???
         else
             branch_color=$OCHRE
         fi
