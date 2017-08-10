@@ -110,7 +110,7 @@ function custom_prompt {
             branch_color=$COLOR_LTCYAN
         # COLOR_YELLOW = LOCAL CHANGES
         elif [[ $git_status =~ "Changes to be committed" ]]; then
-            branch_color=$COLOR_YELLOW
+            branch_color=$COLOR_LTYELLOW
         elif [[ $git_status =~ "Changes not staged for commit:" ]]; then
             branch_color=$COLOR_YELLOW
         # COLOR_BROWN = LOCAL UNTRACKED FILES
