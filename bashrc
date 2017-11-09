@@ -204,12 +204,6 @@ export EDITOR=vim
 ##   bind '"\e[4~":"\eOF"'
 ## fi
 
-# Python virtual environments - wrapper
-if [[ -f /usr/bin/virtualenvwrapper.sh ]] ; then
-    export WORKON_HOME=~/.venv
-    source /usr/bin/virtualenvwrapper.sh
-fi
-
 ################################################################################
 
 # almost last - do local bashrc
