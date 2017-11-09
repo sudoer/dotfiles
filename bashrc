@@ -93,6 +93,7 @@ export LESS='-R'
 ################################################################################
 
 # PROMPT, ALIASES
+[[ -f ~/.bash_colors ]]  && source ~/.bash_colors
 [[ -f ~/.bash_prompt ]]  && source ~/.bash_prompt
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 

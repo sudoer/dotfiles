@@ -518,6 +518,9 @@ nnoremap <C-j> <C-w>j<C-W>_
 nnoremap <C-k> <C-w>k<C-W>_
 nnoremap <C-l> <C-w>l<C-W>_
 
+nnoremap <C-[> gT
+nnoremap <C-]> gt
+
 " function keys: F3=equal, F4=max
 nnoremap <F3> <C-W>=
 nnoremap <F4> <C-W>_
@@ -562,10 +565,10 @@ set virtualedit=onemore  " past right end by one
 set nocursorline         " highlight current line
 set nocursorcolumn       " highlight current column
 
-" highlight where lines extend past 'so-many' characters
-" matchadd(group,pattern,priority)
+" highlight right margin, where lines extend past 'so-many' characters
+" matchadd(group,columnpattern,priority)
 " pattern '%NNv' matches anything on virtual column NN (after tabs are expanded)
-call matchadd('ColorColumn', '\%120v', 100)
+call matchadd('ColorColumn', '\%101v', 100)
 
 
 "{{{1 === COPY/PASTE AND REGISTERS ===
@@ -621,13 +624,17 @@ set cpoptions+=>
 
 "{{{1 === MOUSE ===
 
-" Use mouse to switch windows and move cursor
-" On Mac, use ALT+mouse to select words.
-" On Linux, use SHIFT+mouse to select words.
 if has('mouse')
-   set ttymouse=xterm2
-   set mouse=n
+   "|" Use mouse to switch windows and move cursor
+   "|" On Mac, use ALT+mouse to select words.
+   "|" On Linux, use SHIFT+mouse to select words.
+   "|set ttymouse=xterm2
+   "|set mouse=n
+   " do not use mouse
+   set mouse=
+   " shortcut keys
    nmap <silent> <leader>m :set mouse=<CR>
+   nmap <silent> <leader>M :set mouse=n<CR>
 endif
 
 
@@ -933,7 +940,7 @@ if isdirectory(expand("~/.vim/bundle/vim-airline"))
     " at run-time >> :AirlineTheme understated
     let g:airline_theme = 'light'
     " other nice themes: bubblegum understated
-    set laststatus=2
+    set laststatus=2    " 2 = 'always show'
     set noshowmode
     if !has('gui_macvim')
         let g:airline#extensions#tabline#enabled = 1
@@ -944,6 +951,8 @@ if isdirectory(expand("~/.vim/bundle/vim-airline"))
         let g:airline#extensions#tabline#show_tab_type = 1
         let g:airline#extensions#tabline#show_close_button = 0
         let g:airline#extensions#tabline#close_symbol = '×'
+        let g:airline#extensions#tabline#fnamecollapse = 1
+        let g:airline#extensions#tabline#fnametruncate = 0
     endif
 endif
 
@@ -1002,4 +1011,6 @@ nmap <silent> <leader>r :redraw!<CR>
 
 
 "}}}1
+
+highlight mkdString   ctermfg=green   ctermbg=none   cterm=none
 
