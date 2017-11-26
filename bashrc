@@ -99,12 +99,6 @@ export LESS='-R'
 
 ################################################################################
 
-# History - do this after prompt, since it uses $PROMPT_COMMAND
-shopt -s histappend
-PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
-
-################################################################################
-
 # Make Control-v paste, if in X and if xclip available - Josh Triplett
 if [[ -n "$DISPLAY" ]] && [[ -x /usr/bin/xclip ]] ; then
     # Work around a bash bug: \C-@ does not work in a key binding
@@ -210,6 +204,10 @@ export EDITOR=vim
 # almost last - do local bashrc
 [[ -f $HOME/.bashrc.local ]]   && source $HOME/.bashrc.local
 
-# very last - clear any errors in $? in the prompt
+# very close to last - clear any errors in $? in the prompt
 [[ $(type -t prompt_init) == 'function' ]] && prompt_init
+
+# History - do this after prompt, since it uses $PROMPT_COMMAND
+shopt -s histappend
+export PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
 
