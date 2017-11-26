@@ -99,6 +99,12 @@ export LESS='-R'
 
 ################################################################################
 
+# History - do this after prompt, since it uses $PROMPT_COMMAND
+shopt -s histappend
+export PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
+
+################################################################################
+
 # Make Control-v paste, if in X and if xclip available - Josh Triplett
 if [[ -n "$DISPLAY" ]] && [[ -x /usr/bin/xclip ]] ; then
     # Work around a bash bug: \C-@ does not work in a key binding
@@ -129,12 +135,14 @@ function path_append () {
     add_me=$1
     # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
     [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
+    true
 }
 
 function path_prepend () {
     add_me=$1
     # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
     [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
+    true
 }
 
 # add these directories if they're not already in the path
@@ -203,11 +211,4 @@ export EDITOR=vim
 
 # almost last - do local bashrc
 [[ -f $HOME/.bashrc.local ]]   && source $HOME/.bashrc.local
-
-# very close to last - clear any errors in $? in the prompt
-[[ $(type -t prompt_init) == 'function' ]] && prompt_init
-
-# History - do this after prompt, since it uses $PROMPT_COMMAND
-shopt -s histappend
-export PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
 
