@@ -99,9 +99,16 @@ export LESS='-R'
 
 ################################################################################
 
-# History - do this after prompt, since it uses $PROMPT_COMMAND
+# do these after bash_prompt, since they set $PROMPT_COMMAND
+
+# History - save incremental history every time you can
 shopt -s histappend
 export PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
+
+# On xterm-like shells, set the window and tab title bars EVERY TIME
+# we draw the prompt.  This allows us to SSH into a box and the title will
+# change, and then it will change back when we exit back to our local shell.
+export PROMPT_COMMAND="$PROMPT_COMMAND ; draw_window_and_tab_titles"
 
 ################################################################################
 

@@ -13,8 +13,11 @@ export ALAN_SHLVL=0
 
 # very basic welcome
 echo "welcome to ${HOSTNAME%%.*}"
-# WINDOW_TITLE="$USER@${HOSTNAME%%.*}"
-TAB_TITLE="$USER@${HOSTNAME%%.*}"
+
+# KDE konsole terminal only looks at WINDOW_TITLE
+# Mac iTerm2 respects WINDOW_TITLE and TAB_TITLE
+export WINDOW_TITLE="$USER@${HOSTNAME%%.*}"
+export TAB_TITLE="$USER@${HOSTNAME%%.*}"
 
 #----------------------------------------
 # run local bash profile, if it exists
