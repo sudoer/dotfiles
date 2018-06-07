@@ -103,7 +103,7 @@ export LESS='-R'
 
 # History - save incremental history every time you can
 shopt -s histappend
-export PROMPT_COMMAND="$PROMPT_COMMAND ; history -a"
+export PROMPT_COMMAND="$PROMPT_COMMAND ; history -w"
 
 # On xterm-like shells, set the window and tab title bars EVERY TIME
 # we draw the prompt.  This allows us to SSH into a box and the title will
