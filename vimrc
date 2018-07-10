@@ -518,8 +518,8 @@ nnoremap <C-j> <C-w>j<C-W>_
 nnoremap <C-k> <C-w>k<C-W>_
 nnoremap <C-l> <C-w>l<C-W>_
 
-nnoremap <C-[> gT
-nnoremap <C-]> gt
+"""" nnoremap <C-[> gT    <--- control-left-bracket is the same as ESC, messes up insert mode and arrow keys
+"""" nnoremap <C-]> gt
 
 " function keys: F3=equal, F4=max
 nnoremap <F3> <C-W>=
