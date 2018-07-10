@@ -24,4 +24,5 @@
     tree2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%n''          %C(red)%an <%ae>%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset)'
     logs = log --stat -p --relative --ignore-space-at-eol -b
     root = !pwd
+    subsr = submodule update --init --recursive
 
