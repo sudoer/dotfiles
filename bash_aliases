@@ -112,6 +112,7 @@ function nospace () { local x="$1" ; mv -v "$x" "${x// /_}" ; }
 function nospaces () { for x in *\ * ; do mv -v "$x" "${x// /_}" ; done ; }
 alias httpd='python -m SimpleHTTPServer'
 function utc2local () { utc="$*"; date -d @$(TZ=UTC date +%s -d "$utc"); }
+alias broken_links="find -L . -maxdepth 1 -type l"
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
