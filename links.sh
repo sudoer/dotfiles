@@ -1,11 +1,16 @@
 #!/bin/bash
-
-for x in * ; do
-    ext=${x#*.}
+thisdir=$(realpath --relative-to $HOME $(pwd))
+for dotfile in $(find * -type f) ; do
+    base=$(basename $dotfile)
+    dir=$(dirname $dotfile)
+    ext=${base#*.}
     [[ $ext = 'md' ]] && continue
     [[ $ext = 'sh' ]] && continue
-    [[ -L $HOME/.$x ]] && rm -v $HOME/.$x
-    [[ -f $HOME/.$x ]] && mv -v $HOME/.$x $HOME/.$x.orig
-    ln -svf .dotfiles/$x $HOME/.$x
+    [[ $dir != '.' && ! -d $HOME/.dir ]] && mkdir -p $HOME/.$dir
+    [[ -L $HOME/.$dotfile ]] && rm -v $HOME/.$dotfile
+    [[ -f $HOME/.$dotfile ]] && mv -v $HOME/.$dotfile $HOME/.$dotfile.orig
+    backdots=''
+    [[ $dir != '.' ]] && backdots="${dir//*/..}/" 
+    ln -svf $backdots$thisdir/$dotfile $HOME/.$dotfile
 done
 
