@@ -1,6 +1,6 @@
 #!/bin/bash
 thisdir=$(realpath --relative-to $HOME $(pwd))
-if [[ $? -ne 0 ]] ; then
+if [[ $? -ne 0 || $thisdir == '' ]] ; then
     # realpath failed
     thisdir=$(basename $(pwd))
 fi
