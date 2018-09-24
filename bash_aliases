@@ -177,7 +177,7 @@ case $OSTYPE in
       alias netstatl='sudo lsof -i | grep LISTEN'
       function df () {
          # grep added to remove redundant line for rootfs
-         /bin/df -Ph | grep -v '/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
+         /bin/df -Ph | grep -v -E '^tmpfs|/snap/|/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias open='gio open'  # was 'xdg-open'
       alias pstree='ps xawf -eo pid,user,args'
