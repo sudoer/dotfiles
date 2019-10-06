@@ -280,3 +280,56 @@ function cdb() {
 
 #-------------------------------------------------------------------------------
 
+roman_numeral_values="M:1000 CM:900 D:500 CD:400 C:100 XC:90 L:50 XL:40 X:10 IX:9 V:5 IV:4 I:1"
+
+function r2a () {
+    r=$1
+    a=0
+    values_array=('!:0' $roman_numeral_values)
+    while [[ $r != "" ]] ; do
+        for (( idx=${#values_array[@]}-1 ; idx>=0 ; idx-- )) ; do
+            keyval="${values_array[idx]}"
+            key=${keyval%%:*}
+            val=${keyval#*:}
+            # echo "try $key : $val"
+            len=${#key}
+            end=${r:$((0-$len))}
+            if [[ $val == 0 ]] ; then
+                # echo "error on '$end'"
+                return
+            elif [[ $end == $key ]] ; then
+                # echo "match $key"
+                r=${r:0:$((0-$len))}
+                a=$(($a+$val))
+                break
+            fi
+        done
+        # echo "a=$a  r=$r"
+    done
+    echo $a
+}
+
+function a2r () {
+    a=$1
+    r=''
+    values_array=($roman_numeral_values)
+    while [[ $a -gt 0 ]] ; do
+        for (( idx=0 ; idx<${#values_array[@]} ; idx++ )) ; do
+            keyval="${values_array[idx]}"
+            key=${keyval%%:*}
+            val=${keyval#*:}
+            # echo "try $key : $val"
+            if [[ $a -ge $val ]] ; then
+                r="$r$key"
+                a=$(($a - $val))
+                break
+            fi
+        done
+        # echo "a=$a  r=$r"
+    done
+    echo $r
+}
+
+#-------------------------------------------------------------------------------
+
+
