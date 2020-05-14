@@ -1,0 +1,24 @@
+
+# window pane borders
+set-option -g pane-active-border-style fg=green,bg=black
+set-option -g pane-border-style fg=white,bg=black
+
+# status bar - defaults
+set-option -g status-style fg=white,bg=colour238 # dim
+
+# status bar - messages
+set-option -g message-style fg=colour022,bg=yellow,dim
+
+# status bar - current window
+set-window-option -g window-status-current-style fg=black,bg=colour184,none
+
+# status bar - non-current windows
+set-window-option -g window-status-style fg=black,bg=colour244,dim
+
+# status bar - non-current windows with activity
+set-window-option -g window-status-activity-style fg=colour52,bg=colour244,dim
+
+# status bar - non-current windows with a BELL activity
+# be careful here, since the attributes are "reversed"
+set-option -g window-status-bell-style fg=colour88,bg=colour244,bold
+
