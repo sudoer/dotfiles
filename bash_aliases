@@ -30,21 +30,6 @@ function vbox () {
    esac
 }
 
-# virtual environments - native virtualenv
-# stores environment in a local directory
-function venv () {
-   local name=${2:-venv}
-   case "$1" in
-      create) virtualenv $name ;;
-      list)   ls -1 */bin/activate | sed -e 's|/.*$||g' ;;
-      use)    source $name/bin/activate ;;
-      exit)   deactivate ;;
-      save)   pip freeze > $name.pip-pkgs ;;
-      load)   pip install -r $name.pip-pkgs ;;
-      *)      echo "venv create|list|use|save|load|exit" ;;
-   esac
-}
-
 # script
 alias script='script "script-$(date +%Y%m%d-%H%M%S)-$$"'
 function endscript () {
@@ -114,9 +99,49 @@ alias httpd='python -m SimpleHTTPServer'
 function utc2local () { utc="$*"; date -d @$(TZ=UTC date +%s -d "$utc"); }
 alias broken_links="find -L . -maxdepth 1 -type l"
 alias dusort='du -x / > /tmp/du1 ; sort -n /tmp/du1 > /tmp/du2 ; tail /tmp/du2'
+alias virtualenv='python3 -m venv'
+alias randpw='echo "$(apg -a1 -n1 -m6 -x6 -ML),$(apg -a1 -n1 -m6 -x6 -MC),$(apg -a1 -n1 -m6 -x6 -MN)"'
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
+
+#-------------------------------------------------------------------------------
+
+# This needs to be a bash function, so we can "source" a file into the current shell.
+function venv () {
+    local pyver=0
+    if [[ $(python --version) =~ ' 3' ]] ; then pyver=3 ; fi
+    if [[ $(python --version 2>&1) =~ ' 2' ]] ; then pyver=2 ; fi
+    if [[ $pyver -eq 0 ]] ; then
+        echo "could not determine python 2 vs 3"
+    fi
+    case "$1" in
+        create)
+            if [[ $pyver -eq 2 ]] ; then virtualenv $name ; fi
+            if [[ $pyver -eq 3 ]] ; then python3 -m venv venv ; fi
+            ;;
+        list)
+            ls -1 */bin/activate | sed -e 's|/.*$||g'
+            ;;
+        use)
+            local name=${2:-venv}
+            source $name/bin/activate
+            ;;
+        exit)
+            deactivate
+            ;;
+        save)
+            local file=${2:-requirements.txt}
+            pip freeze > $file
+            ;;
+        load)
+            local file=${2:-requirements.txt}
+            pip install --prefer-binary -r $file
+            ;;
+        *)      echo "venv create|list|use|save|load|exit"
+            ;;
+    esac
+}
 
 #-------------------------------------------------------------------------------
 ##
@@ -180,7 +205,8 @@ case $OSTYPE in
          # grep added to remove redundant line for rootfs
          /bin/df -Ph | grep -v -E '^tmpfs|/snap/|/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
-      alias open='gio open'  # was 'xdg-open'
+      alias mnt="mount | grep -vE 'snap| /sys| /dev| /run| /proc'"
+      function open () { /bin/ls -1 $* | while read x ; do gio open "$x" ; done } # see also xdg-open
       alias pstree='ps xawf -eo pid,user,args'
       ;;
    darwin*)
