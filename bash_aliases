@@ -1,6 +1,8 @@
 
 # common tools
 alias vi='vim'
+alias sc='systemctl'
+alias jc='journalctl'
 ##OLD alias vpn='sudo echo "OK" ; sudo openvpn /etc/openvpn/buster-tekelec.conf'
 
 # making crazy terminals sane again
