@@ -830,7 +830,7 @@ if !exists("alan_largefile_protection")
   " bufhidden=unload (save memory when other file is viewed)
   " buftype=nowritefile (is read-only)
   " undolevels=-1 (no undo possible)
-  let g:LargeFile = 1024 * 1024 * 10
+  let g:LargeFile = 1024 * 1024 * 100
   augroup LargeFile
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
     " press \L and lessen the restrictions on large files (except ":syntax on", which takes a long time)

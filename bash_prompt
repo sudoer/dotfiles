@@ -91,6 +91,8 @@ function custom_prompt {
         # COLOR_LTCYAN = CLEAN
         elif [[ $git_status =~ "nothing to commit, working tree clean" ]] ; then
             branch_color=$COLOR_LTCYAN
+        elif [[ $git_status =~ "nothing to commit, working directory clean" ]] ; then
+            branch_color=$COLOR_LTCYAN
         # COLOR_YELLOW = LOCAL CHANGES
         elif [[ $git_status =~ "Changes to be committed" ]] ; then
             branch_color=$COLOR_LTYELLOW

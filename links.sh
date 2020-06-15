@@ -1,5 +1,9 @@
 #!/bin/bash
 thisdir=$(realpath --relative-to $HOME $(pwd))
+if [[ $? -ne 0 || $thisdir == '' ]] ; then
+    # realpath failed
+    thisdir=$(basename $(pwd))
+fi
 for dotfile in $(find * -type f) ; do
     base=$(basename $dotfile)
     dir=$(dirname $dotfile)
