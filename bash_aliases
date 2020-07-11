@@ -208,7 +208,7 @@ case $OSTYPE in
          /bin/df -Ph | grep -v -E '^tmpfs|/snap/|/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias mnt="mount | grep -vE 'snap| /sys| /dev| /run| /proc'"
-      function open () { /bin/ls -1 $* | while read x ; do gio open "$x" ; done } # see also xdg-open
+      function open () { /bin/ls -1d $* | while read x ; do gio open "$x" ; done } # see also xdg-open
       alias pstree='ps xawf -eo pid,user,args'
       ;;
    darwin*)
