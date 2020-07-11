@@ -979,6 +979,13 @@ let g:vim_markdown_folding_disabled=1
 let g:vimwiki_list = [{ 'path': '~/vimwiki/', 'path_html': '~/vimwiki/html/', 'syntax': 'markdown', 'ext': '.wiki', 'css_file': 'style.css', 'custom_wiki2html': 'vimwiki-to-html.sh', 'auto_export': 1 }]
 
 
+"{{{1 === SPECIAL CHARACTERS ===
+
+" https://stackoverflow.com/a/16988346/542630
+syntax match nonascii "[^\x00-\x7F]"
+highlight nonascii guibg=Red ctermbg=2
+
+
 "{{{1 === FOR FURTHER STUDY ===
 
 "if !exists("autocommands_loaded")

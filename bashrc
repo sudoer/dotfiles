@@ -30,6 +30,22 @@ export ALAN_HOME_BASHRC=1
 # an alternative: investigate http://unix.stackexchange.com/questions/25639/how-to-automatically-record-all-your-terminal-sessions-with-script-utility
 # test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'script' || (script -f $HOME/$(date +"%d-%b-%y_%H-%M-%S")_shell.log)
 
+# PATH
+
+function path_append () {
+    add_me=$1
+    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
+    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
+    true
+}
+
+function path_prepend () {
+    add_me=$1
+    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
+    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
+    true
+}
+
 ################################################################################
 
 # If not running interactively, don't do anything more
@@ -135,22 +151,6 @@ export LANG="en_US.UTF-8"         # for proper character sets on gcr
 export LC_COLLATE="C"             # sort files in a unixy kind of way
 
 ################################################################################
-
-# PATH
-
-function path_append () {
-    add_me=$1
-    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$PATH:$add_me"
-    true
-}
-
-function path_prepend () {
-    add_me=$1
-    # in bash v3, we could say this -> if [[ ! ":$PATH:" =~ ":$d:" ]] ; then
-    [[ $(echo ":$PATH:" | grep -c ":$add_me:") -eq 0 ]] && [[ -d $add_me ]] && PATH="$add_me:$PATH"
-    true
-}
 
 # add these directories if they're not already in the path
 path_append /usr/sbin
