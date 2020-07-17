@@ -33,6 +33,7 @@ export TAB_TITLE="$USER@${HOSTNAME%%.*}"
 #   tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
 #   screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
 #   VBoxManage list runningvms | sed -e 's/^/vbox: /g'
+# - cat /var/run/reboot-required and /var/run/reboot-required.pkgs
 [[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
 #----------------------------------------
 
