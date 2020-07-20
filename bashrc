@@ -156,6 +156,7 @@ export LC_COLLATE="C"             # sort files in a unixy kind of way
 path_append /usr/sbin
 path_append /sbin
 path_prepend $HOME/bin
+path_prepend $HOME/.pyenv/bin  # if you have one
 
 # homebrew on mac
 case $OSTYPE in
