@@ -11,6 +11,8 @@ export ALAN_SHLVL=0
 # set PATH so it includes user's private bin if it exists
 [[ -d ~/bin ]] && PATH="$HOME/bin:$PATH"
 
+[[ -f $HOME/.hostname ]] && export HOSTNAME=$(head -1 $HOME/.hostname)
+
 # very basic welcome
 echo "welcome to ${HOSTNAME%%.*}"
 
