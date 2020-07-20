@@ -119,8 +119,9 @@ function venv () {
     fi
     case "$1" in
         create)
-            if [[ $pyver -eq 2 ]] ; then virtualenv $name ; fi
-            if [[ $pyver -eq 3 ]] ; then python3 -m venv venv ; fi
+            local name=${2:-venv}
+            if [[ $pyver -eq 2 ]] ; then $(which virtualenv) $name ; fi
+            if [[ $pyver -eq 3 ]] ; then python3 -m venv $name ; fi
             ;;
         list)
             ls -1 */bin/activate | sed -e 's|/.*$||g'
