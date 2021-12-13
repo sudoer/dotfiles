@@ -101,50 +101,57 @@ alias httpd='python -m SimpleHTTPServer'
 function utc2local () { utc="$*"; date -d @$(TZ=UTC date +%s -d "$utc"); }
 alias broken_links="find -L . -maxdepth 1 -type l"
 alias dusort='du -x / > /tmp/du1 ; sort -n /tmp/du1 > /tmp/du2 ; tail /tmp/du2'
-alias virtualenv='python3 -m venv'
 alias randpw='echo "$(apg -a1 -n1 -m6 -x6 -ML),$(apg -a1 -n1 -m6 -x6 -MC),$(apg -a1 -n1 -m6 -x6 -MN)"'
+alias weather='curl http://wttr.in/raleigh'
 
 # fix my own mistakes
 function scp() { if [[ "$@" =~ : ]] ; then /usr/bin/scp $@ ; else echo 'You forgot the colon!'; fi ; }
 
 #-------------------------------------------------------------------------------
 
-# This needs to be a bash function, so we can "source" a file into the current shell.
-function venv () {
-    local pyver=0
-    if [[ $(python --version) =~ ' 3' ]] ; then pyver=3 ; fi
-    if [[ $(python --version 2>&1) =~ ' 2' ]] ; then pyver=2 ; fi
-    if [[ $pyver -eq 0 ]] ; then
-        echo "could not determine python 2 vs 3"
-    fi
-    case "$1" in
-        create)
-            local name=${2:-venv}
-            if [[ $pyver -eq 2 ]] ; then $(which virtualenv) $name ; fi
-            if [[ $pyver -eq 3 ]] ; then python3 -m venv $name ; fi
-            ;;
-        list)
-            ls -1 */bin/activate | sed -e 's|/.*$||g'
-            ;;
-        use)
-            local name=${2:-venv}
-            source $name/bin/activate
-            ;;
-        exit)
-            deactivate
-            ;;
-        save)
-            local file=${2:-requirements.txt}
-            pip freeze > $file
-            ;;
-        load)
-            local file=${2:-requirements.txt}
-            pip install --prefer-binary -r $file
-            ;;
-        *)      echo "venv create|list|use|save|load|exit"
-            ;;
-    esac
-}
+# install virtualenv using `pip3 install virtualenv`
+# for python2 environment, do virtualenv --python=$(which python2) /Users/alan/venv/em
+# for python3 environment, do virtualenv --python=$(which python3) /Users/alan/venv/em
+# for python3 environment, do python3 -m venv /Users/alan/venv/em
+
+# alias virtualenv='python3 -m venv'
+
+##  # This needs to be a bash function, so we can "source" a file into the current shell.
+##  function venv () {
+##      local pyver=0
+##      if [[ $(python --version) =~ ' 3' ]] ; then pyver=3 ; fi
+##      if [[ $(python --version 2>&1) =~ ' 2' ]] ; then pyver=2 ; fi
+##      if [[ $pyver -eq 0 ]] ; then
+##          echo "could not determine python 2 vs 3"
+##      fi
+##      case "$1" in
+##          create)
+##              local name=${2:-venv}
+##              if [[ $pyver -eq 2 ]] ; then $(which virtualenv) $name ; fi
+##              if [[ $pyver -eq 3 ]] ; then python3 -m venv $name ; fi
+##              ;;
+##          list)
+##              ls -1 */bin/activate | sed -e 's|/.*$||g'
+##              ;;
+##          use)
+##              local name=${2:-venv}
+##              source $name/bin/activate
+##              ;;
+##          exit)
+##              deactivate
+##              ;;
+##          save)
+##              local file=${2:-requirements.txt}
+##              pip freeze > $file
+##              ;;
+##          load)
+##              local file=${2:-requirements.txt}
+##              pip install --prefer-binary -r $file
+##              ;;
+##          *)      echo "venv create|list|use|save|load|exit"
+##              ;;
+##      esac
+##  }
 
 #-------------------------------------------------------------------------------
 ##
