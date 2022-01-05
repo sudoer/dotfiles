@@ -1,0 +1,29 @@
+
+# COLOR
+
+# TODO - do we need this? if [ "$TERM" != "dumb" ] ;
+
+# ls
+case $OSTYPE in
+    linux-gnu*)
+        if [ -f $HOME/.dircolors ] ; then
+            eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
+        else
+            eval "$(dircolors -b 2>/dev/null)"
+        fi
+        alias ls='ls --color=auto -F'
+        ;;
+    darwin*)
+        export CLICOLOR=1
+        export LSCOLORS="Dxfxcxdxbxegedabagacad"
+        alias ls='/bin/ls -G'
+        ;;
+esac
+
+# grep
+alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts
+export GREP_COLOR='1;31'
+
+# less
+export LESS='-R'
+

@@ -1,0 +1,12 @@
+
+# LOCALE
+
+# Check 'man 7 locale'.
+# The hierarchy of LC_ALL, LC_<whatever> and LANG is:
+# LC_ALL overrides everything (if set to a non-null value).
+# If LC_ALL is not used, then it checks the LC_ variables.
+# If the specific one is not set, it checks LANG.
+unset LC_ALL ; export LC_ALL ; :  # helps with utf8 chars
+export LANG="en_US.UTF-8"         # for proper character sets on gcr
+export LC_COLLATE="C"             # sort files in a unixy kind of way
+

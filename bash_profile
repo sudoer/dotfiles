@@ -2,41 +2,14 @@
 # see /usr/share/doc/bash/examples/startup-files for examples.
 # the files are located in the bash-doc package.
 
+# Indicate that we've been here.
 export ALAN_HOME_BASHPROFILE=1
+
+# SHELL LEVEL - used by prompt, logout, logging
 export ALAN_SHLVL=0
 
-# the default umask is set in /etc/login.defs
-#umask 022
-
-# set PATH so it includes user's private bin if it exists
-[[ -d ~/bin ]] && PATH="$HOME/bin:$PATH"
-
-[[ -f $HOME/.hostname ]] && export HOSTNAME=$(head -1 $HOME/.hostname)
-
-# very basic welcome
-echo "welcome to ${HOSTNAME%%.*}"
-
-# KDE konsole terminal only looks at WINDOW_TITLE
-# Mac iTerm2 respects WINDOW_TITLE and TAB_TITLE
-export WINDOW_TITLE="$USER@${HOSTNAME%%.*}"
-export TAB_TITLE="$USER@${HOSTNAME%%.*}"
-
-#----------------------------------------
-# run local bash profile, if it exists
-# STUFF I LIKE TO DO IN .bash_profile.local :
-# - MACHINE STATS
-#   uptime
-# - FORTUNE
-#   echo -en "\033[0;33m" ; fortune 2> /dev/null ; echo -en "\033[0;0m"
-# - NETWORK STATS
-#   vnstat -m --style 1
-#   vnstat -d --style 1 | head -5 ; vnstat -d --style 1 | tail -10
-# - TMUX/SCREEN/VIRTUALBOX STATUS
-#   tmux ls 2> /dev/null | sed -e 's/^/tmux: /g'
-#   screen -ls 2> /dev/null | grep '^\s' | grep -v '^\s$' | sed -e 's/^\s*/screen: /g'
-#   VBoxManage list runningvms | sed -e 's/^/vbox: /g'
-# - cat /var/run/reboot-required and /var/run/reboot-required.pkgs
 [[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
+[[ -d $HOME/.bash_profile.d ]] && source <(shopt -s nullglob ; cat $HOME/.bash_profile.d/* /dev/null)
 #----------------------------------------
 
 # Include .bashrc if it exists.

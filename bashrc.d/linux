@@ -1,0 +1,10 @@
+
+case $OSTYPE in
+    linux-gnu)
+        # some other app preferences
+        export TSOCKS_CONF_FILE=$HOME/.tsocks.conf
+        export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+        export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
+        ;;
+esac
+

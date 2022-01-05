@@ -1,0 +1,16 @@
+
+# APP-SPECIFIC STUFF
+
+# svn requires either EDITOR or SVN_EDITOR
+export SVN_EDITOR=vim
+export EDITOR=vim
+
+## # tmux HOME/END keys
+## if [[ -n "$TMUX" ]] ; then
+##   bind '"\e[1~":"\eOH"'
+##   bind '"\e[4~":"\eOF"'
+## fi
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+

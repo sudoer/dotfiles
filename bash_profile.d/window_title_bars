@@ -1,0 +1,6 @@
+
+# KDE konsole terminal only looks at WINDOW_TITLE
+# Mac iTerm2 respects WINDOW_TITLE and TAB_TITLE
+export WINDOW_TITLE="$USER@${HOSTNAME%%.*}"
+export TAB_TITLE="$USER@${HOSTNAME%%.*}"
+

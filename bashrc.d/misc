@@ -1,0 +1,9 @@
+
+# backspace
+stty erase 
+
+#BREAKS KUBENS# # command hash - caches locations of executables
+#BREAKS KUBENS# # - use "hash -r" to rebuild
+#BREAKS KUBENS# # - "set +h" to disable hashing
+#BREAKS KUBENS# set +h
+

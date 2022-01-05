@@ -1,0 +1,213 @@
+#!/bin/echo this file should be sourced
+
+[[ -f ~/.bash_colors ]]  && source ~/.bash_colors
+
+function prompt_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' -e 's/(HEAD detached at \([0-9a-f]*\))/\1/g'
+}
+function prompt_git_branch_2 {
+    local git_status="$(git status 2> /dev/null)"
+    local on_branch="On branch ([^${IFS}]*)"
+    local on_commit="HEAD detached at ([^${IFS}]*)"
+    if [[ $git_status =~ $on_branch ]] ; then
+        local branch=${BASH_REMATCH[1]}
+        echo "$branch"
+    elif [[ $git_status =~ $on_commit ]] ; then
+        local commit=${BASH_REMATCH[1]}
+        echo "$commit"
+    fi
+}
+
+function prompt_cc_branch {
+    # NOTE - must be fast... it is.
+    local cc=""
+    if [ ! -z "$CLEARCASE_ROOT" ] ; then
+         # /view/member_bcr_34649_team_a_aporter
+         basename $CLEARCASE_ROOT
+    fi
+}
+
+function prompt_debian_chroot {
+    if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+        cat /etc/debian_chroot
+    fi
+}
+
+function prompt_cwd {
+    local promptcwd
+    # in bash 4.3 and later, we need to escape the tilde
+    promptcwd="${PWD/#$HOME/\~}"
+    # in bash 4.2 and earlier, the backslash will show up in the prompt, remove it
+    promptcwd="${promptcwd/\\/}"
+    local pwdmaxlen=45
+    local pwdstartlen=11
+    if [ ${#promptcwd} -gt $pwdmaxlen ] ; then
+        local pwdendlen=$(( $pwdmaxlen - $pwdstartlen ))
+        local pwdoffset=$(( ${#promptcwd} - $pwdendlen ))
+        promptcwd="${promptcwd:0:$pwdstartlen}~~${promptcwd:$pwdoffset:$pwdendlen}"
+    fi
+    echo $promptcwd
+}
+
+prompt_exit=""
+function prompt_trap_error () {
+    prompt_exit=$?
+}
+
+function custom_prompt {
+    # SHELL LEVELS CAN BE INDICATED WITH ARROWS OR A NUMBER
+
+    local level=""
+    local arrows=">"
+    if [[ ! -z $ALAN_SHLVL ]] ; then
+        [[ $ALAN_SHLVL -gt 1 ]] && level="${PROMPT_COLORS[DKGRAY]}[$ALAN_SHLVL]${PROMPT_COLORS[RESET]}"
+        local spaces=$(printf "%${ALAN_SHLVL}s")
+        arrows="${PROMPT_COLORS[WHITE]}${spaces// />}${PROMPT_COLORS[RESET]}"
+    fi
+
+    # THESE ITEMS ARE ON THE TOP STATUS LINE
+
+#    # clearcase
+#    local cc=""
+#    local ccbranch=$(prompt_cc_branch)
+#    if [ -n "$ccbranch" ] ; then cc="${PROMPT_COLORS[LTCYAN]}[CC $ccbranch]${PROMPT_COLORS[RESET]}" ; fi
+
+    # git - simple
+    local git=""
+    local gitbranch=$(prompt_git_branch)
+    if [ -n "$gitbranch" ] ; then git="${PROMPT_COLORS[LTCYAN]}[git $gitbranch]${PROMPT_COLORS[RESET]}" ; fi
+
+#    # git - more complex
+#    local git=""
+#    local gitbranch=$(prompt_git_branch)
+#    if [[ -n "$gitbranch" ]] ; then
+#        local git_status="$(git status 2> /dev/null)"
+#        local branch_color=${PROMPT_COLORS[RESET]}
+#        # COLOR_ORANGE = AHEAD OF ORIGIN
+#        if [[ $git_status =~ "Your branch is ahead of" ]] ; then
+#            branch_color=${PROMPT_COLORS[ORANGE]}
+#        elif [[ $git_status =~ "have diverged" ]] ; then
+#            branch_color=${PROMPT_COLORS[ORANGE]}
+#        # COLOR_LTCYAN = CLEAN
+#        elif [[ $git_status =~ "nothing to commit, working tree clean" ]] ; then
+#            branch_color=${PROMPT_COLORS[LTCYAN]}
+#        elif [[ $git_status =~ "nothing to commit, working directory clean" ]] ; then
+#            branch_color=${PROMPT_COLORS[LTCYAN]}
+#        # COLOR_YELLOW = LOCAL CHANGES
+#        elif [[ $git_status =~ "Changes to be committed" ]] ; then
+#            branch_color=${PROMPT_COLORS[LTYELLOW]}
+#        elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
+#            branch_color=${PROMPT_COLORS[YELLOW]}
+#        # COLOR_BROWN = LOCAL UNTRACKED FILES
+#        elif [[ $git_status =~ "Untracked files:" ]] ; then
+#            branch_color=${PROMPT_COLORS[BROWN]}
+#        elif [[ $git_status =~ "nothing added to commit but untracked files present" ]] ; then
+#            branch_color=${PROMPT_COLORS[BROWN]}
+#        # COLOR_OCHRE = how do we get here???
+#        else
+#            branch_color=${PROMPT_COLORS[OCHRE]}
+#        fi
+#        git="${PROMPT_COLORS[LTCYAN]}[git ${branch_color}$gitbranch${PROMPT_COLORS[LTCYAN]}]${PROMPT_COLORS[RESET]}"
+#    fi
+
+    # python virtual environment
+    local venv=""
+    if [ -n "$VIRTUAL_ENV" ] ; then venv="${PROMPT_COLORS[GREEN]}[venv $VIRTUAL_ENV]${PROMPT_COLORS[RESET]}" ; fi
+
+    # docker
+    local docker=""
+    if [ -n "$DOCKER_HOST" ] ; then
+         docker="${DOCKER_HOST##*/}"
+         docker="${docker%%:*}"
+         docker="${PROMPT_COLORS[ORANGE]}[docker $docker]${PROMPT_COLORS[RESET]}"
+    fi
+
+    # backgrounded or stopped jobs
+    local backgroundjobs=$(jobs -r | wc -l)
+    local stoppedjobs=$(jobs -s | wc -l)
+    local jobs=""
+    if [[ ( $backgroundjobs -gt 0 ) && ( $stoppedjobs -gt 0 ) ]] ; then
+        jobs="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs, ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
+    elif [[ $backgroundjobs -gt 0 ]] ; then
+        jobs="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs]${PROMPT_COLORS[RESET]}"
+    elif [[ $stoppedjobs -gt 0 ]] ; then
+        jobs="${PROMPT_COLORS[CYAN]}[jobs ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
+    fi
+
+    # shell logging
+    local logging=""
+    if [[ -n $ALAN_SCRIPT_LOG ]] ; then
+        logging="${PROMPT_COLORS[PURPLE]}[log]${PROMPT_COLORS[RESET]}"
+    fi
+
+    # THESE ARE PARTS OF THE MAIN PROMPT LINE
+
+    # date/time
+    weekdays=('?' 'M' 'T' 'W' 'H' 'F' 'S' 'S')
+    dow=${weekdays[$(\date +%u)]}
+    dom=$(\date +%d)
+    local time="${PROMPT_COLORS[LTPURPLE]}${dow}${dom}${PROMPT_COLORS[PURPLE]}/${PROMPT_COLORS[LTPURPLE]}\t${PROMPT_COLORS[RESET]}"
+
+    # username
+    local usercolor="${PROMPT_COLORS[LTGREEN]}"
+    if [ $EUID == 0 ] ; then usercolor="${PROMPT_COLORS[LTRED]}" ; fi
+    # note - $HOSTNAME can be overridden in the shell
+    local user="${usercolor}\u@${HOSTNAME%%.*}${PROMPT_COLORS[RESET]}"
+
+    # current working directory
+    local path="${PROMPT_COLORS[LTYELLOW]}\$(prompt_cwd)${PROMPT_COLORS[RESET]}"
+
+    # exit code from last command
+    local error=""
+    if [[ $prompt_exit == '' ]] ; then
+        error=""
+        dollar="${PROMPT_COLORS[GREEN]}\$${PROMPT_COLORS[RESET]}"
+    elif [[ $prompt_exit -eq 0 ]] ; then
+        error="${PROMPT_COLORS[GREEN]}OK${PROMPT_COLORS[RESET]} "
+        dollar="${PROMPT_COLORS[RED]}\$${PROMPT_COLORS[RESET]}"
+    else
+        error="[${PROMPT_COLORS[LTRED]}${prompt_exit}${PROMPT_COLORS[RESET]}] "
+        dollar="${PROMPT_COLORS[RED]}\$${PROMPT_COLORS[RESET]}"
+    fi
+    unset prompt_exit
+
+    # ASSEMBLE THE PROMPT
+
+    # make up the status line from parts
+    local statusLine=""
+    local statusSep=" "
+    for key in "${!PROMPT_PIECES[@]}"; do local piece="${PROMPT_PIECES[$key]}"; statusLine="${statusLine}${piece}${piece:+$statusSep}" ; done
+    statusLine="${statusLine}${logging}${logging:+$statusSep}"
+    statusLine="${statusLine}${jobs}${jobs:+$statusSep}"
+    statusLine="${statusLine}${git}${git:+$statusSep}"
+    statusLine="${statusLine}${venv}${venv:+$statusSep}"
+    statusLine="${statusLine}${docker}${docker:+$statusSep}"
+    # Add level indicator to the beginning of status line, then newline, then another level for the prompt line.
+    statusLine="${statusLine:+$level}${statusLine}${statusLine:+\n$level}"
+    # make up the main prompt line from parts
+    local promptLine="${time}|${user}:${path} ${error}${dollar} "
+    # add them together to make the entire prompt
+    PS1="${statusLine}${promptLine}"
+
+    # The prompt ($PS1) will be rendered after this function is finished.
+}
+
+function prompt_init () {
+    # clear old trapped errors
+    prompt_exit=""
+    # trap error codes
+    trap prompt_trap_error ERR
+    # run it once now
+    custom_prompt
+    # Run the custom_prompt function every time we draw a prompt.
+    # $PROMPT_COMMAND is interpreted by the shell
+    PROMPT_COMMAND="custom_prompt"
+    for key in "${!PROMPT_COMMANDS[@]}"; do PROMPT_COMMAND="${PROMPT_COMMANDS[$key]} ; $PROMPT_COMMAND"; done
+    ## DEBUG ## echo "prompt command = $PROMPT_COMMAND"
+    export PROMPT_COMMAND
+}
+
+# initialize here - note: may be re-initialized in shell startup files
+prompt_init
+
+

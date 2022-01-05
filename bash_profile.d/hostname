@@ -1,0 +1,3 @@
+
+[[ -f $HOME/.hostname ]] && export HOSTNAME=$(head -1 $HOME/.hostname)
+
