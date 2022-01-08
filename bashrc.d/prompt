@@ -72,72 +72,72 @@ function custom_prompt {
 #    local ccbranch=$(prompt_cc_branch)
 #    if [ -n "$ccbranch" ] ; then cc="${PROMPT_COLORS[LTCYAN]}[CC $ccbranch]${PROMPT_COLORS[RESET]}" ; fi
 
-    # git - simple
-    local git=""
+    unset -v PROMPT_PIECES[git]
+    ###  # git - simple
+    ###  local gitbranch=$(prompt_git_branch)
+    ###  if [ -n "$gitbranch" ] ; then PROMPT_PIECES[git]="${PROMPT_COLORS[LTCYAN]}[git $gitbranch]${PROMPT_COLORS[RESET]}" ; fi
+    # git - more complex
     local gitbranch=$(prompt_git_branch)
-    if [ -n "$gitbranch" ] ; then git="${PROMPT_COLORS[LTCYAN]}[git $gitbranch]${PROMPT_COLORS[RESET]}" ; fi
-
-#    # git - more complex
-#    local git=""
-#    local gitbranch=$(prompt_git_branch)
-#    if [[ -n "$gitbranch" ]] ; then
-#        local git_status="$(git status 2> /dev/null)"
-#        local branch_color=${PROMPT_COLORS[RESET]}
-#        # COLOR_ORANGE = AHEAD OF ORIGIN
-#        if [[ $git_status =~ "Your branch is ahead of" ]] ; then
-#            branch_color=${PROMPT_COLORS[ORANGE]}
-#        elif [[ $git_status =~ "have diverged" ]] ; then
-#            branch_color=${PROMPT_COLORS[ORANGE]}
-#        # COLOR_LTCYAN = CLEAN
-#        elif [[ $git_status =~ "nothing to commit, working tree clean" ]] ; then
-#            branch_color=${PROMPT_COLORS[LTCYAN]}
-#        elif [[ $git_status =~ "nothing to commit, working directory clean" ]] ; then
-#            branch_color=${PROMPT_COLORS[LTCYAN]}
-#        # COLOR_YELLOW = LOCAL CHANGES
-#        elif [[ $git_status =~ "Changes to be committed" ]] ; then
-#            branch_color=${PROMPT_COLORS[LTYELLOW]}
-#        elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
-#            branch_color=${PROMPT_COLORS[YELLOW]}
-#        # COLOR_BROWN = LOCAL UNTRACKED FILES
-#        elif [[ $git_status =~ "Untracked files:" ]] ; then
-#            branch_color=${PROMPT_COLORS[BROWN]}
-#        elif [[ $git_status =~ "nothing added to commit but untracked files present" ]] ; then
-#            branch_color=${PROMPT_COLORS[BROWN]}
-#        # COLOR_OCHRE = how do we get here???
-#        else
-#            branch_color=${PROMPT_COLORS[OCHRE]}
-#        fi
-#        git="${PROMPT_COLORS[LTCYAN]}[git ${branch_color}$gitbranch${PROMPT_COLORS[LTCYAN]}]${PROMPT_COLORS[RESET]}"
-#    fi
-
-    # python virtual environment
-    local venv=""
-    if [ -n "$VIRTUAL_ENV" ] ; then venv="${PROMPT_COLORS[GREEN]}[venv $VIRTUAL_ENV]${PROMPT_COLORS[RESET]}" ; fi
-
-    # docker
-    local docker=""
-    if [ -n "$DOCKER_HOST" ] ; then
-         docker="${DOCKER_HOST##*/}"
-         docker="${docker%%:*}"
-         docker="${PROMPT_COLORS[ORANGE]}[docker $docker]${PROMPT_COLORS[RESET]}"
+    if [[ -n "$gitbranch" ]] ; then
+        local git_status="$(git status 2> /dev/null)"
+        local branch_color=${PROMPT_COLORS[RESET]}
+        # COLOR_ORANGE = AHEAD OF ORIGIN
+        if [[ $git_status =~ "Your branch is ahead of" ]] ; then
+            branch_color=${PROMPT_COLORS[ORANGE]}
+        elif [[ $git_status =~ "have diverged" ]] ; then
+            branch_color=${PROMPT_COLORS[ORANGE]}
+        # COLOR_LTCYAN = CLEAN
+        elif [[ $git_status =~ "nothing to commit, working tree clean" ]] ; then
+            branch_color=${PROMPT_COLORS[LTCYAN]}
+        elif [[ $git_status =~ "nothing to commit, working directory clean" ]] ; then
+            branch_color=${PROMPT_COLORS[LTCYAN]}
+        # COLOR_YELLOW = LOCAL CHANGES
+        elif [[ $git_status =~ "Changes to be committed" ]] ; then
+            branch_color=${PROMPT_COLORS[LTYELLOW]}
+        elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
+            branch_color=${PROMPT_COLORS[YELLOW]}
+        # COLOR_BROWN = LOCAL UNTRACKED FILES
+        elif [[ $git_status =~ "Untracked files:" ]] ; then
+            branch_color=${PROMPT_COLORS[BROWN]}
+        elif [[ $git_status =~ "nothing added to commit but untracked files present" ]] ; then
+            branch_color=${PROMPT_COLORS[BROWN]}
+        # COLOR_OCHRE = how do we get here???
+        else
+            branch_color=${PROMPT_COLORS[OCHRE]}
+        fi
+        PROMPT_PIECES[git]="${PROMPT_COLORS[LTCYAN]}[git ${branch_color}$gitbranch${PROMPT_COLORS[LTCYAN]}]${PROMPT_COLORS[RESET]}"
     fi
 
+    # python virtual environment
+    unset -v PROMPT_PIECES[venv]
+    if [ -n "$VIRTUAL_ENV" ] ; then PROMPT_PIECES[venv]="${PROMPT_COLORS[GREEN]}[venv $VIRTUAL_ENV]${PROMPT_COLORS[RESET]}" ; fi
+
+    unset -v PROMPT_PIECES[docker]
+    # docker
+    if [ -n "$DOCKER_HOST" ] ; then
+        local docker=""
+        docker="${DOCKER_HOST##*/}"
+        docker="${docker%%:*}"
+        docker="${PROMPT_COLORS[ORANGE]}[docker $docker]${PROMPT_COLORS[RESET]}"
+        PROMPT_PIECES[docker]=$docker
+    fi
+
+    unset -v PROMPT_PIECES[jobs]
     # backgrounded or stopped jobs
     local backgroundjobs=$(jobs -r | wc -l)
     local stoppedjobs=$(jobs -s | wc -l)
-    local jobs=""
     if [[ ( $backgroundjobs -gt 0 ) && ( $stoppedjobs -gt 0 ) ]] ; then
-        jobs="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs, ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
+        PROMPT_PIECES[jobs]="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs, ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
     elif [[ $backgroundjobs -gt 0 ]] ; then
-        jobs="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs]${PROMPT_COLORS[RESET]}"
+        PROMPT_PIECES[jobs]="${PROMPT_COLORS[CYAN]}[jobs bg:$backgroundjobs]${PROMPT_COLORS[RESET]}"
     elif [[ $stoppedjobs -gt 0 ]] ; then
-        jobs="${PROMPT_COLORS[CYAN]}[jobs ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
+        PROMPT_PIECES[jobs]="${PROMPT_COLORS[CYAN]}[jobs ${PROMPT_COLORS[PURPLE]}st:$stoppedjobs${PROMPT_COLORS[CYAN]}]${PROMPT_COLORS[RESET]}"
     fi
 
     # shell logging
-    local logging=""
+    unset -v PROMPT_PIECES[logging]
     if [[ -n $ALAN_SCRIPT_LOG ]] ; then
-        logging="${PROMPT_COLORS[PURPLE]}[log]${PROMPT_COLORS[RESET]}"
+        PROMPT_PIECES[logging]="${PROMPT_COLORS[DKGRAY]}[log]${PROMPT_COLORS[RESET]}"
     fi
 
     # THESE ARE PARTS OF THE MAIN PROMPT LINE
@@ -177,11 +177,6 @@ function custom_prompt {
     local statusLine=""
     local statusSep=" "
     for key in "${!PROMPT_PIECES[@]}"; do local piece="${PROMPT_PIECES[$key]}"; statusLine="${statusLine}${piece}${piece:+$statusSep}" ; done
-    statusLine="${statusLine}${logging}${logging:+$statusSep}"
-    statusLine="${statusLine}${jobs}${jobs:+$statusSep}"
-    statusLine="${statusLine}${git}${git:+$statusSep}"
-    statusLine="${statusLine}${venv}${venv:+$statusSep}"
-    statusLine="${statusLine}${docker}${docker:+$statusSep}"
     # Add level indicator to the beginning of status line, then newline, then another level for the prompt line.
     statusLine="${statusLine:+$level}${statusLine}${statusLine:+\n$level}"
     # make up the main prompt line from parts
