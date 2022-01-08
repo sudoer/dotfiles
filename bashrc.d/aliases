@@ -1,6 +1,7 @@
 
 # common tools
 alias vi='vim'
+alias emacs='emacs -nw'
 alias sc='systemctl'
 alias jc='journalctl'
 ##OLD alias vpn='sudo echo "OK" ; sudo openvpn /etc/openvpn/buster-tekelec.conf'
@@ -207,7 +208,7 @@ function ssh-reagent () {
 # platform-specific
 case $OSTYPE in
    linux-gnu*)
-      alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade'
+      alias apt-upg='sudo apt-get update && sudo apt-get dist-upgrade && sudo apt autoremove'
       alias cdrecord='wodim'
       alias lvminfo='sudo pvs ; echo ; sudo vgs ; echo ; sudo lvs'
       alias netstatl='sudo lsof -i | grep LISTEN'
@@ -216,7 +217,7 @@ case $OSTYPE in
          /bin/df -Ph | grep -v -E '^tmpfs|/snap/|/by-uuid/.* /$' | awk '{printf "%-25s%8s%8s%8s%6s  %-20s\n", $1, $2, $3, $4, $5, $6}'
       }
       alias mnt="mount | grep -vE 'snap| /sys| /dev| /run| /proc'"
-      function open () { /bin/ls -1d $* | while read x ; do gio open "$x" ; done } # see also xdg-open
+      function open () { /bin/ls -1d "$*" | while read x ; do gio open "$x" ; done } # see also xdg-open
       alias pstree='ps xawf -eo pid,user,args'
       ;;
    darwin*)
