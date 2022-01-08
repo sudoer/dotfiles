@@ -174,9 +174,13 @@ function custom_prompt {
     # ASSEMBLE THE PROMPT
 
     # make up the status line from parts
-    local statusLine=""
     local statusSep=" "
-    for key in "${!PROMPT_PIECES[@]}"; do local piece="${PROMPT_PIECES[$key]}"; statusLine="${statusLine}${piece}${piece:+$statusSep}" ; done
+    local statusLine=""
+    local piece
+    for key in $(echo ${!PROMPT_PIECES[@]} | tr ' ' '\n' | sort) ; do
+        piece="${PROMPT_PIECES[$key]}"
+        statusLine="${statusLine}${piece}${piece:+$statusSep}"
+    done
     # Add level indicator to the beginning of status line, then newline, then another level for the prompt line.
     statusLine="${statusLine:+$level}${statusLine}${statusLine:+\n$level}"
     # make up the main prompt line from parts
