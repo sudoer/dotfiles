@@ -897,7 +897,7 @@ if has('gui_macvim')
    """ set guioptions-=T
    ""OK colorscheme darkblue
    ""OK colorscheme desert
-   colorscheme evening
+   ""TEST colorscheme evening
    highlight SpecialKey  guifg=blue
    " size
    """ set lines=32

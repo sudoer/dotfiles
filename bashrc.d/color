@@ -4,21 +4,30 @@
 # TODO - do we need this? if [ "$TERM" != "dumb" ] ;
 
 # ls
+gnu_ls=0
 case $OSTYPE in
     linux-gnu*)
-        if [ -f $HOME/.dircolors ] ; then
-            eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
-        else
-            eval "$(dircolors -b 2>/dev/null)"
-        fi
-        alias ls='ls --color=auto -F'
+        gnu_ls=1
         ;;
     darwin*)
-        export CLICOLOR=1
-        export LSCOLORS="Dxfxcxdxbxegedabagacad"
-        alias ls='/bin/ls -G'
+        if [ -d /usr/local/opt/coreutils ] ; then
+            gnu_ls=1
+        else
+            export CLICOLOR=1
+            export LSCOLORS="Dxfxcxdxbxegedabagacad"
+            alias ls='/bin/ls -G'
+        fi
         ;;
 esac
+if [ $gnu_ls -gt 0 ] ; then
+    if [ -f $HOME/.dircolors ] ; then
+        eval "$(dircolors -b $HOME/.dircolors 2>/dev/null)"
+    else
+        eval "$(dircolors -b 2>/dev/null)"
+    fi
+    alias ls='ls --color=auto -F'
+fi
+
 
 # grep
 alias grep='grep --devices=skip --color=auto'  # 'color=always' does bad things in scripts

@@ -11,3 +11,7 @@ case $OSTYPE in
         ;;
 esac
 
+# tell homebrew to be less annoying
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+

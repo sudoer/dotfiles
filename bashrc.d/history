@@ -9,3 +9,5 @@ else
 fi
 echo "saving shell history to $(basename $HISTFILE)"
 
+alias savehist='history > history.$(date +%Y-%m-%d.%H-%M-%S)'
+
